@@ -4,8 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AZLOOM — Sistemas de Crecimiento Empresarial</title>
-
-  <!-- SEO bilingüe: indica a Google que ES y EN son versiones intencionales, no duplicados -->
   <link rel="alternate" hreflang="es" href="./index.html" />
   <link rel="alternate" hreflang="en" href="./index.html" />
   <link rel="alternate" hreflang="x-default" href="./index.html" />
@@ -129,7 +127,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 28px;
+      gap: 20px;
     }
     .hero-logo {
       width: min(620px, 82vw);
@@ -153,11 +151,22 @@
       opacity: 0;
       transform: translateY(18px);
     }
+    .hero-micro {
+      font-size: clamp(12px, 1.1vw, 13px);
+      color: rgba(196, 181, 253, 0.5);
+      max-width: 480px;
+      line-height: 1.7;
+      letter-spacing: 0.2px;
+      opacity: 0;
+      transform: translateY(18px);
+      margin-top: -4px;
+    }
     .hero-ctas {
       display: flex;
       gap: 14px;
       opacity: 0;
       transform: translateY(18px);
+      margin-top: 8px;
     }
     .btn-primary {
       background: var(--violet);
@@ -280,7 +289,7 @@
 
     /* ── SERVICES ── */
     .services-header { text-align: center; margin-bottom: 56px; }
-    .services-header .body-text { max-width: 500px; margin: 14px auto 0; }
+    .services-header .body-text { max-width: 560px; margin: 14px auto 0; }
     .services-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -326,6 +335,49 @@
     }
     .service-title { font-size: 17px; font-weight: 600; color: var(--lila); margin-bottom: 14px; line-height: 1.3; }
     .service-desc  { font-size: 14px; color: var(--muted); line-height: 1.78; }
+
+    /* ── BENEFITS ── */
+    .benefits-header { text-align: center; margin-bottom: 64px; }
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .benefit-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px 28px;
+      text-align: center;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .benefit-card:hover {
+      border-color: var(--violet40);
+      transform: translateY(-4px);
+    }
+    .benefit-icon {
+      width: 52px; height: 52px;
+      background: var(--violet10);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px;
+    }
+    .benefit-icon svg {
+      width: 24px; height: 24px;
+      stroke: var(--violet);
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .benefit-title {
+      font-size: 15px; font-weight: 600;
+      color: var(--lila);
+      margin-bottom: 10px;
+    }
+    .benefit-desc {
+      font-size: 13px; color: var(--muted); line-height: 1.75;
+    }
 
     /* ── PROCESS ── */
     .process-steps {
@@ -385,46 +437,184 @@
     .team-bio  { font-size: 14px; color: var(--muted); line-height: 1.78; }
 
     /* ── CONTACT ── */
-    .contact-box {
+    .contact-new {
       background: linear-gradient(135deg, rgba(124,92,252,0.07), rgba(124,92,252,0.02));
       border: 1px solid var(--border);
       border-radius: 24px;
-      padding: 88px 64px;
-      text-align: center;
+      padding: 72px 64px;
     }
-    .contact-box .heading { margin-bottom: 18px; }
-    .contact-box .body-text { max-width: 500px; margin: 0 auto 48px; }
-    .contact-links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
-    .contact-link {
-      display: flex; align-items: center; gap: 11px;
-      padding: 15px 30px;
-      border-radius: 10px;
+    .contact-new-header { text-align: center; margin-bottom: 56px; }
+    .contact-new-header .heading { margin-bottom: 16px; }
+    .contact-new-header .body-text { max-width: 580px; margin: 0 auto; }
+    .contact-new-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 52px;
+      align-items: start;
+    }
+    .contact-info-list { display: flex; flex-direction: column; gap: 14px; }
+    .contact-info-card {
+      background: var(--card);
       border: 1px solid var(--border);
-      color: var(--white);
-      text-decoration: none;
-      font-size: 15px;
-      transition: border-color 0.25s, background 0.25s, transform 0.25s;
+      border-radius: 14px;
+      padding: 22px 24px;
+      display: flex; align-items: flex-start; gap: 16px;
+      transition: border-color 0.25s;
     }
-    .contact-link:hover { border-color: var(--violet); background: var(--violet08); transform: translateY(-3px); }
-    .contact-link svg {
-      width: 19px; height: 19px;
+    .contact-info-card:hover { border-color: var(--violet40); }
+    .ci-icon-wrap {
+      width: 44px; height: 44px;
+      background: var(--violet10);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .ci-icon-wrap svg {
+      width: 20px; height: 20px;
       stroke: var(--violet);
       fill: none;
       stroke-width: 1.6;
       stroke-linecap: round;
       stroke-linejoin: round;
-      flex-shrink: 0;
     }
-    .contact-note { margin-top: 32px; font-size: 13px; color: rgba(248,248,255,0.25); letter-spacing: 1px; }
+    .ci-info h4 {
+      font-size: 10px; font-weight: 700;
+      color: var(--violet); letter-spacing: 2px;
+      text-transform: uppercase; margin-bottom: 5px;
+    }
+    .ci-info p, .ci-info a {
+      font-size: 14px; color: var(--white);
+      text-decoration: none; line-height: 1.5;
+    }
+    .ci-info a:hover { color: var(--lila); }
+    .contact-form-wrap { display: flex; flex-direction: column; gap: 12px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      background: rgba(248,248,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 13px 16px;
+      font-family: inherit;
+      font-size: 14px;
+      color: var(--white);
+      transition: border-color 0.2s;
+      outline: none;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus { border-color: var(--violet40); }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(248,248,255,0.22); }
+    .form-group textarea { height: 110px; resize: vertical; }
+    .btn-submit {
+      width: 100%;
+      padding: 14px;
+      background: var(--violet);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      margin-top: 4px;
+    }
+    .btn-submit:hover {
+      background: #9B7BFF;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(124,92,252,0.35);
+    }
+    .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 32px 20px;
+      color: var(--lila);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+    .form-success svg { width: 44px; height: 44px; stroke: var(--violet); fill: none; stroke-width: 1.5; margin-bottom: 16px; }
 
     /* ── FOOTER ── */
     .footer-inner {
       border-top: 1px solid var(--border);
-      padding: 40px 0;
+      padding: 40px 0 20px;
       display: flex; align-items: center; justify-content: space-between;
       gap: 24px;
     }
+    .footer-legal {
+      padding: 0 0 32px;
+      display: flex;
+      justify-content: center;
+      gap: 36px;
+      flex-wrap: wrap;
+    }
+    .footer-legal a {
+      font-size: 12px;
+      color: rgba(248,248,255,0.28);
+      text-decoration: none;
+      letter-spacing: 0.4px;
+      transition: color 0.2s;
+    }
+    .footer-legal a:hover { color: var(--lila); }
     .footer-copy { font-size: 13px; color: rgba(248,248,255,0.25); }
+
+    /* ── LEGAL MODALS ── */
+    .legal-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 300;
+      background: rgba(0,0,0,0.88);
+      backdrop-filter: blur(10px);
+      overflow-y: auto;
+      padding: 40px 20px;
+    }
+    .legal-modal.open { display: flex; align-items: flex-start; justify-content: center; }
+    .legal-modal-inner {
+      background: #0F0F1A;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      max-width: 760px;
+      width: 100%;
+      padding: 56px 64px;
+      position: relative;
+      margin: auto;
+    }
+    .legal-close {
+      position: absolute;
+      top: 22px; right: 26px;
+      background: none; border: none;
+      color: var(--muted); font-size: 28px;
+      cursor: pointer; line-height: 1;
+      transition: color 0.2s;
+    }
+    .legal-close:hover { color: var(--white); }
+    .legal-modal-inner h1 {
+      font-size: clamp(22px, 3vw, 30px);
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+    .legal-modal-inner h1 em { font-style: normal; color: var(--violet); }
+    .legal-intro {
+      font-size: 15px; color: var(--muted);
+      line-height: 1.8; margin-bottom: 32px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .legal-section { margin-bottom: 26px; }
+    .legal-section h2 {
+      font-size: 11px; font-weight: 700;
+      color: var(--lila); letter-spacing: 2.5px;
+      text-transform: uppercase; margin-bottom: 10px;
+    }
+    .legal-section p { font-size: 14px; color: var(--muted); line-height: 1.85; margin-bottom: 8px; }
+    .legal-section p:last-child { margin-bottom: 0; }
+    .legal-section ul { margin-left: 18px; margin-top: 6px; }
+    .legal-section li { font-size: 14px; color: var(--muted); line-height: 1.85; margin-bottom: 3px; }
 
     /* ── REVEAL ANIMATIONS ── */
     .rev, .rev-l, .rev-r { transition: opacity 0.75s ease, transform 0.75s ease; }
@@ -451,9 +641,17 @@
       .process-steps { grid-template-columns: 1fr 1fr; }
       .process-steps::before { display: none; }
       .team-grid { grid-template-columns: 1fr; }
-      .contact-box { padding: 48px 24px; }
+      .benefits-grid { grid-template-columns: 1fr 1fr; }
+      .contact-new { padding: 48px 28px; }
+      .contact-new-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
       .footer-inner { flex-direction: column; text-align: center; }
       .hero-ctas { flex-direction: column; align-items: center; }
+      .legal-modal-inner { padding: 40px 28px; }
+    }
+    @media (max-width: 580px) {
+      .benefits-grid { grid-template-columns: 1fr; }
+      .footer-legal { gap: 20px; }
     }
   </style>
 </head>
@@ -467,8 +665,8 @@
       <text text-anchor="middle" x="170" y="52"
         font-family="system-ui,-apple-system,sans-serif"
         font-size="54" font-weight="500" letter-spacing="7">
-        <tspan fill="#F8F8FF">A</tspan><tspan fill="#F8F8FF">Z</tspan><tspan fill="#F8F8FF">L</tspan>
-        <tspan fill="#7C5CFC" letter-spacing="-2">O</tspan><tspan fill="#7C5CFC" letter-spacing="7">O</tspan>
+        <tspan fill="#F8F8FF">A</tspan><tspan fill="#F8F8FF">Z</tspan><tspan fill="#F8F8FF" letter-spacing="1">L</tspan>
+        <tspan fill="#7C5CFC" letter-spacing="-2">O</tspan><tspan fill="#7C5CFC" letter-spacing="1">O</tspan>
         <tspan fill="#F8F8FF">M</tspan>
       </text>
     </svg>
@@ -493,22 +691,25 @@
       <text text-anchor="middle" x="340" y="105"
         font-family="system-ui,-apple-system,sans-serif"
         font-size="108" font-weight="500" letter-spacing="14">
-        <tspan fill="#F8F8FF">A</tspan><tspan fill="#F8F8FF">Z</tspan><tspan fill="#F8F8FF">L</tspan>
-        <tspan fill="#7C5CFC" letter-spacing="-4">O</tspan><tspan fill="#7C5CFC" letter-spacing="14">O</tspan>
+        <tspan fill="#F8F8FF">A</tspan><tspan fill="#F8F8FF">Z</tspan><tspan fill="#F8F8FF" letter-spacing="2">L</tspan>
+        <tspan fill="#7C5CFC" letter-spacing="-4">O</tspan><tspan fill="#7C5CFC" letter-spacing="2">O</tspan>
         <tspan fill="#F8F8FF">M</tspan>
       </text>
     </svg>
 
-    <p class="hero-tagline" data-i18n="hero.tagline">Sistemas que hacen crecer tu empresa</p>
+    <p class="hero-tagline" data-i18n="hero.tagline">Arquitectura de sistemas para escalar tu negocio</p>
 
     <p class="hero-sub" data-i18n="hero.sub">
-      Diseñamos e implementamos sistemas de crecimiento para empresas que ya venden,
-      combinando estrategia, automatización, datos y visualización.
+      Diseñamos e implementamos estructuras inteligentes que conectan operaciones y
+      marketing, automatizan procesos y crean una base sólida para escalar.
+    </p>
+
+    <p class="hero-micro" data-i18n="hero.micro">
+      Para empresas en operación — especialmente en real estate, hospitalidad y negocios en expansión.
     </p>
 
     <div class="hero-ctas">
-      <a href="#servicios" class="btn-primary"  data-i18n="hero.btn1">Ver servicios</a>
-      <a href="#contacto"  class="btn-secondary" data-i18n="hero.btn2">Primera consulta gratis</a>
+      <a href="#contacto" class="btn-primary" data-i18n="hero.btn1">Solicitar Diagnóstico</a>
     </div>
   </div>
 
@@ -522,14 +723,13 @@
 <!-- ── MANIFESTO ── -->
 <div class="wrap">
   <div class="section-pad">
+    <h2 class="heading rev" style="margin-bottom: 60px; max-width: 580px;">
+      Diseñamos la <em>arquitectura</em> que tu <em>negocio</em> necesita
+    </h2>
     <div class="manifesto-grid">
-      <div class="manifesto-statement rev-l" data-i18n="manifesto.statement">
-        Tu empresa<br>ya vende.<br><em>Ahora necesita</em><br>crecer de forma<br><em>escalable.</em>
-      </div>
-      <div class="rev-r">
+      <div class="manifesto-right rev-r" style="grid-column: 1 / -1; max-width: 680px;">
         <div class="accent-line"></div>
-        <p data-i18n="manifesto.p1">La mayoría de empresas con clientes están dejando dinero sobre la mesa. Sus procesos no están optimizados, sus datos no hablan entre sí y sus ventas dependen de esfuerzo manual constante.</p>
-        <p data-i18n="manifesto.p2">En AZLOOM construimos los sistemas que conectan todo: estrategia, automatización, datos y visualización para que tu empresa crezca sin que tengas que trabajar el doble.</p>
+        <p data-i18n="manifesto.p1">En Azloom analizamos tu operación y construimos un sistema que conecta procesos, automatiza tareas clave y organiza la información para que tu empresa funcione de forma integrada y eficiente.</p>
       </div>
     </div>
 
@@ -571,9 +771,9 @@
 <div id="servicios" class="wrap">
   <div class="section-pad">
     <div class="services-header">
-      <span class="label rev"        data-i18n="services.label">Lo que hacemos</span>
-      <h2   class="heading rev"      data-i18n="services.heading">Servicios diseñados para<br><em>escalar tu negocio</em></h2>
-      <p    class="body-text rev"    data-i18n="services.sub">Seis disciplinas integradas en un único sistema de crecimiento para tu empresa.</p>
+      <span class="label rev"     data-i18n="services.label">Lo que hacemos</span>
+      <h2   class="heading rev"   data-i18n="services.heading">Servicios diseñados para<br><em>escalar tu negocio</em></h2>
+      <p    class="body-text rev" data-i18n="services.sub">Nuestro enfoque combina estrategia, automatización e integración de herramientas para transformar operaciones en sistemas claros, medibles y escalables.</p>
     </div>
 
     <div class="services-grid">
@@ -586,7 +786,7 @@
           </svg>
         </div>
         <h3 class="service-title" data-i18n="s1.title">Automatización de Procesos</h3>
-        <p  class="service-desc"  data-i18n="s1.desc">Conectamos todas tus herramientas digitales — CRM, email, WhatsApp, formularios, facturación, Google Sheets — para que la información fluya sola entre sistemas sin que nadie tenga que moverla a mano. Construimos flujos que trabajan 24/7 por ti, eliminando errores y liberando horas de trabajo repetitivo.</p>
+        <p  class="service-desc"  data-i18n="s1.desc">Conectamos tus herramientas y automatizamos procesos para que tu negocio funcione de forma eficiente, sin tareas manuales ni errores.</p>
       </div>
 
       <div class="service-card rev d2">
@@ -594,7 +794,7 @@
           <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
         </div>
         <h3 class="service-title" data-i18n="s2.title">Chatbots y Agentes IA</h3>
-        <p  class="service-desc"  data-i18n="s2.desc">Creamos asistentes inteligentes que atienden a tus clientes, responden preguntas, califican prospectos y escalan conversaciones al equipo humano cuando es necesario. Funcionan en WhatsApp, tu web, Instagram u otras plataformas — sin descanso, sin errores, sin costo por hora.</p>
+        <p  class="service-desc"  data-i18n="s2.desc">Creamos asistentes inteligentes que responden, califican clientes y automatizan conversaciones en WhatsApp, web e Instagram.</p>
       </div>
 
       <div class="service-card rev d3">
@@ -602,23 +802,23 @@
           <svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
         </div>
         <h3 class="service-title" data-i18n="s3.title">Auditoría y Estrategia</h3>
-        <p  class="service-desc"  data-i18n="s3.desc">Auditamos tu negocio, tu posicionamiento en Google (SEO) y tus campañas de publicidad para encontrar exactamente dónde estás perdiendo dinero o clientes. El resultado es un diagnóstico claro y un plan de acción con pasos concretos para crecer de forma sostenida.</p>
+        <p  class="service-desc"  data-i18n="s3.desc">Analizamos tu negocio y definimos oportunidades claras para optimizar procesos, reducir costos y escalar de forma estructurada.</p>
       </div>
 
       <div class="service-card rev d4">
         <div class="service-icon">
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
         </div>
-        <h3 class="service-title" data-i18n="s4.title">Publicidad y Prospección de Clientes</h3>
-        <p  class="service-desc"  data-i18n="s4.desc">Diseñamos sistemas para encontrar y atraer clientes potenciales de forma activa y escalable: campañas en Meta e Instagram, auditorías de anuncios para reducir costos, y procesos automatizados de prospección que identifican compradores antes de que ellos lleguen a ti.</p>
+        <h3 class="service-title" data-i18n="s4.title">Publicidad y Prospección</h3>
+        <p  class="service-desc"  data-i18n="s4.desc">Diseñamos sistemas para atraer clientes de forma constante mediante campañas, automatización y procesos de captación optimizados.</p>
       </div>
 
       <div class="service-card rev d5">
         <div class="service-icon">
           <svg viewBox="0 0 24 24"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
         </div>
-        <h3 class="service-title" data-i18n="s5.title">Páginas Web y Funnels de Venta</h3>
-        <p  class="service-desc"  data-i18n="s5.desc">Diseñamos y construimos páginas web premium que venden: con animaciones, estructura persuasiva y funnels integrados que guían a cada visitante hasta convertirse en cliente. Tu web deja de ser un catálogo y se convierte en tu mejor vendedor, activo las 24 horas.</p>
+        <h3 class="service-title" data-i18n="s5.title">Páginas Web y Funnels</h3>
+        <p  class="service-desc"  data-i18n="s5.desc">Diseñamos páginas web y funnels que convierten visitas en clientes, integrados con tu sistema de ventas.</p>
       </div>
 
       <div class="service-card rev d6">
@@ -626,7 +826,53 @@
           <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
         </div>
         <h3 class="service-title" data-i18n="s6.title">Consultoría y Dashboards</h3>
-        <p  class="service-desc"  data-i18n="s6.desc">Te acompañamos en cada decisión estratégica con diagnósticos, evaluaciones de viabilidad y dashboards personalizados que te muestran, en tiempo real, los números que importan de tu negocio. Dejas de tomar decisiones a ciegas y empiezas a operar con datos claros en pantalla.</p>
+        <p  class="service-desc"  data-i18n="s6.desc">Implementamos dashboards y sistemas de análisis para que tomes decisiones basadas en datos reales, no en suposiciones.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ── BENEFITS ── -->
+<div id="beneficios" class="wrap">
+  <div class="section-pad">
+    <div class="benefits-header">
+      <span class="label rev">Resultados concretos</span>
+      <h2 class="heading rev" style="margin-top: 6px;">Beneficios para<br>tu <em>negocio</em></h2>
+    </div>
+    <div class="benefits-grid">
+
+      <div class="benefit-card rev d1">
+        <div class="benefit-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 17h3m0 0h3m-3 0v-3m0 3v3"/></svg>
+        </div>
+        <h3 class="benefit-title">Operación estructurada</h3>
+        <p class="benefit-desc">Tu negocio deja de depender del desorden y pasa a funcionar con procesos claros, conectados y eficientes.</p>
+      </div>
+
+      <div class="benefit-card rev d2">
+        <div class="benefit-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+        </div>
+        <h3 class="benefit-title">Menos carga operativa</h3>
+        <p class="benefit-desc">Automatizamos tareas repetitivas para liberar tiempo y reducir errores en tu día a día.</p>
+      </div>
+
+      <div class="benefit-card rev d3">
+        <div class="benefit-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <h3 class="benefit-title">Claridad para decidir</h3>
+        <p class="benefit-desc">Centralizamos tu información para que tomes decisiones con datos reales, no intuición.</p>
+      </div>
+
+      <div class="benefit-card rev d4">
+        <div class="benefit-icon">
+          <svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        </div>
+        <h3 class="benefit-title">Crecimiento con base sólida</h3>
+        <p class="benefit-desc">Construimos una estructura que te permite escalar sin perder control ni calidad.</p>
       </div>
 
     </div>
@@ -694,29 +940,83 @@
 <!-- ── CONTACT ── -->
 <div id="contacto" class="wrap">
   <div class="section-pad">
-    <div class="contact-box rev">
-      <span class="label" style="display:block; margin-bottom:18px;" data-i18n="contact.label">¿Listo para crecer?</span>
-      <h2 class="heading"    data-i18n="contact.heading">Hablemos de tu negocio</h2>
-      <p  class="body-text"  data-i18n="contact.sub">Si tu empresa ya vende y quieres llevarla al siguiente nivel con sistemas inteligentes, escríbenos. La primera consulta es sin costo y sin compromiso.</p>
-
-      <div class="contact-links">
-        <a href="mailto:hello@azloom.tech" class="contact-link">
-          <svg viewBox="0 0 24 24">
-            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-            <polyline points="22,6 12,13 2,6"/>
-          </svg>
-          hello@azloom.tech
-        </a>
-        <a id="wa-link"
-           href="https://wa.me/50688597501?text=Hola%20AZLOOM%2C%20quiero%20saber%20c%C3%B3mo%20pueden%20ayudar%20a%20mi%20empresa"
-           target="_blank" class="contact-link">
-          <svg viewBox="0 0 24 24">
-            <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/>
-          </svg>
-          <span data-i18n="contact.wa">WhatsApp · +506 8859 7501</span>
-        </a>
+    <div class="contact-new rev">
+      <div class="contact-new-header">
+        <span class="label">Contacto</span>
+        <h2 class="heading">Contacta con <em>Azloom</em></h2>
+        <p class="body-text" style="margin-top:14px;">Menos tiempo en tareas operativas, más enfoque en crecer. Implementamos sistemas que atraen clientes y gestionan tu negocio de forma automática.</p>
       </div>
-      <p class="contact-note" data-i18n="contact.note">Costa Rica · Servicios globales · hello@azloom.tech</p>
+
+      <div class="contact-new-grid">
+
+        <!-- Info -->
+        <div class="contact-info-list">
+          <div class="contact-info-card">
+            <div class="ci-icon-wrap">
+              <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div class="ci-info">
+              <h4>Dirección</h4>
+              <p>San José, Costa Rica</p>
+            </div>
+          </div>
+          <div class="contact-info-card">
+            <div class="ci-icon-wrap">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div class="ci-info">
+              <h4>Email</h4>
+              <a href="mailto:hello@azloom.tech">hello@azloom.tech</a>
+            </div>
+          </div>
+          <div class="contact-info-card">
+            <div class="ci-icon-wrap">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.69 12 19.79 19.79 0 011.62 3.38 2 2 0 013.6 1.18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.91 8.77a16 16 0 006 6l.91-.91a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            </div>
+            <div class="ci-info">
+              <h4>WhatsApp</h4>
+              <a id="wa-link" href="https://wa.me/50688597501?text=Hola%20AZLOOM%2C%20quiero%20saber%20c%C3%B3mo%20pueden%20ayudar%20a%20mi%20empresa" target="_blank">+506 8859 7501</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <div>
+          <form id="contact-form" class="contact-form-wrap" onsubmit="submitContactForm(event)">
+            <input type="hidden" name="_subject" value="Nuevo contacto desde azloom.tech">
+            <input type="hidden" name="_captcha" value="false">
+            <div class="form-row">
+              <div class="form-group">
+                <input type="text" name="nombre" placeholder="Nombre completo *" required>
+              </div>
+              <div class="form-group">
+                <input type="tel" name="telefono" placeholder="Teléfono">
+              </div>
+            </div>
+            <div class="form-group">
+              <input type="email" name="email" placeholder="Email corporativo *" required>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <input type="text" name="empresa" placeholder="Nombre de la empresa *" required>
+              </div>
+              <div class="form-group">
+                <input type="text" name="cargo" placeholder="Cargo *" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <textarea name="mensaje" placeholder="Cuéntanos cómo podemos ayudarte..." required></textarea>
+            </div>
+            <button type="submit" class="btn-submit">Enviar Mensaje</button>
+          </form>
+          <div class="form-success" id="form-success">
+            <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <p style="color:var(--lila); font-size:17px; font-weight:600; margin-bottom:8px;">¡Mensaje enviado!</p>
+            <p style="color:var(--muted); font-size:14px;">Te contactaremos pronto en hello@azloom.tech</p>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
 </div>
@@ -729,13 +1029,164 @@
       <text text-anchor="middle" x="170" y="52"
         font-family="system-ui,-apple-system,sans-serif"
         font-size="54" font-weight="500" letter-spacing="7">
-        <tspan fill="#F8F8FF">A</tspan><tspan fill="#F8F8FF">Z</tspan><tspan fill="#F8F8FF">L</tspan>
-        <tspan fill="#7C5CFC" letter-spacing="-2">O</tspan><tspan fill="#7C5CFC" letter-spacing="7">O</tspan>
+        <tspan fill="#F8F8FF">A</tspan><tspan fill="#F8F8FF">Z</tspan><tspan fill="#F8F8FF" letter-spacing="1">L</tspan>
+        <tspan fill="#7C5CFC" letter-spacing="-2">O</tspan><tspan fill="#7C5CFC" letter-spacing="1">O</tspan>
         <tspan fill="#F8F8FF">M</tspan>
       </text>
     </svg>
     <p class="footer-copy" data-i18n="footer.copy">© 2026 AZLOOM · Costa Rica · Servicios globales</p>
     <p class="footer-copy">hello@azloom.tech</p>
+  </div>
+  <div class="footer-legal">
+    <a href="#" onclick="openLegal('privacy'); return false;">Política de Privacidad</a>
+    <a href="#" onclick="openLegal('cookies'); return false;">Política de Cookies</a>
+    <a href="#" onclick="openLegal('legal'); return false;">Aviso Legal</a>
+  </div>
+</div>
+
+
+<!-- ── MODAL: POLÍTICA DE PRIVACIDAD ── -->
+<div id="modal-privacy" class="legal-modal">
+  <div class="legal-modal-inner">
+    <button class="legal-close" onclick="closeLegal('privacy')">&#215;</button>
+    <h1>Política de <em>Privacidad</em></h1>
+    <p class="legal-intro">En Azloom respetamos tu privacidad y nos comprometemos a proteger la información personal que compartes con nosotros a través de este sitio web. Al utilizar este sitio web, aceptas los términos de esta Política de Privacidad.</p>
+
+    <div class="legal-section">
+      <h2>1. Información que recopilamos</h2>
+      <p>Podemos recopilar información personal que el usuario proporciona de forma voluntaria a través de formularios de contacto u otros medios dentro del sitio web. Esta información puede incluir:</p>
+      <ul>
+        <li>Nombre</li>
+        <li>Correo electrónico</li>
+        <li>Información sobre tu negocio o necesidades</li>
+      </ul>
+      <p style="margin-top:8px;">También podemos recopilar información técnica básica como dirección IP, tipo de navegador o páginas visitadas, con el fin de mejorar la experiencia del sitio.</p>
+    </div>
+
+    <div class="legal-section">
+      <h2>2. Uso de la información</h2>
+      <p>La información recopilada se utiliza únicamente para:</p>
+      <ul>
+        <li>Responder consultas o solicitudes</li>
+        <li>Brindar información sobre nuestros servicios</li>
+        <li>Mejorar el funcionamiento y contenido del sitio web</li>
+      </ul>
+      <p style="margin-top:8px;">No utilizamos la información para fines distintos a los descritos.</p>
+    </div>
+
+    <div class="legal-section">
+      <h2>3. Protección de los datos</h2>
+      <p>Azloom adopta medidas razonables para proteger la información personal y evitar accesos no autorizados, uso indebido o divulgación.</p>
+    </div>
+
+    <div class="legal-section">
+      <h2>4. Compartición de información</h2>
+      <p>No vendemos, alquilamos ni compartimos datos personales con terceros, salvo cuando sea necesario para cumplir con obligaciones legales.</p>
+    </div>
+
+    <div class="legal-section">
+      <h2>5. Uso de cookies</h2>
+      <p>Este sitio web puede utilizar cookies o tecnologías similares para mejorar la experiencia del usuario y analizar el uso del sitio. El usuario puede configurar su navegador para rechazar o eliminar cookies si así lo desea.</p>
+    </div>
+
+    <div class="legal-section">
+      <h2>6. Derechos del usuario</h2>
+      <p>De acuerdo con la legislación vigente en Costa Rica, el usuario puede acceder a sus datos personales, solicitar su corrección o actualización, y solicitar su eliminación. Esto responde a principios de la Ley de Protección de Datos Personales (Ley N.º 8968).</p>
+    </div>
+
+    <div class="legal-section">
+      <h2>7. Cambios en la política</h2>
+      <p>Azloom puede actualizar esta Política de Privacidad en cualquier momento. Los cambios serán publicados en esta misma página.</p>
+    </div>
+
+    <div class="legal-section">
+      <h2>8. Contacto</h2>
+      <p>Si tienes dudas sobre esta política o el uso de tus datos, puedes contactarnos en: <a href="mailto:hello@azloom.tech" style="color:var(--lila);">hello@azloom.tech</a></p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── MODAL: POLÍTICA DE COOKIES ── -->
+<div id="modal-cookies" class="legal-modal">
+  <div class="legal-modal-inner">
+    <button class="legal-close" onclick="closeLegal('cookies')">&#215;</button>
+    <h1>Política de <em>Cookies</em></h1>
+    <p class="legal-intro">En Azloom utilizamos cookies para mejorar la experiencia del usuario en nuestro sitio web www.azloom.tech. A continuación te explicamos qué son, qué tipos utilizamos y cómo puedes controlarlas.</p>
+
+    <div class="legal-section">
+      <h2>1. ¿Qué son las cookies?</h2>
+      <p>Las cookies son pequeños archivos de texto que se almacenan en tu dispositivo cuando visitas un sitio web. Permiten que el sitio recuerde tus preferencias y analice cómo interactúas con él.</p>
+    </div>
+
+    <div class="legal-section">
+      <h2>2. Tipos de cookies que utilizamos</h2>
+      <ul>
+        <li><strong style="color:var(--white);">Cookies técnicas:</strong> necesarias para el funcionamiento básico del sitio.</li>
+        <li><strong style="color:var(--white);">Cookies analíticas:</strong> para analizar el uso del sitio y mejorar su funcionamiento.</li>
+      </ul>
+    </div>
+
+    <div class="legal-section">
+      <h2>3. Control de cookies</h2>
+      <p>Puedes configurar tu navegador para rechazar o eliminar cookies en cualquier momento. Ten en cuenta que deshabilitar cookies puede afectar la funcionalidad del sitio.</p>
+    </div>
+
+    <div class="legal-section">
+      <h2>4. Más información</h2>
+      <p>Para más detalles sobre cómo usamos tus datos personales, consulta nuestra Política de Privacidad o escríbenos a <a href="mailto:hello@azloom.tech" style="color:var(--lila);">hello@azloom.tech</a></p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── MODAL: AVISO LEGAL ── -->
+<div id="modal-legal" class="legal-modal">
+  <div class="legal-modal-inner">
+    <button class="legal-close" onclick="closeLegal('legal')">&#215;</button>
+    <h1>Aviso <em>Legal</em></h1>
+    <p class="legal-intro">El presente Aviso Legal regula el acceso, navegación y uso del sitio web www.azloom.tech. El acceso al sitio web implica la aceptación de las condiciones aquí establecidas.</p>
+
+    <div class="legal-section">
+      <h2>1. Información general</h2>
+      <p>Azloom es un proyecto independiente con base en San José, Costa Rica, enfocado en el diseño e implementación de sistemas digitales, automatización y soluciones tecnológicas para empresas.</p>
+      <p>Para consultas o contacto, puedes escribir a: <a href="mailto:hello@azloom.tech" style="color:var(--lila);">hello@azloom.tech</a></p>
+    </div>
+
+    <div class="legal-section">
+      <h2>2. Objeto del sitio web</h2>
+      <p>El sitio web tiene como finalidad presentar los servicios de Azloom y facilitar el contacto con personas o empresas interesadas. La información publicada es de carácter general y puede ser actualizada o modificada en cualquier momento para reflejar mejoras o cambios en los servicios.</p>
+    </div>
+
+    <div class="legal-section">
+      <h2>3. Condiciones de uso</h2>
+      <p>El usuario se compromete a utilizar el sitio web de forma adecuada, conforme a la ley, la buena fe y el orden público. Queda prohibido el uso del sitio con fines ilícitos o que puedan afectar el correcto funcionamiento del mismo o los derechos de terceros.</p>
+    </div>
+
+    <div class="legal-section">
+      <h2>4. Propiedad intelectual</h2>
+      <p>Todos los contenidos del sitio web —incluyendo textos, diseño, logotipo, estructura, gráficos e identidad visual— son propiedad de Azloom o cuentan con autorización para su uso. No está permitida su reproducción, distribución o uso sin autorización previa.</p>
+    </div>
+
+    <div class="legal-section">
+      <h2>5. Enlaces externos</h2>
+      <p>El sitio web puede incluir enlaces a páginas de terceros con fines informativos. Azloom no tiene control sobre dichos sitios y no asume responsabilidad sobre su contenido o funcionamiento.</p>
+    </div>
+
+    <div class="legal-section">
+      <h2>6. Uso de la información</h2>
+      <p>La información contenida en este sitio web tiene fines informativos y no constituye asesoramiento profesional específico. Las decisiones tomadas a partir de dicha información son responsabilidad del usuario.</p>
+    </div>
+
+    <div class="legal-section">
+      <h2>7. Modificaciones</h2>
+      <p>Azloom se reserva el derecho de actualizar, modificar o eliminar contenidos del sitio web en cualquier momento, sin necesidad de previo aviso, con el objetivo de mantener la información actualizada.</p>
+    </div>
+
+    <div class="legal-section">
+      <h2>8. Legislación aplicable</h2>
+      <p>Las condiciones del presente sitio web se rigen por la legislación vigente en Costa Rica.</p>
+    </div>
   </div>
 </div>
 
@@ -751,14 +1202,13 @@ const t = {
     'nav.process':         'Proceso',
     'nav.team':            'Equipo',
     'nav.cta':             'Hablemos',
-    'hero.tagline':        'Sistemas que hacen crecer tu empresa',
-    'hero.sub':            'Diseñamos e implementamos sistemas de crecimiento para empresas que ya venden, combinando estrategia, automatización, datos y visualización.',
-    'hero.btn1':           'Ver servicios',
-    'hero.btn2':           'Primera consulta gratis',
+    'hero.tagline':        'Arquitectura de sistemas para escalar tu negocio',
+    'hero.sub':            'Diseñamos e implementamos estructuras inteligentes que conectan operaciones y marketing, automatizan procesos y crean una base sólida para escalar.',
+    'hero.micro':          'Para empresas en operación — especialmente en real estate, hospitalidad y negocios en expansión.',
+    'hero.btn1':           'Solicitar Diagnóstico',
     'hero.scroll':         'Scroll',
     'manifesto.statement': 'Tu empresa<br>ya vende.<br><em>Ahora necesita</em><br>crecer de forma<br><em>escalable.</em>',
-    'manifesto.p1':        'La mayoría de empresas con clientes están dejando dinero sobre la mesa. Sus procesos no están optimizados, sus datos no hablan entre sí y sus ventas dependen de esfuerzo manual constante.',
-    'manifesto.p2':        'En AZLOOM construimos los sistemas que conectan todo: estrategia, automatización, datos y visualización para que tu empresa crezca sin que tengas que trabajar el doble.',
+    'manifesto.p1':        'En Azloom analizamos tu operación y construimos un sistema que conecta procesos, automatiza tareas clave y organiza la información para que tu empresa funcione de forma integrada y eficiente.',
     'pillar.1.name':       'Estrategia',
     'pillar.1.desc':       'Arquitectura empresarial y hoja de ruta de crecimiento',
     'pillar.2.name':       'Automatización',
@@ -769,19 +1219,19 @@ const t = {
     'pillar.4.desc':       'Comunicación visual que convierte y retiene',
     'services.label':      'Lo que hacemos',
     'services.heading':    'Servicios diseñados para<br><em>escalar tu negocio</em>',
-    'services.sub':        'Seis disciplinas integradas en un único sistema de crecimiento para tu empresa.',
+    'services.sub':        'Nuestro enfoque combina estrategia, automatización e integración de herramientas para transformar operaciones en sistemas claros, medibles y escalables.',
     's1.title':            'Automatización de Procesos',
-    's1.desc':             'Conectamos todas tus herramientas digitales — CRM, email, WhatsApp, formularios, facturación, Google Sheets — para que la información fluya sola entre sistemas sin que nadie tenga que moverla a mano. Construimos flujos que trabajan 24/7 por ti, eliminando errores y liberando horas de trabajo repetitivo.',
+    's1.desc':             'Conectamos tus herramientas y automatizamos procesos para que tu negocio funcione de forma eficiente, sin tareas manuales ni errores.',
     's2.title':            'Chatbots y Agentes IA',
-    's2.desc':             'Creamos asistentes inteligentes que atienden a tus clientes, responden preguntas, califican prospectos y escalan conversaciones al equipo humano cuando es necesario. Funcionan en WhatsApp, tu web, Instagram u otras plataformas — sin descanso, sin errores, sin costo por hora.',
+    's2.desc':             'Creamos asistentes inteligentes que responden, califican clientes y automatizan conversaciones en WhatsApp, web e Instagram.',
     's3.title':            'Auditoría y Estrategia',
-    's3.desc':             'Auditamos tu negocio, tu posicionamiento en Google (SEO) y tus campañas de publicidad para encontrar exactamente dónde estás perdiendo dinero o clientes. El resultado es un diagnóstico claro y un plan de acción con pasos concretos para crecer de forma sostenida.',
-    's4.title':            'Publicidad y Prospección de Clientes',
-    's4.desc':             'Diseñamos sistemas para encontrar y atraer clientes potenciales de forma activa y escalable: campañas en Meta e Instagram, auditorías de anuncios para reducir costos, y procesos automatizados de prospección que identifican compradores antes de que ellos lleguen a ti.',
-    's5.title':            'Páginas Web y Funnels de Venta',
-    's5.desc':             'Diseñamos y construimos páginas web premium que venden: con animaciones, estructura persuasiva y funnels integrados que guían a cada visitante hasta convertirse en cliente. Tu web deja de ser un catálogo y se convierte en tu mejor vendedor, activo las 24 horas.',
+    's3.desc':             'Analizamos tu negocio y definimos oportunidades claras para optimizar procesos, reducir costos y escalar de forma estructurada.',
+    's4.title':            'Publicidad y Prospección',
+    's4.desc':             'Diseñamos sistemas para atraer clientes de forma constante mediante campañas, automatización y procesos de captación optimizados.',
+    's5.title':            'Páginas Web y Funnels',
+    's5.desc':             'Diseñamos páginas web y funnels que convierten visitas en clientes, integrados con tu sistema de ventas.',
     's6.title':            'Consultoría y Dashboards',
-    's6.desc':             'Te acompañamos en cada decisión estratégica con diagnósticos, evaluaciones de viabilidad y dashboards personalizados que te muestran, en tiempo real, los números que importan de tu negocio. Dejas de tomar decisiones a ciegas y empiezas a operar con datos claros en pantalla.',
+    's6.desc':             'Implementamos dashboards y sistemas de análisis para que tomes decisiones basadas en datos reales, no en suposiciones.',
     'process.label':       'Cómo trabajamos',
     'process.heading':     'Un proceso claro<br>para <em>resultados reales</em>',
     'step.1.title':        'Diagnóstico',
@@ -799,12 +1249,6 @@ const t = {
     'team.a.bio':          'Arquitecta profesional y diseñadora con visión sistémica. Aporta a AZLOOM la capacidad de estructurar negocios que funcionan: claros, escalables y visualmente poderosos. Su mirada arquitectónica transforma procesos complejos en sistemas comprensibles y ejecutables.',
     'team.n.role':         'Fotógrafo & Productor Audiovisual',
     'team.n.bio':          'Fotógrafo profesional y productor audiovisual con ojo para contar historias que conectan y venden. Aporta a AZLOOM la dimensión visual y narrativa que hace que los sistemas de crecimiento no solo funcionen, sino que también comuniquen con impacto real.',
-    'contact.label':       '¿Listo para crecer?',
-    'contact.heading':     'Hablemos de tu negocio',
-    'contact.sub':         'Si tu empresa ya vende y quieres llevarla al siguiente nivel con sistemas inteligentes, escríbenos. La primera consulta es sin costo y sin compromiso.',
-    'contact.wa':          'WhatsApp · +506 8859 7501',
-    'contact.wa.href':     'https://wa.me/50688597501?text=Hola%20AZLOOM%2C%20quiero%20saber%20c%C3%B3mo%20pueden%20ayudar%20a%20mi%20empresa',
-    'contact.note':        'Costa Rica · Servicios globales · hello@azloom.tech',
     'footer.copy':         '© 2026 AZLOOM · Costa Rica · Servicios globales',
   },
 
@@ -814,14 +1258,13 @@ const t = {
     'nav.process':         'Process',
     'nav.team':            'Team',
     'nav.cta':             "Let's Talk",
-    'hero.tagline':        'Systems that make your business grow',
-    'hero.sub':            'We design and implement growth systems for businesses that already sell, combining strategy, automation, data, and visualization.',
-    'hero.btn1':           'See services',
-    'hero.btn2':           'Free first consultation',
+    'hero.tagline':        'Systems architecture to scale your business',
+    'hero.sub':            'We design and implement intelligent structures that connect operations and marketing, automate processes, and create a solid foundation to scale.',
+    'hero.micro':          'For businesses already in operation — especially in real estate, hospitality, and expanding companies.',
+    'hero.btn1':           'Request Diagnosis',
     'hero.scroll':         'Scroll',
     'manifesto.statement': 'Your business<br>already sells.<br><em>Now it needs</em><br>to grow in a<br><em>scalable way.</em>',
-    'manifesto.p1':        "Most businesses with clients are leaving money on the table. Their processes are not optimized, their data doesn't talk to each other, and their sales depend on constant manual effort.",
-    'manifesto.p2':        'At AZLOOM we build the systems that connect everything: strategy, automation, data, and visualization so your business grows without you having to work twice as hard.',
+    'manifesto.p1':        'At Azloom we analyze your operation and build a system that connects processes, automates key tasks, and organizes information so your business runs in an integrated and efficient way.',
     'pillar.1.name':       'Strategy',
     'pillar.1.desc':       'Business architecture and growth roadmap',
     'pillar.2.name':       'Automation',
@@ -832,19 +1275,19 @@ const t = {
     'pillar.4.desc':       'Visual communication that converts and retains',
     'services.label':      'What we do',
     'services.heading':    'Services designed to<br><em>scale your business</em>',
-    'services.sub':        'Six disciplines integrated into a single growth system for your business.',
+    'services.sub':        'Our approach combines strategy, automation, and tool integration to transform operations into clear, measurable, and scalable systems.',
     's1.title':            'Process Automation',
-    's1.desc':             'We connect all your digital tools — CRM, email, WhatsApp, forms, billing, Google Sheets — so information flows automatically between systems without anyone having to move it manually. We build workflows that work 24/7 for you, eliminating errors and freeing up hours of repetitive work.',
+    's1.desc':             'We connect your tools and automate processes so your business runs efficiently, without manual tasks or errors.',
     's2.title':            'Chatbots & AI Agents',
-    's2.desc':             'We create intelligent assistants that serve your clients, answer questions, qualify prospects, and escalate conversations to the human team when needed. They work on WhatsApp, your website, Instagram, or other platforms — without rest, without errors, without an hourly cost.',
+    's2.desc':             'We create intelligent assistants that respond, qualify clients, and automate conversations on WhatsApp, web, and Instagram.',
     's3.title':            'Audit & Strategy',
-    's3.desc':             'We audit your business, your Google presence (SEO), and your advertising campaigns to find exactly where you are losing money or clients. The result: a clear diagnosis and an action plan with concrete steps to grow sustainably.',
-    's4.title':            'Advertising & Client Prospecting',
-    's4.desc':             'We design systems to find and attract potential clients actively and scalably: Meta and Instagram campaigns, ad audits to reduce costs, and automated prospecting processes that identify buyers before they come to you.',
-    's5.title':            'Websites & Sales Funnels',
-    's5.desc':             'We design and build premium websites that sell: with animations, persuasive structure, and integrated funnels that guide every visitor to become a client. Your website stops being a catalog and becomes your best salesperson, active 24 hours a day.',
+    's3.desc':             'We analyze your business and define clear opportunities to optimize processes, reduce costs, and scale in a structured way.',
+    's4.title':            'Advertising & Prospecting',
+    's4.desc':             'We design systems to attract clients consistently through campaigns, automation, and optimized acquisition processes.',
+    's5.title':            'Websites & Funnels',
+    's5.desc':             'We design websites and funnels that convert visits into clients, integrated with your sales system.',
     's6.title':            'Consulting & Dashboards',
-    's6.desc':             'We guide every strategic decision with diagnoses, viability evaluations, and personalized dashboards that show you — in real time — the numbers that matter most for your business. You stop making decisions in the dark and start operating with clear data on screen.',
+    's6.desc':             'We implement dashboards and analysis systems so you make decisions based on real data, not assumptions.',
     'process.label':       'How we work',
     'process.heading':     'A clear process<br>for <em>real results</em>',
     'step.1.title':        'Diagnosis',
@@ -862,12 +1305,6 @@ const t = {
     'team.a.bio':          'Professional architect and designer with systemic vision. She brings to AZLOOM the ability to structure businesses that work: clear, scalable, and visually powerful. Her architectural perspective transforms complex processes into understandable and actionable systems.',
     'team.n.role':         'Photographer & Audiovisual Producer',
     'team.n.bio':          'Professional photographer and audiovisual producer with an eye for telling stories that connect and sell. He brings to AZLOOM the visual and narrative dimension that makes growth systems not only work, but also communicate with real impact.',
-    'contact.label':       'Ready to grow?',
-    'contact.heading':     "Let's talk about your business",
-    'contact.sub':         'If your business already sells and you want to take it to the next level with intelligent systems, reach out. The first consultation is free and with no commitment.',
-    'contact.wa':          'WhatsApp · +506 8859 7501',
-    'contact.wa.href':     'https://wa.me/50688597501?text=Hello%20AZLOOM%2C%20I%20want%20to%20know%20how%20you%20can%20help%20my%20business',
-    'contact.note':        'Costa Rica · Global services · hello@azloom.tech',
     'footer.copy':         '© 2026 AZLOOM · Costa Rica · Global services',
   }
 };
@@ -882,13 +1319,15 @@ function setLang(lang) {
   document.getElementById('html-root').lang = lang;
   document.title = t[lang]['meta.title'];
   document.getElementById('lang-toggle').textContent = lang === 'es' ? 'EN' : 'ES';
-
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
     if (t[lang][key] !== undefined) el.innerHTML = t[lang][key];
   });
-
-  document.getElementById('wa-link').href = t[lang]['contact.wa.href'];
+  const waHref = lang === 'es'
+    ? 'https://wa.me/50688597501?text=Hola%20AZLOOM%2C%20quiero%20saber%20c%C3%B3mo%20pueden%20ayudar%20a%20mi%20empresa'
+    : 'https://wa.me/50688597501?text=Hello%20AZLOOM%2C%20I%20want%20to%20know%20how%20you%20can%20help%20my%20business';
+  const wa = document.getElementById('wa-link');
+  if (wa) wa.href = waHref;
 }
 
 function toggleLang() {
@@ -968,6 +1407,7 @@ frame();
    HERO ENTRANCE
 ══════════════════════════════════════════ */
 function heroIn(el, delay) {
+  if (!el) return;
   setTimeout(() => {
     el.style.transition = 'opacity 0.9s ease, transform 0.9s ease';
     el.style.opacity    = '1';
@@ -979,8 +1419,9 @@ const hint = document.getElementById('scroll-hint');
 heroIn(document.querySelector('.hero-logo'),    120);
 heroIn(document.querySelector('.hero-tagline'), 360);
 heroIn(document.querySelector('.hero-sub'),     560);
-heroIn(document.querySelector('.hero-ctas'),    740);
-setTimeout(() => { hint.style.opacity = '1'; }, 1400);
+heroIn(document.querySelector('.hero-micro'),   680);
+heroIn(document.querySelector('.hero-ctas'),    820);
+setTimeout(() => { if (hint) hint.style.opacity = '1'; }, 1400);
 
 /* ══════════════════════════════════════════
    INTERSECTION OBSERVER — scroll reveals
@@ -1007,6 +1448,65 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
       target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   });
+});
+
+/* ══════════════════════════════════════════
+   CONTACT FORM — envío a hello@azloom.tech
+══════════════════════════════════════════ */
+async function submitContactForm(e) {
+  e.preventDefault();
+  const form = e.target;
+  const btn  = form.querySelector('.btn-submit');
+  btn.textContent = 'Enviando...';
+  btn.disabled    = true;
+
+  const data = new FormData(form);
+
+  try {
+    const res = await fetch('https://formsubmit.co/ajax/hello@azloom.tech', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: data
+    });
+    if (res.ok) {
+      form.style.display = 'none';
+      document.getElementById('form-success').style.display = 'block';
+    } else {
+      throw new Error();
+    }
+  } catch {
+    btn.textContent      = 'Error — intente de nuevo';
+    btn.style.background = '#c0392b';
+    btn.disabled         = false;
+    setTimeout(() => {
+      btn.textContent      = 'Enviar Mensaje';
+      btn.style.background = '';
+    }, 3500);
+  }
+}
+
+/* ══════════════════════════════════════════
+   LEGAL MODALS
+══════════════════════════════════════════ */
+function openLegal(id) {
+  document.getElementById('modal-' + id).classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLegal(id) {
+  document.getElementById('modal-' + id).classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.querySelectorAll('.legal-modal').forEach(m => {
+  m.addEventListener('click', e => {
+    if (e.target === m) closeLegal(m.id.replace('modal-', ''));
+  });
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.legal-modal.open').forEach(m => {
+      closeLegal(m.id.replace('modal-', ''));
+    });
+  }
 });
 </script>
 
