@@ -11,6 +11,10 @@
   gtag('config', 'G-Y72HBKHFM9');
 </script>
  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0F0F1A">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="description" content="Agencia digital con IA en Costa Rica. Automatizamos procesos, creamos chatbots y agentes inteligentes para escalar tu negocio. San José, Costa Rica.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://www.azloom.tech/" />
@@ -673,29 +677,148 @@
     .d5 { transition-delay: 0.40s; }
     .d6 { transition-delay: 0.48s; }
 
-    /* ── RESPONSIVE ── */
+    /* ── RESPONSIVE — TABLET ── */
     @media (max-width: 900px) {
       nav { padding: 18px 24px; }
-      .nav-links a:not(.nav-cta) { display: none; }
-      .wrap { padding: 0 24px; }
+      .nav-links a:not(.nav-cta):not(.lang-btn) { display: none; }
+      .wrap { padding: 0 28px; }
       .section-pad { padding: 80px 0; }
-      .manifesto-grid { grid-template-columns: 1fr; gap: 40px; }
+      .manifesto-grid { grid-template-columns: 1fr; gap: 36px; }
       .pillars { grid-template-columns: 1fr 1fr; }
-      .services-grid { grid-template-columns: 1fr; }
-      .process-steps { grid-template-columns: 1fr 1fr; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .process-steps { grid-template-columns: 1fr 1fr; gap: 32px; }
       .process-steps::before { display: none; }
       .team-grid { grid-template-columns: 1fr; }
       .benefits-grid { grid-template-columns: 1fr 1fr; }
-      .contact-new { padding: 48px 28px; }
-      .contact-new-grid { grid-template-columns: 1fr; }
+      .contact-new { padding: 48px 32px; }
+      .contact-new-grid { grid-template-columns: 1fr; gap: 36px; }
       .form-row { grid-template-columns: 1fr; }
       .footer-inner { flex-direction: column; text-align: center; }
+      .footer-socials-row { justify-content: center; }
+      .footer-legal { justify-content: center; }
       .hero-ctas { flex-direction: column; align-items: center; }
-      .legal-modal-inner { padding: 40px 28px; }
+      .legal-modal-inner { padding: 40px 32px; }
     }
-    @media (max-width: 580px) {
-      .benefits-grid { grid-template-columns: 1fr; }
-      .footer-legal { gap: 20px; }
+
+    /* ── RESPONSIVE — MÓVIL GRANDE ── */
+    @media (max-width: 640px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .pillars { grid-template-columns: 1fr 1fr; }
+      .process-steps { grid-template-columns: 1fr; gap: 24px; }
+      .benefits-grid { grid-template-columns: 1fr 1fr; }
+      .hero-tagline { letter-spacing: 3px; font-size: 13px; }
+      .section-pad { padding: 64px 0; }
+      .wrap { padding: 0 22px; }
+      .contact-new { padding: 40px 24px; }
+      .contact-new-header { margin-bottom: 40px; }
+    }
+
+    /* ── RESPONSIVE — MÓVIL ── */
+    @media (max-width: 480px) {
+      /* Nav */
+      nav { padding: 14px 18px; }
+      .nav-cta { padding: 9px 16px; font-size: 13px; border-radius: 6px; }
+      .lang-btn { padding: 6px 11px; font-size: 10px; }
+
+      /* Layout */
+      .wrap { padding: 0 18px; }
+      .section-pad { padding: 56px 0; }
+
+      /* Hero */
+      #hero { min-height: 100svh; }
+      .hero-content { gap: 14px; padding: 0 4px; }
+      .hero-logo { width: min(340px, 88vw); }
+      .hero-tagline {
+        font-size: 12px;
+        letter-spacing: 2px;
+        padding: 0 10px;
+        text-align: center;
+      }
+      .hero-sub {
+        font-size: 15px;
+        line-height: 1.75;
+        padding: 0 4px;
+        max-width: 100%;
+      }
+      .hero-micro {
+        font-size: 12px;
+        padding: 0 4px;
+        max-width: 100%;
+      }
+      .btn-primary { padding: 14px 28px; font-size: 14px; min-height: 48px; }
+      .scroll-hint { bottom: 20px; }
+
+      /* Headings más legibles */
+      .heading { font-size: clamp(26px, 7vw, 36px); }
+      .label { font-size: 10px; letter-spacing: 3px; }
+      .body-text { font-size: 15px; }
+      .manifesto-statement { font-size: clamp(24px, 7vw, 32px); }
+
+      /* Pillars */
+      .pillars { grid-template-columns: 1fr 1fr; }
+      .pillar { padding: 24px 16px; }
+      .pillar-name { font-size: 13px; }
+      .pillar-desc { font-size: 11px; }
+
+      /* Servicios */
+      .service-card { padding: 32px 24px; }
+      .service-title { font-size: 16px; }
+      .service-desc { font-size: 14px; }
+
+      /* Beneficios */
+      .benefits-grid { grid-template-columns: 1fr; gap: 14px; }
+      .benefit-card { padding: 28px 22px; text-align: left; display: flex; gap: 18px; align-items: flex-start; }
+      .benefit-icon { flex-shrink: 0; margin: 0; width: 44px; height: 44px; }
+      .benefit-title { font-size: 15px; margin-bottom: 6px; }
+      .benefit-desc { font-size: 13px; }
+
+      /* Proceso */
+      .process-steps { grid-template-columns: 1fr; gap: 22px; }
+      .step-num { width: 46px; height: 46px; font-size: 15px; margin-bottom: 16px; }
+      .step-title { font-size: 15px; }
+      .step-desc { font-size: 13px; }
+
+      /* Equipo */
+      .team-card { padding: 28px 22px; }
+      .team-name { font-size: 20px; }
+      .team-bio { font-size: 13px; }
+
+      /* Contacto */
+      .contact-new { padding: 32px 18px; border-radius: 18px; }
+      .contact-new-header { margin-bottom: 32px; }
+      .contact-info-card { padding: 18px 18px; }
+      .ci-icon-wrap { width: 40px; height: 40px; }
+      .ci-info h4 { font-size: 9px; }
+      .ci-info p, .ci-info a { font-size: 14px; }
+
+      /* Formulario — font-size 16px evita zoom automático en iOS */
+      .form-group input,
+      .form-group textarea { font-size: 16px; padding: 13px 14px; border-radius: 7px; }
+      .btn-submit { font-size: 15px; padding: 15px; min-height: 50px; border-radius: 7px; }
+
+      /* Footer */
+      .footer-socials-row { padding: 28px 0 22px; gap: 10px; }
+      .footer-icon { width: 40px; height: 40px; }
+      .footer-inner { padding: 22px 0 16px; gap: 12px; }
+      .footer-copy { font-size: 11px; }
+      .footer-legal { gap: 14px; padding-bottom: 24px; }
+      .footer-legal a { font-size: 11px; }
+
+      /* Modales legales */
+      .legal-modal { padding: 16px 10px; }
+      .legal-modal-inner { padding: 36px 20px; border-radius: 16px; }
+      .legal-modal-inner h1 { font-size: 22px; padding-right: 32px; }
+      .legal-intro { font-size: 14px; }
+      .legal-section p, .legal-section li { font-size: 13px; }
+    }
+
+    /* ── RESPONSIVE — MÓVIL PEQUEÑO (SE, etc.) ── */
+    @media (max-width: 360px) {
+      .wrap { padding: 0 14px; }
+      .hero-logo { width: 92vw; }
+      .hero-tagline { font-size: 11px; letter-spacing: 1.5px; }
+      .pillars { grid-template-columns: 1fr; }
+      .contact-new { padding: 28px 14px; }
     }
   </style>
 </head>
