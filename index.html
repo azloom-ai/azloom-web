@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="es" id="html-root">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AZLOOM — Sistemas de Crecimiento Empresarial</title>
+
+  <!-- SEO bilingüe: indica a Google que ES y EN son versiones intencionales, no duplicados -->
+  <link rel="alternate" hreflang="es" href="./index.html" />
+  <link rel="alternate" hreflang="en" href="./index.html" />
+  <link rel="alternate" hreflang="x-default" href="./index.html" />
+
+  <style>
+    :root {
+      --bg:        #0F0F1A;
+      --white:     #F8F8FF;
+      --violet:    #7C5CFC;
+      --violet40:  rgba(124, 92, 252, 0.4);
+      --violet10:  rgba(124, 92, 252, 0.1);
+      --violet08:  rgba(124, 92, 252, 0.08);
+      --lila:      #C4B5FD;
+      --card:      #0D0D18;
+      --border:    rgba(124, 92, 252, 0.2);
+      --muted:     rgba(248, 248, 255, 0.45);
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+      overflow-x: hidden;
+    }
+
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--violet); border-radius: 2px; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 64px;
+      transition: background 0.5s, backdrop-filter 0.5s, border-color 0.5s;
+      border-bottom: 1px solid transparent;
+    }
+    nav.scrolled {
+      background: rgba(15, 15, 26, 0.88);
+      backdrop-filter: blur(16px);
+      border-color: var(--border);
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+    .nav-links a {
+      color: var(--white);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0.4px;
+      opacity: 0.6;
+      transition: opacity 0.2s;
+    }
+    .nav-links a:hover { opacity: 1; }
+    .nav-cta {
+      opacity: 1 !important;
+      background: var(--violet);
+      padding: 10px 26px;
+      border-radius: 7px;
+      font-weight: 500;
+      transition: background 0.2s, transform 0.2s !important;
+    }
+    .nav-cta:hover { background: #9B7BFF !important; transform: translateY(-1px); }
+    .lang-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--lila);
+      padding: 7px 14px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+      font-family: inherit;
+    }
+    .lang-btn:hover {
+      border-color: var(--violet);
+      color: var(--white);
+      background: var(--violet08);
+    }
+
+    /* ── HERO ── */
+    #hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+    #hero-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+    }
+    .hero-glow {
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(124,92,252,0.12) 0%, transparent 70%);
+      border-radius: 50%;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 28px;
+    }
+    .hero-logo {
+      width: min(620px, 82vw);
+      opacity: 0;
+      transform: translateY(28px);
+    }
+    .hero-tagline {
+      font-size: clamp(13px, 1.8vw, 17px);
+      color: var(--lila);
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      font-weight: 300;
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    .hero-sub {
+      font-size: clamp(14px, 1.4vw, 16px);
+      color: var(--muted);
+      max-width: 520px;
+      line-height: 1.8;
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    .hero-ctas {
+      display: flex;
+      gap: 14px;
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    .btn-primary {
+      background: var(--violet);
+      color: var(--white);
+      padding: 14px 34px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 15px;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-primary:hover {
+      background: #9B7BFF;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(124,92,252,0.35);
+    }
+    .btn-secondary {
+      border: 1px solid var(--border);
+      color: var(--lila);
+      padding: 14px 34px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 400;
+      font-size: 15px;
+      transition: border-color 0.2s, transform 0.2s, background 0.2s;
+    }
+    .btn-secondary:hover {
+      border-color: var(--violet);
+      background: var(--violet08);
+      transform: translateY(-2px);
+    }
+    .scroll-hint {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      transition: opacity 0.6s;
+    }
+    .scroll-hint span {
+      font-size: 10px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: rgba(248,248,255,0.2);
+    }
+    .scroll-hint-line {
+      width: 1px;
+      height: 44px;
+      background: linear-gradient(to bottom, var(--violet), transparent);
+      animation: lineAnim 2s ease-in-out infinite;
+    }
+    @keyframes lineAnim {
+      0%     { transform: scaleY(0); transform-origin: top; }
+      50%    { transform: scaleY(1); transform-origin: top; }
+      50.01% { transform-origin: bottom; }
+      100%   { transform: scaleY(0); transform-origin: bottom; }
+    }
+
+    /* ── LAYOUT ── */
+    .wrap { max-width: 1160px; margin: 0 auto; padding: 0 64px; }
+    .section-pad { padding: 120px 0; }
+    .label {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--violet);
+      margin-bottom: 18px;
+    }
+    .heading { font-size: clamp(30px, 3.8vw, 50px); font-weight: 600; line-height: 1.15; color: var(--white); }
+    .heading em { font-style: normal; color: var(--violet); }
+    .body-text { font-size: 16px; color: var(--muted); line-height: 1.8; }
+
+    /* ── MANIFESTO ── */
+    .manifesto-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 88px;
+      align-items: center;
+      margin-bottom: 72px;
+    }
+    .manifesto-statement { font-size: clamp(26px, 3.2vw, 44px); font-weight: 600; line-height: 1.22; }
+    .manifesto-statement em { font-style: normal; color: var(--violet); }
+    .manifesto-right .accent-line { width: 36px; height: 2px; background: var(--violet); margin-bottom: 28px; }
+    .manifesto-right p { font-size: 16px; color: var(--muted); line-height: 1.8; margin-bottom: 18px; }
+    .manifesto-right p:last-child { margin-bottom: 0; }
+
+    /* ── PILLARS ── */
+    .pillars {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .pillar { background: var(--card); padding: 36px 28px; text-align: center; transition: background 0.3s; }
+    .pillar:hover { background: #111122; }
+    .pillar-icon {
+      width: 44px; height: 44px;
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .pillar-icon svg {
+      width: 32px; height: 32px;
+      stroke: var(--violet);
+      fill: none;
+      stroke-width: 1.4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .pillar-name { font-size: 14px; font-weight: 600; color: var(--lila); margin-bottom: 8px; letter-spacing: 0.3px; }
+    .pillar-desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+    /* ── SERVICES ── */
+    .services-header { text-align: center; margin-bottom: 56px; }
+    .services-header .body-text { max-width: 500px; margin: 14px auto 0; }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+    }
+    .service-card {
+      background: var(--card);
+      padding: 48px 40px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+    .service-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--violet), transparent);
+      transform: scaleX(0);
+      transition: transform 0.45s ease;
+    }
+    .service-card:hover { background: #111122; }
+    .service-card:hover::after { transform: scaleX(1); }
+    .service-icon {
+      width: 50px; height: 50px;
+      background: var(--violet10);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 26px;
+    }
+    .service-icon svg {
+      width: 22px; height: 22px;
+      stroke: var(--violet);
+      fill: none;
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .service-title { font-size: 17px; font-weight: 600; color: var(--lila); margin-bottom: 14px; line-height: 1.3; }
+    .service-desc  { font-size: 14px; color: var(--muted); line-height: 1.78; }
+
+    /* ── PROCESS ── */
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+      margin-top: 64px;
+      position: relative;
+    }
+    .process-steps::before {
+      content: '';
+      position: absolute;
+      top: 27px;
+      left: 28px; right: 28px;
+      height: 1px;
+      background: linear-gradient(90deg, var(--violet), var(--violet40), transparent);
+      pointer-events: none;
+    }
+    .step-num {
+      width: 54px; height: 54px;
+      border-radius: 50%;
+      border: 1px solid var(--violet);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 17px; font-weight: 600;
+      color: var(--violet);
+      margin-bottom: 22px;
+      background: var(--bg);
+      position: relative; z-index: 1;
+      transition: background 0.3s;
+    }
+    .step:hover .step-num { background: var(--violet10); }
+    .step-title { font-size: 16px; font-weight: 600; color: var(--white); margin-bottom: 10px; }
+    .step-desc  { font-size: 13px; color: var(--muted); line-height: 1.75; }
+
+    /* ── TEAM ── */
+    .team-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 56px; }
+    .team-card {
+      background: var(--card);
+      border-radius: 18px;
+      padding: 48px;
+      border: 1px solid var(--border);
+      transition: border-color 0.35s, transform 0.35s;
+    }
+    .team-card:hover { border-color: var(--violet); transform: translateY(-4px); }
+    .team-avatar {
+      width: 68px; height: 68px;
+      border-radius: 50%;
+      background: var(--violet10);
+      border: 2px solid var(--violet40);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px; font-weight: 700;
+      color: var(--violet);
+      margin-bottom: 22px;
+    }
+    .team-name { font-size: 22px; font-weight: 600; margin-bottom: 6px; }
+    .team-role { font-size: 11px; color: var(--lila); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px; }
+    .team-bio  { font-size: 14px; color: var(--muted); line-height: 1.78; }
+
+    /* ── CONTACT ── */
+    .contact-box {
+      background: linear-gradient(135deg, rgba(124,92,252,0.07), rgba(124,92,252,0.02));
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 88px 64px;
+      text-align: center;
+    }
+    .contact-box .heading { margin-bottom: 18px; }
+    .contact-box .body-text { max-width: 500px; margin: 0 auto 48px; }
+    .contact-links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+    .contact-link {
+      display: flex; align-items: center; gap: 11px;
+      padding: 15px 30px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      color: var(--white);
+      text-decoration: none;
+      font-size: 15px;
+      transition: border-color 0.25s, background 0.25s, transform 0.25s;
+    }
+    .contact-link:hover { border-color: var(--violet); background: var(--violet08); transform: translateY(-3px); }
+    .contact-link svg {
+      width: 19px; height: 19px;
+      stroke: var(--violet);
+      fill: none;
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+    .contact-note { margin-top: 32px; font-size: 13px; color: rgba(248,248,255,0.25); letter-spacing: 1px; }
+
+    /* ── FOOTER ── */
+    .footer-inner {
+      border-top: 1px solid var(--border);
+      padding: 40px 0;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 24px;
+    }
+    .footer-copy { font-size: 13px; color: rgba(248,248,255,0.25); }
+
+    /* ── REVEAL ANIMATIONS ── */
+    .rev, .rev-l, .rev-r { transition: opacity 0.75s ease, transform 0.75s ease; }
+    .rev   { opacity: 0; transform: translateY(36px); }
+    .rev-l { opacity: 0; transform: translateX(-36px); }
+    .rev-r { opacity: 0; transform: translateX(36px); }
+    .rev.in, .rev-l.in, .rev-r.in { opacity: 1; transform: none; }
+    .d1 { transition-delay: 0.08s; }
+    .d2 { transition-delay: 0.16s; }
+    .d3 { transition-delay: 0.24s; }
+    .d4 { transition-delay: 0.32s; }
+    .d5 { transition-delay: 0.40s; }
+    .d6 { transition-delay: 0.48s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 18px 24px; }
+      .nav-links a:not(.nav-cta) { display: none; }
+      .wrap { padding: 0 24px; }
+      .section-pad { padding: 80px 0; }
+      .manifesto-grid { grid-template-columns: 1fr; gap: 40px; }
+      .pillars { grid-template-columns: 1fr 1fr; }
+      .services-grid { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: 1fr 1fr; }
+      .process-steps::before { display: none; }
+      .team-grid { grid-template-columns: 1fr; }
+      .contact-box { padding: 48px 24px; }
+      .footer-inner { flex-direction: column; text-align: center; }
+      .hero-ctas { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ── NAV ── -->
+<nav id="nav">
+  <a href="#hero" style="text-decoration:none;">
+    <svg height="30" viewBox="0 0 340 65" xmlns="http://www.w3.org/2000/svg">
+      <text text-anchor="middle" x="170" y="52"
+        font-family="system-ui,-apple-system,sans-serif"
+        font-size="54" font-weight="500" letter-spacing="7">
+        <tspan fill="#F8F8FF">A</tspan><tspan fill="#F8F8FF">Z</tspan><tspan fill="#F8F8FF">L</tspan>
+        <tspan fill="#7C5CFC" letter-spacing="-2">O</tspan><tspan fill="#7C5CFC" letter-spacing="7">O</tspan>
+        <tspan fill="#F8F8FF">M</tspan>
+      </text>
+    </svg>
+  </a>
+  <div class="nav-links">
+    <a href="#servicios" data-i18n="nav.services">Servicios</a>
+    <a href="#proceso"   data-i18n="nav.process">Proceso</a>
+    <a href="#equipo"    data-i18n="nav.team">Equipo</a>
+    <button id="lang-toggle" class="lang-btn" onclick="toggleLang()">EN</button>
+    <a href="#contacto" class="nav-cta" data-i18n="nav.cta">Hablemos</a>
+  </div>
+</nav>
+
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-glow"></div>
+
+  <div class="hero-content">
+    <svg class="hero-logo" viewBox="0 0 680 130" xmlns="http://www.w3.org/2000/svg">
+      <text text-anchor="middle" x="340" y="105"
+        font-family="system-ui,-apple-system,sans-serif"
+        font-size="108" font-weight="500" letter-spacing="14">
+        <tspan fill="#F8F8FF">A</tspan><tspan fill="#F8F8FF">Z</tspan><tspan fill="#F8F8FF">L</tspan>
+        <tspan fill="#7C5CFC" letter-spacing="-4">O</tspan><tspan fill="#7C5CFC" letter-spacing="14">O</tspan>
+        <tspan fill="#F8F8FF">M</tspan>
+      </text>
+    </svg>
+
+    <p class="hero-tagline" data-i18n="hero.tagline">Sistemas que hacen crecer tu empresa</p>
+
+    <p class="hero-sub" data-i18n="hero.sub">
+      Diseñamos e implementamos sistemas de crecimiento para empresas que ya venden,
+      combinando estrategia, automatización, datos y visualización.
+    </p>
+
+    <div class="hero-ctas">
+      <a href="#servicios" class="btn-primary"  data-i18n="hero.btn1">Ver servicios</a>
+      <a href="#contacto"  class="btn-secondary" data-i18n="hero.btn2">Primera consulta gratis</a>
+    </div>
+  </div>
+
+  <div class="scroll-hint" id="scroll-hint">
+    <span data-i18n="hero.scroll">Scroll</span>
+    <div class="scroll-hint-line"></div>
+  </div>
+</section>
+
+
+<!-- ── MANIFESTO ── -->
+<div class="wrap">
+  <div class="section-pad">
+    <div class="manifesto-grid">
+      <div class="manifesto-statement rev-l" data-i18n="manifesto.statement">
+        Tu empresa<br>ya vende.<br><em>Ahora necesita</em><br>crecer de forma<br><em>escalable.</em>
+      </div>
+      <div class="rev-r">
+        <div class="accent-line"></div>
+        <p data-i18n="manifesto.p1">La mayoría de empresas con clientes están dejando dinero sobre la mesa. Sus procesos no están optimizados, sus datos no hablan entre sí y sus ventas dependen de esfuerzo manual constante.</p>
+        <p data-i18n="manifesto.p2">En AZLOOM construimos los sistemas que conectan todo: estrategia, automatización, datos y visualización para que tu empresa crezca sin que tengas que trabajar el doble.</p>
+      </div>
+    </div>
+
+    <div class="pillars">
+      <div class="pillar rev d1">
+        <div class="pillar-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+        </div>
+        <div class="pillar-name" data-i18n="pillar.1.name">Estrategia</div>
+        <div class="pillar-desc" data-i18n="pillar.1.desc">Arquitectura empresarial y hoja de ruta de crecimiento</div>
+      </div>
+      <div class="pillar rev d2">
+        <div class="pillar-icon">
+          <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+        </div>
+        <div class="pillar-name" data-i18n="pillar.2.name">Automatización</div>
+        <div class="pillar-desc" data-i18n="pillar.2.desc">Sistemas inteligentes que eliminan trabajo manual</div>
+      </div>
+      <div class="pillar rev d3">
+        <div class="pillar-icon">
+          <svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+        </div>
+        <div class="pillar-name" data-i18n="pillar.3.name">Datos</div>
+        <div class="pillar-desc" data-i18n="pillar.3.desc">Métricas que guían cada decisión de negocio</div>
+      </div>
+      <div class="pillar rev d4">
+        <div class="pillar-icon">
+          <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <div class="pillar-name" data-i18n="pillar.4.name">Visualización</div>
+        <div class="pillar-desc" data-i18n="pillar.4.desc">Comunicación visual que convierte y retiene</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── SERVICES ── -->
+<div id="servicios" class="wrap">
+  <div class="section-pad">
+    <div class="services-header">
+      <span class="label rev"        data-i18n="services.label">Lo que hacemos</span>
+      <h2   class="heading rev"      data-i18n="services.heading">Servicios diseñados para<br><em>escalar tu negocio</em></h2>
+      <p    class="body-text rev"    data-i18n="services.sub">Seis disciplinas integradas en un único sistema de crecimiento para tu empresa.</p>
+    </div>
+
+    <div class="services-grid">
+
+      <div class="service-card rev d1">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 15a3 3 0 100-6 3 3 0 000 6z"/>
+            <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
+          </svg>
+        </div>
+        <h3 class="service-title" data-i18n="s1.title">Automatización de Procesos</h3>
+        <p  class="service-desc"  data-i18n="s1.desc">Conectamos todas tus herramientas digitales — CRM, email, WhatsApp, formularios, facturación, Google Sheets — para que la información fluya sola entre sistemas sin que nadie tenga que moverla a mano. Construimos flujos que trabajan 24/7 por ti, eliminando errores y liberando horas de trabajo repetitivo.</p>
+      </div>
+
+      <div class="service-card rev d2">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        </div>
+        <h3 class="service-title" data-i18n="s2.title">Chatbots y Agentes IA</h3>
+        <p  class="service-desc"  data-i18n="s2.desc">Creamos asistentes inteligentes que atienden a tus clientes, responden preguntas, califican prospectos y escalan conversaciones al equipo humano cuando es necesario. Funcionan en WhatsApp, tu web, Instagram u otras plataformas — sin descanso, sin errores, sin costo por hora.</p>
+      </div>
+
+      <div class="service-card rev d3">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        </div>
+        <h3 class="service-title" data-i18n="s3.title">Auditoría y Estrategia</h3>
+        <p  class="service-desc"  data-i18n="s3.desc">Auditamos tu negocio, tu posicionamiento en Google (SEO) y tus campañas de publicidad para encontrar exactamente dónde estás perdiendo dinero o clientes. El resultado es un diagnóstico claro y un plan de acción con pasos concretos para crecer de forma sostenida.</p>
+      </div>
+
+      <div class="service-card rev d4">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+        </div>
+        <h3 class="service-title" data-i18n="s4.title">Publicidad y Prospección de Clientes</h3>
+        <p  class="service-desc"  data-i18n="s4.desc">Diseñamos sistemas para encontrar y atraer clientes potenciales de forma activa y escalable: campañas en Meta e Instagram, auditorías de anuncios para reducir costos, y procesos automatizados de prospección que identifican compradores antes de que ellos lleguen a ti.</p>
+      </div>
+
+      <div class="service-card rev d5">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+        </div>
+        <h3 class="service-title" data-i18n="s5.title">Páginas Web y Funnels de Venta</h3>
+        <p  class="service-desc"  data-i18n="s5.desc">Diseñamos y construimos páginas web premium que venden: con animaciones, estructura persuasiva y funnels integrados que guían a cada visitante hasta convertirse en cliente. Tu web deja de ser un catálogo y se convierte en tu mejor vendedor, activo las 24 horas.</p>
+      </div>
+
+      <div class="service-card rev d6">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        </div>
+        <h3 class="service-title" data-i18n="s6.title">Consultoría y Dashboards</h3>
+        <p  class="service-desc"  data-i18n="s6.desc">Te acompañamos en cada decisión estratégica con diagnósticos, evaluaciones de viabilidad y dashboards personalizados que te muestran, en tiempo real, los números que importan de tu negocio. Dejas de tomar decisiones a ciegas y empiezas a operar con datos claros en pantalla.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ── PROCESS ── -->
+<div id="proceso" class="wrap">
+  <div class="section-pad">
+    <span class="label rev" data-i18n="process.label">Cómo trabajamos</span>
+    <h2   class="heading rev" data-i18n="process.heading">Un proceso claro<br>para <em>resultados reales</em></h2>
+
+    <div class="process-steps">
+      <div class="step rev d1">
+        <div class="step-num">01</div>
+        <h3 class="step-title" data-i18n="step.1.title">Diagnóstico</h3>
+        <p  class="step-desc"  data-i18n="step.1.desc">Analizamos en profundidad tu empresa: procesos, datos, ventas y oportunidades de automatización sin explotar.</p>
+      </div>
+      <div class="step rev d2">
+        <div class="step-num">02</div>
+        <h3 class="step-title" data-i18n="step.2.title">Estrategia</h3>
+        <p  class="step-desc"  data-i18n="step.2.desc">Diseñamos el sistema de crecimiento personalizado para tu negocio con objetivos claros y métricas definidas.</p>
+      </div>
+      <div class="step rev d3">
+        <div class="step-num">03</div>
+        <h3 class="step-title" data-i18n="step.3.title">Implementación</h3>
+        <p  class="step-desc"  data-i18n="step.3.desc">Construimos e integramos las herramientas, automatizaciones y procesos directamente en tu operación actual.</p>
+      </div>
+      <div class="step rev d4">
+        <div class="step-num">04</div>
+        <h3 class="step-title" data-i18n="step.4.title">Optimización</h3>
+        <p  class="step-desc"  data-i18n="step.4.desc">Monitorizamos, medimos y mejoramos continuamente para garantizar el crecimiento sostenido a largo plazo.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── TEAM ── -->
+<div id="equipo" class="wrap">
+  <div class="section-pad">
+    <span class="label rev"     data-i18n="team.label">Quiénes somos</span>
+    <h2   class="heading rev"   data-i18n="team.heading">Donde el diseño, la visión<br>y la <em>IA construyen resultados</em></h2>
+    <p    class="body-text rev" data-i18n="team.sub" style="max-width:560px; margin-top:18px;">Somos Adriana y Nicolás — fusionamos arquitectura, imagen e inteligencia artificial en sistemas de crecimiento que transforman negocios reales.</p>
+
+    <div class="team-grid">
+      <div class="team-card rev-l">
+        <div class="team-avatar">A</div>
+        <h3 class="team-name">Adriana</h3>
+        <p  class="team-role" data-i18n="team.a.role">Arquitecta & Diseñadora</p>
+        <p  class="team-bio"  data-i18n="team.a.bio">Arquitecta profesional y diseñadora con visión sistémica. Aporta a AZLOOM la capacidad de estructurar negocios que funcionan: claros, escalables y visualmente poderosos. Su mirada arquitectónica transforma procesos complejos en sistemas comprensibles y ejecutables.</p>
+      </div>
+      <div class="team-card rev-r">
+        <div class="team-avatar">N</div>
+        <h3 class="team-name">Nicolás</h3>
+        <p  class="team-role" data-i18n="team.n.role">Fotógrafo & Productor Audiovisual</p>
+        <p  class="team-bio"  data-i18n="team.n.bio">Fotógrafo profesional y productor audiovisual con ojo para contar historias que conectan y venden. Aporta a AZLOOM la dimensión visual y narrativa que hace que los sistemas de crecimiento no solo funcionen, sino que también comuniquen con impacto real.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── CONTACT ── -->
+<div id="contacto" class="wrap">
+  <div class="section-pad">
+    <div class="contact-box rev">
+      <span class="label" style="display:block; margin-bottom:18px;" data-i18n="contact.label">¿Listo para crecer?</span>
+      <h2 class="heading"    data-i18n="contact.heading">Hablemos de tu negocio</h2>
+      <p  class="body-text"  data-i18n="contact.sub">Si tu empresa ya vende y quieres llevarla al siguiente nivel con sistemas inteligentes, escríbenos. La primera consulta es sin costo y sin compromiso.</p>
+
+      <div class="contact-links">
+        <a href="mailto:hello@azloom.tech" class="contact-link">
+          <svg viewBox="0 0 24 24">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+          hello@azloom.tech
+        </a>
+        <a id="wa-link"
+           href="https://wa.me/50688597501?text=Hola%20AZLOOM%2C%20quiero%20saber%20c%C3%B3mo%20pueden%20ayudar%20a%20mi%20empresa"
+           target="_blank" class="contact-link">
+          <svg viewBox="0 0 24 24">
+            <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/>
+          </svg>
+          <span data-i18n="contact.wa">WhatsApp · +506 8859 7501</span>
+        </a>
+      </div>
+      <p class="contact-note" data-i18n="contact.note">Costa Rica · Servicios globales · hello@azloom.tech</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── FOOTER ── -->
+<div class="wrap">
+  <div class="footer-inner">
+    <svg height="26" viewBox="0 0 340 65" xmlns="http://www.w3.org/2000/svg">
+      <text text-anchor="middle" x="170" y="52"
+        font-family="system-ui,-apple-system,sans-serif"
+        font-size="54" font-weight="500" letter-spacing="7">
+        <tspan fill="#F8F8FF">A</tspan><tspan fill="#F8F8FF">Z</tspan><tspan fill="#F8F8FF">L</tspan>
+        <tspan fill="#7C5CFC" letter-spacing="-2">O</tspan><tspan fill="#7C5CFC" letter-spacing="7">O</tspan>
+        <tspan fill="#F8F8FF">M</tspan>
+      </text>
+    </svg>
+    <p class="footer-copy" data-i18n="footer.copy">© 2026 AZLOOM · Costa Rica · Servicios globales</p>
+    <p class="footer-copy">hello@azloom.tech</p>
+  </div>
+</div>
+
+
+<script>
+/* ══════════════════════════════════════════
+   TRANSLATIONS
+══════════════════════════════════════════ */
+const t = {
+  es: {
+    'meta.title':          'AZLOOM — Sistemas de Crecimiento Empresarial',
+    'nav.services':        'Servicios',
+    'nav.process':         'Proceso',
+    'nav.team':            'Equipo',
+    'nav.cta':             'Hablemos',
+    'hero.tagline':        'Sistemas que hacen crecer tu empresa',
+    'hero.sub':            'Diseñamos e implementamos sistemas de crecimiento para empresas que ya venden, combinando estrategia, automatización, datos y visualización.',
+    'hero.btn1':           'Ver servicios',
+    'hero.btn2':           'Primera consulta gratis',
+    'hero.scroll':         'Scroll',
+    'manifesto.statement': 'Tu empresa<br>ya vende.<br><em>Ahora necesita</em><br>crecer de forma<br><em>escalable.</em>',
+    'manifesto.p1':        'La mayoría de empresas con clientes están dejando dinero sobre la mesa. Sus procesos no están optimizados, sus datos no hablan entre sí y sus ventas dependen de esfuerzo manual constante.',
+    'manifesto.p2':        'En AZLOOM construimos los sistemas que conectan todo: estrategia, automatización, datos y visualización para que tu empresa crezca sin que tengas que trabajar el doble.',
+    'pillar.1.name':       'Estrategia',
+    'pillar.1.desc':       'Arquitectura empresarial y hoja de ruta de crecimiento',
+    'pillar.2.name':       'Automatización',
+    'pillar.2.desc':       'Sistemas inteligentes que eliminan trabajo manual',
+    'pillar.3.name':       'Datos',
+    'pillar.3.desc':       'Métricas que guían cada decisión de negocio',
+    'pillar.4.name':       'Visualización',
+    'pillar.4.desc':       'Comunicación visual que convierte y retiene',
+    'services.label':      'Lo que hacemos',
+    'services.heading':    'Servicios diseñados para<br><em>escalar tu negocio</em>',
+    'services.sub':        'Seis disciplinas integradas en un único sistema de crecimiento para tu empresa.',
+    's1.title':            'Automatización de Procesos',
+    's1.desc':             'Conectamos todas tus herramientas digitales — CRM, email, WhatsApp, formularios, facturación, Google Sheets — para que la información fluya sola entre sistemas sin que nadie tenga que moverla a mano. Construimos flujos que trabajan 24/7 por ti, eliminando errores y liberando horas de trabajo repetitivo.',
+    's2.title':            'Chatbots y Agentes IA',
+    's2.desc':             'Creamos asistentes inteligentes que atienden a tus clientes, responden preguntas, califican prospectos y escalan conversaciones al equipo humano cuando es necesario. Funcionan en WhatsApp, tu web, Instagram u otras plataformas — sin descanso, sin errores, sin costo por hora.',
+    's3.title':            'Auditoría y Estrategia',
+    's3.desc':             'Auditamos tu negocio, tu posicionamiento en Google (SEO) y tus campañas de publicidad para encontrar exactamente dónde estás perdiendo dinero o clientes. El resultado es un diagnóstico claro y un plan de acción con pasos concretos para crecer de forma sostenida.',
+    's4.title':            'Publicidad y Prospección de Clientes',
+    's4.desc':             'Diseñamos sistemas para encontrar y atraer clientes potenciales de forma activa y escalable: campañas en Meta e Instagram, auditorías de anuncios para reducir costos, y procesos automatizados de prospección que identifican compradores antes de que ellos lleguen a ti.',
+    's5.title':            'Páginas Web y Funnels de Venta',
+    's5.desc':             'Diseñamos y construimos páginas web premium que venden: con animaciones, estructura persuasiva y funnels integrados que guían a cada visitante hasta convertirse en cliente. Tu web deja de ser un catálogo y se convierte en tu mejor vendedor, activo las 24 horas.',
+    's6.title':            'Consultoría y Dashboards',
+    's6.desc':             'Te acompañamos en cada decisión estratégica con diagnósticos, evaluaciones de viabilidad y dashboards personalizados que te muestran, en tiempo real, los números que importan de tu negocio. Dejas de tomar decisiones a ciegas y empiezas a operar con datos claros en pantalla.',
+    'process.label':       'Cómo trabajamos',
+    'process.heading':     'Un proceso claro<br>para <em>resultados reales</em>',
+    'step.1.title':        'Diagnóstico',
+    'step.1.desc':         'Analizamos en profundidad tu empresa: procesos, datos, ventas y oportunidades de automatización sin explotar.',
+    'step.2.title':        'Estrategia',
+    'step.2.desc':         'Diseñamos el sistema de crecimiento personalizado para tu negocio con objetivos claros y métricas definidas.',
+    'step.3.title':        'Implementación',
+    'step.3.desc':         'Construimos e integramos las herramientas, automatizaciones y procesos directamente en tu operación actual.',
+    'step.4.title':        'Optimización',
+    'step.4.desc':         'Monitorizamos, medimos y mejoramos continuamente para garantizar el crecimiento sostenido a largo plazo.',
+    'team.label':          'Quiénes somos',
+    'team.heading':        'Donde el diseño, la visión<br>y la <em>IA construyen resultados</em>',
+    'team.sub':            'Somos Adriana y Nicolás — fusionamos arquitectura, imagen e inteligencia artificial en sistemas de crecimiento que transforman negocios reales.',
+    'team.a.role':         'Arquitecta & Diseñadora',
+    'team.a.bio':          'Arquitecta profesional y diseñadora con visión sistémica. Aporta a AZLOOM la capacidad de estructurar negocios que funcionan: claros, escalables y visualmente poderosos. Su mirada arquitectónica transforma procesos complejos en sistemas comprensibles y ejecutables.',
+    'team.n.role':         'Fotógrafo & Productor Audiovisual',
+    'team.n.bio':          'Fotógrafo profesional y productor audiovisual con ojo para contar historias que conectan y venden. Aporta a AZLOOM la dimensión visual y narrativa que hace que los sistemas de crecimiento no solo funcionen, sino que también comuniquen con impacto real.',
+    'contact.label':       '¿Listo para crecer?',
+    'contact.heading':     'Hablemos de tu negocio',
+    'contact.sub':         'Si tu empresa ya vende y quieres llevarla al siguiente nivel con sistemas inteligentes, escríbenos. La primera consulta es sin costo y sin compromiso.',
+    'contact.wa':          'WhatsApp · +506 8859 7501',
+    'contact.wa.href':     'https://wa.me/50688597501?text=Hola%20AZLOOM%2C%20quiero%20saber%20c%C3%B3mo%20pueden%20ayudar%20a%20mi%20empresa',
+    'contact.note':        'Costa Rica · Servicios globales · hello@azloom.tech',
+    'footer.copy':         '© 2026 AZLOOM · Costa Rica · Servicios globales',
+  },
+
+  en: {
+    'meta.title':          'AZLOOM — Business Growth Systems',
+    'nav.services':        'Services',
+    'nav.process':         'Process',
+    'nav.team':            'Team',
+    'nav.cta':             "Let's Talk",
+    'hero.tagline':        'Systems that make your business grow',
+    'hero.sub':            'We design and implement growth systems for businesses that already sell, combining strategy, automation, data, and visualization.',
+    'hero.btn1':           'See services',
+    'hero.btn2':           'Free first consultation',
+    'hero.scroll':         'Scroll',
+    'manifesto.statement': 'Your business<br>already sells.<br><em>Now it needs</em><br>to grow in a<br><em>scalable way.</em>',
+    'manifesto.p1':        "Most businesses with clients are leaving money on the table. Their processes are not optimized, their data doesn't talk to each other, and their sales depend on constant manual effort.",
+    'manifesto.p2':        'At AZLOOM we build the systems that connect everything: strategy, automation, data, and visualization so your business grows without you having to work twice as hard.',
+    'pillar.1.name':       'Strategy',
+    'pillar.1.desc':       'Business architecture and growth roadmap',
+    'pillar.2.name':       'Automation',
+    'pillar.2.desc':       'Intelligent systems that eliminate manual work',
+    'pillar.3.name':       'Data',
+    'pillar.3.desc':       'Metrics that guide every business decision',
+    'pillar.4.name':       'Visualization',
+    'pillar.4.desc':       'Visual communication that converts and retains',
+    'services.label':      'What we do',
+    'services.heading':    'Services designed to<br><em>scale your business</em>',
+    'services.sub':        'Six disciplines integrated into a single growth system for your business.',
+    's1.title':            'Process Automation',
+    's1.desc':             'We connect all your digital tools — CRM, email, WhatsApp, forms, billing, Google Sheets — so information flows automatically between systems without anyone having to move it manually. We build workflows that work 24/7 for you, eliminating errors and freeing up hours of repetitive work.',
+    's2.title':            'Chatbots & AI Agents',
+    's2.desc':             'We create intelligent assistants that serve your clients, answer questions, qualify prospects, and escalate conversations to the human team when needed. They work on WhatsApp, your website, Instagram, or other platforms — without rest, without errors, without an hourly cost.',
+    's3.title':            'Audit & Strategy',
+    's3.desc':             'We audit your business, your Google presence (SEO), and your advertising campaigns to find exactly where you are losing money or clients. The result: a clear diagnosis and an action plan with concrete steps to grow sustainably.',
+    's4.title':            'Advertising & Client Prospecting',
+    's4.desc':             'We design systems to find and attract potential clients actively and scalably: Meta and Instagram campaigns, ad audits to reduce costs, and automated prospecting processes that identify buyers before they come to you.',
+    's5.title':            'Websites & Sales Funnels',
+    's5.desc':             'We design and build premium websites that sell: with animations, persuasive structure, and integrated funnels that guide every visitor to become a client. Your website stops being a catalog and becomes your best salesperson, active 24 hours a day.',
+    's6.title':            'Consulting & Dashboards',
+    's6.desc':             'We guide every strategic decision with diagnoses, viability evaluations, and personalized dashboards that show you — in real time — the numbers that matter most for your business. You stop making decisions in the dark and start operating with clear data on screen.',
+    'process.label':       'How we work',
+    'process.heading':     'A clear process<br>for <em>real results</em>',
+    'step.1.title':        'Diagnosis',
+    'step.1.desc':         'We analyze your business in depth: processes, data, sales, and unexplored automation opportunities.',
+    'step.2.title':        'Strategy',
+    'step.2.desc':         'We design the customized growth system for your business with clear objectives and defined metrics.',
+    'step.3.title':        'Implementation',
+    'step.3.desc':         'We build and integrate tools, automations, and processes directly into your current operation.',
+    'step.4.title':        'Optimization',
+    'step.4.desc':         'We continuously monitor, measure, and improve to ensure sustained long-term growth.',
+    'team.label':          'Who we are',
+    'team.heading':        'Where design, vision<br>and <em>AI build results</em>',
+    'team.sub':            'We are Adriana and Nicolás — we fuse architecture, image, and artificial intelligence into growth systems that transform real businesses.',
+    'team.a.role':         'Architect & Designer',
+    'team.a.bio':          'Professional architect and designer with systemic vision. She brings to AZLOOM the ability to structure businesses that work: clear, scalable, and visually powerful. Her architectural perspective transforms complex processes into understandable and actionable systems.',
+    'team.n.role':         'Photographer & Audiovisual Producer',
+    'team.n.bio':          'Professional photographer and audiovisual producer with an eye for telling stories that connect and sell. He brings to AZLOOM the visual and narrative dimension that makes growth systems not only work, but also communicate with real impact.',
+    'contact.label':       'Ready to grow?',
+    'contact.heading':     "Let's talk about your business",
+    'contact.sub':         'If your business already sells and you want to take it to the next level with intelligent systems, reach out. The first consultation is free and with no commitment.',
+    'contact.wa':          'WhatsApp · +506 8859 7501',
+    'contact.wa.href':     'https://wa.me/50688597501?text=Hello%20AZLOOM%2C%20I%20want%20to%20know%20how%20you%20can%20help%20my%20business',
+    'contact.note':        'Costa Rica · Global services · hello@azloom.tech',
+    'footer.copy':         '© 2026 AZLOOM · Costa Rica · Global services',
+  }
+};
+
+/* ══════════════════════════════════════════
+   LANGUAGE SWITCHER
+══════════════════════════════════════════ */
+let currentLang = 'es';
+
+function setLang(lang) {
+  currentLang = lang;
+  document.getElementById('html-root').lang = lang;
+  document.title = t[lang]['meta.title'];
+  document.getElementById('lang-toggle').textContent = lang === 'es' ? 'EN' : 'ES';
+
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[lang][key] !== undefined) el.innerHTML = t[lang][key];
+  });
+
+  document.getElementById('wa-link').href = t[lang]['contact.wa.href'];
+}
+
+function toggleLang() {
+  setLang(currentLang === 'es' ? 'en' : 'es');
+}
+
+/* ══════════════════════════════════════════
+   NAV SCROLL
+══════════════════════════════════════════ */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 50);
+}, { passive: true });
+
+/* ══════════════════════════════════════════
+   HERO CANVAS — particles
+══════════════════════════════════════════ */
+const canvas = document.getElementById('hero-canvas');
+const ctx    = canvas.getContext('2d');
+let W, H;
+
+function resize() {
+  W = canvas.width  = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize, { passive: true });
+
+class Dot {
+  constructor() { this.init(); }
+  init() {
+    this.x  = Math.random() * W;
+    this.y  = Math.random() * H;
+    this.r  = Math.random() * 1.4 + 0.4;
+    this.vx = (Math.random() - 0.5) * 0.28;
+    this.vy = (Math.random() - 0.5) * 0.28;
+    this.a  = Math.random() * 0.35 + 0.08;
+  }
+  update() {
+    this.x += this.vx;
+    this.y += this.vy;
+    if (this.x < -10 || this.x > W + 10 || this.y < -10 || this.y > H + 10) this.init();
+  }
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(124,92,252,${this.a})`;
+    ctx.fill();
+  }
+}
+
+const dots = Array.from({ length: 90 }, () => new Dot());
+
+function frame() {
+  ctx.clearRect(0, 0, W, H);
+  dots.forEach(d => { d.update(); d.draw(); });
+  for (let i = 0; i < dots.length; i++) {
+    for (let j = i + 1; j < dots.length; j++) {
+      const dx = dots[i].x - dots[j].x;
+      const dy = dots[i].y - dots[j].y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 110) {
+        ctx.beginPath();
+        ctx.strokeStyle = `rgba(124,92,252,${0.07 * (1 - dist / 110)})`;
+        ctx.lineWidth   = 0.5;
+        ctx.moveTo(dots[i].x, dots[i].y);
+        ctx.lineTo(dots[j].x, dots[j].y);
+        ctx.stroke();
+      }
+    }
+  }
+  requestAnimationFrame(frame);
+}
+frame();
+
+/* ══════════════════════════════════════════
+   HERO ENTRANCE
+══════════════════════════════════════════ */
+function heroIn(el, delay) {
+  setTimeout(() => {
+    el.style.transition = 'opacity 0.9s ease, transform 0.9s ease';
+    el.style.opacity    = '1';
+    el.style.transform  = 'translateY(0)';
+  }, delay);
+}
+
+const hint = document.getElementById('scroll-hint');
+heroIn(document.querySelector('.hero-logo'),    120);
+heroIn(document.querySelector('.hero-tagline'), 360);
+heroIn(document.querySelector('.hero-sub'),     560);
+heroIn(document.querySelector('.hero-ctas'),    740);
+setTimeout(() => { hint.style.opacity = '1'; }, 1400);
+
+/* ══════════════════════════════════════════
+   INTERSECTION OBSERVER — scroll reveals
+══════════════════════════════════════════ */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.rev, .rev-l, .rev-r').forEach(el => io.observe(el));
+
+/* ══════════════════════════════════════════
+   SMOOTH SCROLL
+══════════════════════════════════════════ */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+
+</body>
+</html>

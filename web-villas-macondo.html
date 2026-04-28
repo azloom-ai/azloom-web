@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Villas Macondo – Boutique hotel 200m from the beach in Tamarindo, Costa Rica. Pools, lush gardens, excursions and Pura Vida.">
+  <title>Villas Macondo · Life is a Holiday</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --deep: #071a2b;
+      --dark: #0d2336;
+      --gold: #c9a84c;
+      --gold-light: #e2c16c;
+      --coral: #e07b54;
+      --cream: #f0e4ca;
+      --cream-muted: rgba(240,228,202,0.55);
+      --sage: #7faa8f;
+      --card-bg: rgba(255,255,255,0.04);
+      --card-border: rgba(255,255,255,0.08);
+      --radius: 12px;
+      --t: 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--deep); color: var(--cream); overflow-x: hidden; line-height: 1.7; }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--deep); }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+    h1,h2,h3 { font-family: 'Cormorant Garamond', serif; font-weight: 400; line-height: 1.1; }
+    a { color: inherit; text-decoration: none; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+    .label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; display: block; }
+    .gold { color: var(--gold); }
+
+    /* REVEAL */
+    .reveal, .reveal-l, .reveal-r {
+      opacity: 0; transition: opacity 0.75s ease, transform 0.75s ease;
+    }
+    .reveal { transform: translateY(48px); }
+    .reveal-l { transform: translateX(-48px); }
+    .reveal-r { transform: translateX(48px); }
+    .reveal.on, .reveal-l.on, .reveal-r.on { opacity: 1; transform: none; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 1.2rem 2rem; display: flex; align-items: center; justify-content: space-between;
+      transition: background var(--t), backdrop-filter var(--t), box-shadow var(--t);
+    }
+    nav.scrolled {
+      background: rgba(7,26,43,0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 1px 0 rgba(201,168,76,0.15);
+    }
+    .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 300; letter-spacing: 0.05em; }
+    .nav-logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+    .nav-links a { font-size: 0.85rem; letter-spacing: 0.06em; color: var(--cream-muted); transition: color var(--t); }
+    .nav-links a:hover { color: var(--cream); }
+    .nav-cta {
+      background: var(--gold) !important; color: var(--deep) !important;
+      padding: 0.55rem 1.3rem !important; border-radius: 50px; font-weight: 600 !important;
+      transition: background var(--t), transform var(--t) !important;
+    }
+    .nav-cta:hover { background: var(--gold-light) !important; transform: translateY(-1px); }
+    .burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; z-index: 1001; }
+    .burger span { width: 24px; height: 2px; background: var(--cream); border-radius: 2px; transition: var(--t); display: block; }
+
+    /* HERO */
+    .hero {
+      position: relative; height: 100vh; min-height: 680px;
+      display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 50% 100%, rgba(201,168,76,0.14) 0%, transparent 55%),
+        radial-gradient(ellipse at 80% 15%, rgba(127,170,143,0.07) 0%, transparent 50%),
+        linear-gradient(170deg, #071a2b 0%, #0a2235 40%, #0d3028 75%, #081e18 100%);
+    }
+    .hero-glow {
+      position: absolute; width: 700px; height: 700px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,168,76,0.07) 0%, transparent 70%);
+      top: 50%; left: 50%; transform: translate(-50%,-50%);
+      animation: pulse 7s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100% { transform: translate(-50%,-50%) scale(1); opacity:0.6; } 50% { transform: translate(-50%,-50%) scale(1.2); opacity:1; } }
+    .particles { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+    .p { position: absolute; border-radius: 50%; background: var(--gold); opacity: 0; animation: fp linear infinite; }
+    @keyframes fp { 0% { opacity:0; transform:translateY(0) scale(0); } 10% { opacity:0.5; transform:scale(1); } 90% { opacity:0.1; } 100% { opacity:0; transform:translateY(-100vh) scale(0); } }
+    .hero-content { position: relative; z-index: 2; max-width: 860px; padding: 0 2rem; }
+    .hero-eye {
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.8rem;
+      display: flex; align-items: center; justify-content: center; gap: 1rem;
+    }
+    .hero-eye::before, .hero-eye::after { content:''; width:36px; height:1px; background:var(--gold); opacity:0.5; }
+    .hero-h1a {
+      font-size: clamp(3.5rem, 10vw, 7.5rem); font-weight: 300; font-style: italic; line-height: 0.95;
+      background: linear-gradient(135deg, var(--cream) 0%, rgba(240,228,202,0.65) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero-h1b {
+      font-size: clamp(3.5rem, 10vw, 7.5rem); font-weight: 600; line-height: 0.95; margin-bottom: 2rem;
+      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, #a8863a 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero-sub { font-size: clamp(1rem, 1.8vw, 1.2rem); color: var(--cream-muted); font-weight: 300; margin-bottom: 3rem; }
+    .ctas { display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 600; letter-spacing: 0.05em;
+      padding: 1rem 2.2rem; border-radius: 50px; border: none; cursor: pointer;
+      transition: background var(--t), transform var(--t), box-shadow var(--t), border-color var(--t);
+    }
+    .btn-g { background: var(--gold); color: var(--deep); }
+    .btn-g:hover { background: var(--gold-light); transform: translateY(-3px); box-shadow: 0 15px 40px rgba(201,168,76,0.3); }
+    .btn-o { background: transparent; color: var(--cream); border: 1px solid rgba(240,228,202,0.25); font-weight: 400; }
+    .btn-o:hover { border-color: var(--cream); transform: translateY(-3px); }
+    .scroll-hint {
+      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem; z-index: 2;
+      animation: bob 2.5s ease-in-out infinite;
+    }
+    .scroll-hint span { font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--cream-muted); }
+    .scroll-hint-line { width: 1px; height: 50px; background: linear-gradient(to bottom, var(--gold), transparent); }
+    @keyframes bob { 0%,100% { transform:translateX(-50%) translateY(0); } 50% { transform:translateX(-50%) translateY(8px); } }
+    .wave { position: absolute; bottom: -1px; left: 0; right: 0; z-index: 3; }
+
+    /* ABOUT */
+    .about { padding: 120px 0; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .about-text h2 { font-size: clamp(2rem, 4vw, 3.4rem); margin-bottom: 1.5rem; }
+    .about-text p { color: var(--cream-muted); margin-bottom: 1.1rem; font-size: 1rem; }
+    .about-feats { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 0.9rem; }
+    .about-feat { display: flex; align-items: center; gap: 1rem; font-size: 0.95rem; }
+    .feat-icon {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.22);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1rem;
+    }
+    .about-card {
+      background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; padding: 3rem;
+      position: relative; overflow: hidden;
+    }
+    .about-card::before {
+      content:''; position: absolute; top:-70px; right:-70px; width:220px; height:220px; border-radius:50%;
+      background: radial-gradient(circle, rgba(201,168,76,0.09), transparent 70%);
+    }
+    .quote { font-family: 'Cormorant Garamond', serif; font-size: 1.75rem; font-style: italic; font-weight: 300; line-height: 1.45; margin-bottom: 2rem; }
+    .quote span { color: var(--gold); }
+    .highlights { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .hl {
+      padding: 1.1rem; background: rgba(201,168,76,0.06); border: 1px solid rgba(201,168,76,0.12);
+      border-radius: 10px; text-align: center;
+    }
+    .hl-icon { font-size: 1.4rem; margin-bottom: 0.4rem; }
+    .hl-text { font-size: 0.82rem; color: var(--cream-muted); }
+
+    /* AMENITIES */
+    .amenities {
+      padding: 120px 0;
+      background: linear-gradient(180deg, transparent 0%, rgba(15,45,40,0.25) 50%, transparent 100%);
+    }
+    .section-head { text-align: center; max-width: 600px; margin: 0 auto 5rem; }
+    .section-head h2 { font-size: clamp(2rem, 4vw, 3.4rem); margin-bottom: 1rem; }
+    .section-head p { color: var(--cream-muted); }
+    .am-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.5rem; }
+    .am-card {
+      background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--radius);
+      padding: 2.2rem 1.5rem; text-align: center;
+      transition: transform var(--t), border-color var(--t), box-shadow var(--t), background var(--t);
+    }
+    .am-card:hover {
+      transform: translateY(-8px); border-color: rgba(201,168,76,0.35);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 0 1px rgba(201,168,76,0.08);
+      background: rgba(201,168,76,0.04);
+    }
+    .am-icon { width: 52px; height: 52px; margin: 0 auto 1.2rem; color: var(--gold); }
+    .am-name { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; margin-bottom: 0.4rem; }
+    .am-desc { font-size: 0.82rem; color: var(--cream-muted); line-height: 1.5; }
+
+    /* VILLAS */
+    .villas { padding: 120px 0; }
+    .villa-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; }
+    .villa-card {
+      background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; overflow: hidden;
+      transition: transform var(--t), box-shadow var(--t);
+    }
+    .villa-card:hover { transform: translateY(-8px); box-shadow: 0 30px 70px rgba(0,0,0,0.4); }
+    .villa-img {
+      height: 220px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 0.5rem; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(255,255,255,0.35); border-bottom: 1px solid var(--card-border);
+    }
+    .villa-body { padding: 2rem; }
+    .villa-body h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .villa-body p { color: var(--cream-muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+    .villa-meta { display: flex; justify-content: space-between; align-items: center; padding-top: 1.2rem; border-top: 1px solid var(--card-border); }
+    .villa-price { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--gold); }
+    .villa-note {
+      background: rgba(201,168,76,0.07); border: 1px dashed rgba(201,168,76,0.3);
+      border-radius: var(--radius); padding: 1.5rem 2rem; margin-top: 3rem;
+      text-align: center; font-size: 0.88rem; color: var(--gold); line-height: 1.8;
+    }
+
+    /* EXCURSIONS */
+    .excursions {
+      padding: 120px 0;
+      background: linear-gradient(180deg, transparent 0%, rgba(13,35,54,0.45) 50%, transparent 100%);
+    }
+    .exc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .exc-content h2 { font-size: clamp(2rem, 4vw, 3.4rem); margin-bottom: 1.2rem; }
+    .exc-content p { color: var(--cream-muted); margin-bottom: 2rem; }
+    .tags { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-bottom: 2.5rem; }
+    .tag {
+      background: rgba(127,170,143,0.1); border: 1px solid rgba(127,170,143,0.22);
+      border-radius: 50px; padding: 0.4rem 1.1rem; font-size: 0.82rem; color: var(--sage);
+    }
+    .exc-imgs { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .exc-imgs > :first-child { grid-column: 1 / -1; }
+    .img-ph {
+      border-radius: var(--radius); height: 180px; display: flex; align-items: center; justify-content: center;
+      font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.3);
+      border: 1px solid var(--card-border);
+    }
+    .img-ph.tall { height: 240px; }
+
+    /* GALLERY */
+    .gallery { padding: 120px 0; }
+    .gal-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: 270px 270px; gap: 1rem; }
+    .gal-item { border-radius: var(--radius); overflow: hidden; cursor: pointer; }
+    .gal-item:first-child { grid-row: 1 / 3; }
+    .gal-ph {
+      width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 0.6rem; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(255,255,255,0.28); border: 1px solid var(--card-border);
+      transition: border-color var(--t);
+    }
+    .gal-item:hover .gal-ph { border-color: rgba(201,168,76,0.4); }
+    .gal-note { margin-top: 2rem; text-align: center; font-size: 0.85rem; color: var(--cream-muted); }
+    .gal-note strong { color: var(--gold); }
+
+    /* CONTACT */
+    .contact { padding: 120px 0; }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; }
+    .contact-info h2 { font-size: clamp(2rem, 4vw, 3.4rem); margin-bottom: 1.5rem; }
+    .contact-info > p { color: var(--cream-muted); margin-bottom: 2.5rem; }
+    .c-details { display: flex; flex-direction: column; gap: 1.2rem; }
+    .c-item { display: flex; align-items: center; gap: 1rem; }
+    .c-icon {
+      width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0;
+      background: rgba(201,168,76,0.09); border: 1px solid rgba(201,168,76,0.2);
+      display: flex; align-items: center; justify-content: center; color: var(--gold);
+    }
+    .c-lbl { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cream-muted); margin-bottom: 0.1rem; }
+    .c-val { font-size: 0.95rem; }
+    .c-val a { transition: color var(--t); }
+    .c-val a:hover { color: var(--gold); }
+    .socials { display: flex; gap: 0.8rem; margin-top: 2rem; }
+    .soc {
+      width: 44px; height: 44px; border-radius: 50%; background: var(--card-bg);
+      border: 1px solid var(--card-border); display: flex; align-items: center; justify-content: center;
+      color: var(--cream-muted); transition: color var(--t), border-color var(--t), transform var(--t);
+    }
+    .soc:hover { color: var(--gold); border-color: rgba(201,168,76,0.4); transform: translateY(-3px); }
+    .form-wrap { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; padding: 3rem; }
+    .form-wrap h3 { font-size: 1.7rem; margin-bottom: 2rem; }
+    .fg { margin-bottom: 1.4rem; }
+    .fg label { display: block; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cream-muted); margin-bottom: 0.5rem; }
+    .fg input, .fg textarea, .fg select {
+      width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px; padding: 0.85rem 1.1rem; color: var(--cream);
+      font-family: 'Inter', sans-serif; font-size: 0.95rem; outline: none; transition: border-color var(--t); -webkit-appearance: none;
+    }
+    .fg input:focus, .fg textarea:focus, .fg select:focus { border-color: rgba(201,168,76,0.5); }
+    .fg textarea { height: 110px; resize: vertical; }
+    .fg select option { background: var(--dark); }
+    .fg select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c9a84c' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; }
+    .frow { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .fsub {
+      width: 100%; background: var(--gold); color: var(--deep); font-family: 'Inter', sans-serif;
+      font-size: 0.9rem; font-weight: 600; letter-spacing: 0.05em; padding: 1.1rem; border-radius: 8px;
+      border: none; cursor: pointer; margin-top: 0.5rem; transition: background var(--t), transform var(--t);
+    }
+    .fsub:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+    /* FOOTER */
+    footer { padding: 3rem 0; border-top: 1px solid var(--card-border); }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .f-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--cream-muted); }
+    .f-logo span { color: var(--gold); }
+    .f-tag { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--gold); }
+    .f-copy { font-size: 0.82rem; color: var(--cream-muted); }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) { .am-grid { grid-template-columns: repeat(2,1fr); } .villa-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex; flex-direction: column; position: fixed; inset: 0;
+        background: rgba(7,26,43,0.97); align-items: center; justify-content: center;
+        gap: 2rem; font-size: 1.1rem; z-index: 999;
+      }
+      .burger { display: flex; }
+      .about-grid, .exc-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .villa-grid { grid-template-columns: 1fr; }
+      .gal-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+      .gal-item:first-child { grid-row: auto; grid-column: 1 / -1; }
+      .frow { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; text-align: center; }
+      .highlights { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) { .am-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#home" class="nav-logo">Villas <span>Macondo</span></a>
+  <ul class="nav-links" id="nl">
+    <li><a href="#home" onclick="cm()">Home</a></li>
+    <li><a href="#about" onclick="cm()">About</a></li>
+    <li><a href="#amenities" onclick="cm()">Amenities</a></li>
+    <li><a href="#excursions" onclick="cm()">Excursions</a></li>
+    <li><a href="#contact" onclick="cm()">Contact</a></li>
+    <li><a href="https://wa.me/50660249108" target="_blank" class="nav-cta" onclick="cm()">Book Now</a></li>
+  </ul>
+  <div class="burger" id="burger" onclick="tm()"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-glow" id="glow"></div>
+  <div class="particles" id="pts"></div>
+
+  <div class="hero-content" id="hc">
+    <div class="hero-eye">Tamarindo · Costa Rica</div>
+    <h1 class="hero-h1a">Life is a</h1>
+    <h1 class="hero-h1b">Holiday</h1>
+    <p class="hero-sub">Boutique hotel nestled 200 meters from the beach · Nature, surf &amp; pure Pura Vida</p>
+    <div class="ctas">
+      <a href="https://wa.me/50660249108" target="_blank" class="btn btn-g">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        Book via WhatsApp
+      </a>
+      <a href="#about" class="btn btn-o">
+        Discover More
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-hint-line"></div>
+  </div>
+
+  <svg class="wave" viewBox="0 0 1440 60" fill="none" preserveAspectRatio="none" style="height:60px">
+    <path d="M0,30 C240,60 480,0 720,30 C960,60 1200,0 1440,30 L1440,60 L0,60 Z" fill="#071a2b"/>
+  </svg>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text reveal-l">
+        <span class="label">Our Story</span>
+        <h2>Where <span class="gold">Nature</span> Meets<br>Pure Comfort</h2>
+        <p>Villas Macondo is a boutique hotel built around a lush pool oasis, just 200 meters from world-famous Tamarindo beach — where Costa Rica's best surf meets breathtaking Pacific sunsets.</p>
+        <p>Wake up to the singing of tropical birds and howler monkeys echoing through the trees. Here, every morning reminds you that you are exactly where you should be.</p>
+        <p>Whether you're here to surf, explore, or simply breathe, Villas Macondo is your base camp for the Pura Vida life.</p>
+        <div class="about-feats">
+          <div class="about-feat"><div class="feat-icon">📍</div><span>200 meters from Tamarindo Beach</span></div>
+          <div class="about-feat"><div class="feat-icon">🌊</div><span>World-class surf &amp; Pacific sunsets</span></div>
+          <div class="about-feat"><div class="feat-icon">🐒</div><span>Wake up to birds &amp; howler monkeys</span></div>
+          <div class="about-feat"><div class="feat-icon">🌍</div><span>Multicultural Tamarindo community</span></div>
+        </div>
+      </div>
+      <div class="reveal-r">
+        <div class="about-card">
+          <p class="quote">"Built around the pool, with ample space, green areas, sun and <span>shade</span>."</p>
+          <div class="highlights">
+            <div class="hl"><div class="hl-icon">🏊</div><div class="hl-text">Pool &amp; Gardens</div></div>
+            <div class="hl"><div class="hl-icon">🏄</div><div class="hl-text">Beach 200m Away</div></div>
+            <div class="hl"><div class="hl-icon">🌅</div><div class="hl-text">Pacific Sunsets</div></div>
+            <div class="hl"><div class="hl-icon">🌿</div><div class="hl-text">Tropical Nature</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AMENITIES -->
+<section class="amenities" id="amenities">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="label">What We Offer</span>
+      <h2>Everything You <span class="gold">Need</span></h2>
+      <p>From the moment you arrive, everything is in place so you can focus on what matters — living your best holiday.</p>
+    </div>
+    <div class="am-grid">
+
+      <div class="am-card reveal" style="transition-delay:.05s">
+        <svg class="am-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+          <path d="M3 12c1.5-3 3.5-3 5 0s3.5 3 5 0 3.5-3 5 0"/>
+          <path d="M3 17c1.5-3 3.5-3 5 0s3.5 3 5 0 3.5-3 5 0"/>
+          <line x1="3" y1="7" x2="21" y2="7"/>
+        </svg>
+        <div class="am-name">Adult Pool</div>
+        <div class="am-desc">Main pool surrounded by tropical gardens with sun and shade areas</div>
+      </div>
+
+      <div class="am-card reveal" style="transition-delay:.1s">
+        <svg class="am-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+          <circle cx="12" cy="10" r="4"/>
+          <path d="M3 17c1.5-3 3.5-3 5 0s3.5 3 5 0 3.5-3 5 0"/>
+          <path d="M12 6V3M8.5 7.5L6.5 5.5M15.5 7.5L17.5 5.5"/>
+        </svg>
+        <div class="am-name">Kids Pool</div>
+        <div class="am-desc">Shallow pool designed so the little ones can splash safely</div>
+      </div>
+
+      <div class="am-card reveal" style="transition-delay:.15s">
+        <svg class="am-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+          <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>
+        </svg>
+        <div class="am-name">BBQ Area</div>
+        <div class="am-desc">Parrilla area perfect for sunset cookouts with family and friends</div>
+      </div>
+
+      <div class="am-card reveal" style="transition-delay:.2s">
+        <svg class="am-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+          <path d="M1.42 9a16 16 0 0 1 21.16 0M5 12.55a11 11 0 0 1 14.08 0M10.54 16.1a6 6 0 0 1 2.92 0"/>
+          <circle cx="12" cy="20" r="1" fill="currentColor"/>
+        </svg>
+        <div class="am-name">Free WiFi</div>
+        <div class="am-desc">High-speed internet throughout the property, always included</div>
+      </div>
+
+      <div class="am-card reveal" style="transition-delay:.25s">
+        <svg class="am-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+          <rect x="1" y="3" width="15" height="13" rx="2"/>
+          <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
+          <circle cx="5.5" cy="18.5" r="2.5"/>
+          <circle cx="18.5" cy="18.5" r="2.5"/>
+        </svg>
+        <div class="am-name">Free Parking</div>
+        <div class="am-desc">Secure on-site parking for your vehicle at no extra cost</div>
+      </div>
+
+      <div class="am-card reveal" style="transition-delay:.3s">
+        <svg class="am-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+          <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/>
+          <path d="M7 2v20M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/>
+        </svg>
+        <div class="am-name">Kitchen</div>
+        <div class="am-desc">Fully equipped kitchens for self-catering — private or shared options</div>
+      </div>
+
+      <div class="am-card reveal" style="transition-delay:.35s">
+        <svg class="am-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+          <path d="M4 8c0 0 2-2 8-2s8 2 8 2"/>
+          <path d="M6 8v8a6 6 0 0 0 12 0V8"/>
+          <line x1="12" y1="6" x2="12" y2="3"/>
+          <line x1="8" y1="3" x2="16" y2="3"/>
+        </svg>
+        <div class="am-name">Hammocks</div>
+        <div class="am-desc">Relax in our hammocks nestled among lush tropical greenery</div>
+      </div>
+
+      <div class="am-card reveal" style="transition-delay:.4s">
+        <svg class="am-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+          <path d="M12 2v4M4.93 4.93l2.83 2.83M2 12h4M4.93 19.07l2.83-2.83M12 22v-4M19.07 19.07l-2.83-2.83M22 12h-4M19.07 4.93l-2.83 2.83"/>
+          <circle cx="12" cy="12" r="3"/>
+        </svg>
+        <div class="am-name">Play Area &amp; Outdoor Shower</div>
+        <div class="am-desc">Kids play zone and refreshing outdoor shower for after the beach</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- VILLAS -->
+<section class="villas" id="villas">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="label">Accommodations</span>
+      <h2>Our <span class="gold">Villas</span></h2>
+      <p>Each space at Villas Macondo is designed to feel like home — with the warmth of the tropics and all the comfort you deserve.</p>
+    </div>
+    <div class="villa-grid">
+
+      <div class="villa-card reveal" style="transition-delay:.1s">
+        <div class="villa-img" style="background:linear-gradient(135deg,#0d2d3a,#1a3829)">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1" opacity="0.3"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          [ Tu Foto Aquí ]
+        </div>
+        <div class="villa-body">
+          <h3>[Nombre de Villa]</h3>
+          <p>[Descripción: capacidad, tipo de cama, características únicas de esta villa...]</p>
+          <div class="villa-meta">
+            <div class="villa-price">[PRECIO]<small style="font-size:.75rem;color:var(--cream-muted)"> /noche</small></div>
+            <a href="https://wa.me/50660249108" target="_blank" class="btn btn-g" style="padding:.55rem 1.3rem;font-size:.82rem">Book</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="villa-card reveal" style="transition-delay:.2s">
+        <div class="villa-img" style="background:linear-gradient(135deg,#1a2d1a,#0d3028)">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1" opacity="0.3"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          [ Tu Foto Aquí ]
+        </div>
+        <div class="villa-body">
+          <h3>[Nombre de Villa]</h3>
+          <p>[Descripción: capacidad, tipo de cama, características únicas de esta villa...]</p>
+          <div class="villa-meta">
+            <div class="villa-price">[PRECIO]<small style="font-size:.75rem;color:var(--cream-muted)"> /noche</small></div>
+            <a href="https://wa.me/50660249108" target="_blank" class="btn btn-g" style="padding:.55rem 1.3rem;font-size:.82rem">Book</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="villa-card reveal" style="transition-delay:.3s">
+        <div class="villa-img" style="background:linear-gradient(135deg,#2d1a0d,#3a1f0a)">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1" opacity="0.3"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          [ Tu Foto Aquí ]
+        </div>
+        <div class="villa-body">
+          <h3>[Nombre de Villa]</h3>
+          <p>[Descripción: capacidad, tipo de cama, características únicas de esta villa...]</p>
+          <div class="villa-meta">
+            <div class="villa-price">[PRECIO]<small style="font-size:.75rem;color:var(--cream-muted)"> /noche</small></div>
+            <a href="https://wa.me/50660249108" target="_blank" class="btn btn-g" style="padding:.55rem 1.3rem;font-size:.82rem">Book</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="villa-note reveal">
+      ⚠️ Esta sección necesita los <strong>nombres, descripciones, precios y fotos</strong> de tus villas reales.<br>
+      Dile a Claude Code: <em>"Mis villas son: [describe cada una con precio y fotos]"</em>
+    </div>
+  </div>
+</section>
+
+<!-- EXCURSIONS -->
+<section class="excursions" id="excursions">
+  <div class="container">
+    <div class="exc-grid">
+      <div class="exc-content reveal-l">
+        <span class="label">Adventures</span>
+        <h2>Beyond the <span class="gold">Beach</span></h2>
+        <p>Tamarindo is just the beginning. We connect you with the best local guides for curated excursions — from surf lessons and zip-lining to wildlife tours and jungle hikes.</p>
+        <div class="tags">
+          <span class="tag">🏄 Surf Lessons</span>
+          <span class="tag">🐢 Sea Turtle Tours</span>
+          <span class="tag">🌿 Jungle Hikes</span>
+          <span class="tag">🛶 Kayaking</span>
+          <span class="tag">🤿 Snorkeling</span>
+          <span class="tag">🏔️ Zip-lining</span>
+          <span class="tag">🐊 Crocodile Tours</span>
+          <span class="tag">🌊 Sport Fishing</span>
+        </div>
+        <a href="https://wa.me/50660249108" target="_blank" class="btn btn-g">Ask About Excursions</a>
+      </div>
+      <div class="exc-imgs reveal-r">
+        <div><div class="img-ph tall" style="background:linear-gradient(135deg,#0a2235,#1a3829)">[ Foto Surf / Playa ]</div></div>
+        <div><div class="img-ph" style="background:linear-gradient(135deg,#071a2b,#1a2d1a)">[ Foto Naturaleza ]</div></div>
+        <div><div class="img-ph" style="background:linear-gradient(135deg,#2d1a0d,#1a1a2d)">[ Foto Excursión ]</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery" id="gallery">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="label">Gallery</span>
+      <h2>Life at <span class="gold">Villas Macondo</span></h2>
+      <p>Every corner was designed to be experienced — and photographed.</p>
+    </div>
+    <div class="gal-grid">
+      <div class="gal-item reveal" style="transition-delay:.05s">
+        <div class="gal-ph" style="background:linear-gradient(160deg,#071a2b,#1a3829,#0d3028)">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          Tu Foto Aquí
+        </div>
+      </div>
+      <div class="gal-item reveal" style="transition-delay:.1s">
+        <div class="gal-ph" style="background:linear-gradient(135deg,#0d2336,#0f2d3a)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          Tu Foto Aquí
+        </div>
+      </div>
+      <div class="gal-item reveal" style="transition-delay:.15s">
+        <div class="gal-ph" style="background:linear-gradient(135deg,#1a2d1a,#1a3829)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          Tu Foto Aquí
+        </div>
+      </div>
+      <div class="gal-item reveal" style="transition-delay:.2s">
+        <div class="gal-ph" style="background:linear-gradient(135deg,#2d1a0d,#3a200d)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          Tu Foto Aquí
+        </div>
+      </div>
+      <div class="gal-item reveal" style="transition-delay:.25s">
+        <div class="gal-ph" style="background:linear-gradient(135deg,#1a0d2d,#2d1a3a)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          Tu Foto Aquí
+        </div>
+      </div>
+    </div>
+    <p class="gal-note reveal">📸 <strong>Faltan tus fotos.</strong> Ponlas en una carpeta <strong>assets/</strong> y dile a Claude Code que actualice la galería.</p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="reveal-l">
+        <span class="label">Get in Touch</span>
+        <h2>Ready for Your <span class="gold">Holiday?</span></h2>
+        <p>We're here to help you plan the perfect stay. WhatsApp is the fastest way to reach us.</p>
+        <div class="c-details">
+          <div class="c-item">
+            <div class="c-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+            </div>
+            <div><div class="c-lbl">WhatsApp</div><div class="c-val"><a href="https://wa.me/50660249108" target="_blank">+506 6024-9108</a></div></div>
+          </div>
+          <div class="c-item">
+            <div class="c-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div><div class="c-lbl">Email</div><div class="c-val"><a href="mailto:info@villasmacondo.com">info@villasmacondo.com</a></div></div>
+          </div>
+          <div class="c-item">
+            <div class="c-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 0 0-8 8c0 5.4 7.05 11.5 7.35 11.76a1 1 0 0 0 1.3 0C13 21.5 20 15.4 20 10a8 8 0 0 0-8-8z"/></svg>
+            </div>
+            <div><div class="c-lbl">Location</div><div class="c-val">Tamarindo, Guanacaste, Costa Rica</div></div>
+          </div>
+        </div>
+        <div class="socials">
+          <a href="[TU URL FACEBOOK]" target="_blank" class="soc" aria-label="Facebook">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="[TU URL INSTAGRAM]" target="_blank" class="soc" aria-label="Instagram">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="form-wrap reveal-r">
+        <h3>Send a Message</h3>
+        <form id="cf">
+          <div class="frow">
+            <div class="fg"><label>Name</label><input type="text" id="fn" placeholder="Your name" required></div>
+            <div class="fg"><label>Email</label><input type="email" id="fe" placeholder="your@email.com" required></div>
+          </div>
+          <div class="frow">
+            <div class="fg"><label>Check-in</label><input type="date" id="fi"></div>
+            <div class="fg"><label>Check-out</label><input type="date" id="fo"></div>
+          </div>
+          <div class="fg">
+            <label>Guests</label>
+            <select id="fg">
+              <option value="">Select guests</option>
+              <option>1 guest</option><option>2 guests</option><option>3 guests</option>
+              <option>4 guests</option><option>5+ guests</option>
+            </select>
+          </div>
+          <div class="fg"><label>Message</label><textarea id="fm" placeholder="Tell us about your stay..."></textarea></div>
+          <button type="submit" class="fsub">Send via WhatsApp ↗</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="f-logo">Villas <span>Macondo</span></div>
+      <div class="f-tag">"Life is a Holiday"</div>
+      <div class="f-copy">© 2026 Villas Macondo · Tamarindo, Costa Rica</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// NAV
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', scrollY > 50); }, {passive:true});
+function tm() { document.getElementById('nl').classList.toggle('open'); }
+function cm() { document.getElementById('nl').classList.remove('open'); }
+
+// PARTICLES
+(function(){
+  const c = document.getElementById('pts');
+  for(let i=0;i<28;i++){
+    const p = document.createElement('div');
+    p.className = 'p';
+    const s = 2 + Math.random()*3;
+    p.style.cssText = `left:${Math.random()*100}%;bottom:-10px;width:${s}px;height:${s}px;animation-duration:${8+Math.random()*12}s;animation-delay:${Math.random()*10}s`;
+    c.appendChild(p);
+  }
+})();
+
+// INTERSECTION OBSERVER
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('on'); obs.unobserve(e.target); } });
+}, {threshold: 0.1, rootMargin: '0px 0px -40px 0px'});
+document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el => obs.observe(el));
+
+// PARALLAX
+let tick = false;
+window.addEventListener('scroll', () => {
+  if(!tick){ requestAnimationFrame(() => {
+    const y = scrollY;
+    const hc = document.getElementById('hc');
+    const gl = document.getElementById('glow');
+    if(hc) hc.style.transform = `translateY(${y*0.22}px)`;
+    if(gl) gl.style.transform = `translate(-50%, calc(-50% + ${y*0.1}px))`;
+    tick = false;
+  }); tick = true; }
+}, {passive:true});
+
+// SMOOTH SCROLL
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if(t){ e.preventDefault(); t.scrollIntoView({behavior:'smooth'}); }
+  });
+});
+
+// CONTACT FORM → WHATSAPP
+document.getElementById('cf').addEventListener('submit', e => {
+  e.preventDefault();
+  const n = document.getElementById('fn').value;
+  const em = document.getElementById('fe').value;
+  const ci = document.getElementById('fi').value;
+  const co = document.getElementById('fo').value;
+  const g = document.getElementById('fg').value;
+  const m = document.getElementById('fm').value;
+  const txt = `Hello Villas Macondo! 🌴\n\nName: ${n}\nEmail: ${em}\nCheck-in: ${ci||'TBD'}\nCheck-out: ${co||'TBD'}\nGuests: ${g||'TBD'}${m?'\nMessage: '+m:''}`;
+  window.open(`https://wa.me/50660249108?text=${encodeURIComponent(txt)}`,'_blank');
+});
+</script>
+</body>
+</html>
