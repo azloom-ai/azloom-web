@@ -1,0 +1,8 @@
+<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" width="64" height="64">
+  <rect width="64" height="64" rx="12" fill="#0F0F1A"/>
+  <text text-anchor="middle" x="32" y="46"
+    font-family="system-ui,-apple-system,sans-serif"
+    font-size="38" font-weight="600" letter-spacing="1">
+    <tspan fill="#F8F8FF">A</tspan><tspan fill="#7C5CFC">Z</tspan>
+  </text>
+</svg>
