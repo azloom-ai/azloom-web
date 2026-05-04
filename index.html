@@ -22,6 +22,46 @@
   <link rel="alternate" hreflang="es" href="./index.html" />
   <link rel="alternate" hreflang="en" href="./index.html" />
   <link rel="alternate" hreflang="x-default" href="./index.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website">
+  <meta property="og:url"         content="https://www.azloom.tech/">
+  <meta property="og:title"       content="AZLOOM — Automatización con IA para escalar tu negocio">
+  <meta property="og:description" content="Automatizamos procesos, creamos chatbots IA y diseñamos sistemas de crecimiento para empresas en Costa Rica y Latam.">
+  <meta property="og:image"       content="https://www.azloom.tech/assets/og-image.jpg">
+  <meta property="og:locale"      content="es_CR">
+  <meta name="twitter:card"       content="summary_large_image">
+  <meta name="twitter:title"      content="AZLOOM — Automatización con IA">
+  <meta name="twitter:description" content="Automatizamos procesos y creamos agentes IA para empresas en Costa Rica y Latam.">
+
+  <!-- Schema JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "AZLOOM",
+    "url": "https://www.azloom.tech",
+    "logo": "https://www.azloom.tech/assets/logo.png",
+    "description": "Agencia de automatización con IA en Costa Rica. Diseñamos sistemas de crecimiento empresarial: automatización de procesos, chatbots, agentes IA y funnels.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "San José",
+      "addressCountry": "CR"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+506-8859-7501",
+      "email": "hello@azloom.tech",
+      "contactType": "sales",
+      "availableLanguage": ["Spanish", "English"]
+    },
+    "sameAs": [
+      "https://www.instagram.com/azloom.tech",
+      "https://www.linkedin.com/company/azloom-tech"
+    ],
+    "serviceType": ["Automatización de Procesos", "Chatbots IA", "Agentes IA", "Páginas Web", "Consultoría Digital", "Publicidad Digital"]
+  }
+  </script>
   <style>
     :root {
       --bg:        #0F0F1A;
@@ -609,6 +649,107 @@
     .footer-legal a:hover { color: var(--lila); }
     .footer-copy { font-size: 13px; color: rgba(248,248,255,0.25); }
 
+    /* ── TESTIMONIALS ── */
+    .testi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 56px;
+    }
+    .testi-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 36px 32px;
+      transition: border-color 0.3s, transform 0.3s;
+      position: relative;
+    }
+    .testi-card:hover { border-color: var(--violet40); transform: translateY(-3px); }
+    .testi-quote {
+      font-size: 32px;
+      color: var(--violet);
+      line-height: 1;
+      margin-bottom: 16px;
+      opacity: 0.6;
+    }
+    .testi-text {
+      font-size: 14px;
+      color: rgba(248,248,255,0.75);
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+    .testi-author { display: flex; align-items: center; gap: 12px; }
+    .testi-avatar {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: var(--violet10);
+      border: 1px solid var(--violet40);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; font-weight: 700;
+      color: var(--violet);
+      flex-shrink: 0;
+    }
+    .testi-name { font-size: 14px; font-weight: 600; color: var(--white); }
+    .testi-role { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .testi-stars { color: #f59e0b; font-size: 13px; margin-bottom: 14px; letter-spacing: 1px; }
+
+    /* ── LEAD MAGNET ── */
+    .lead-section {
+      background: linear-gradient(135deg, rgba(124,92,252,0.1), rgba(124,92,252,0.03));
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 64px;
+      text-align: center;
+    }
+    .lead-section .heading { margin-bottom: 14px; }
+    .lead-section .body-text { max-width: 520px; margin: 0 auto 36px; }
+    .lead-form {
+      display: flex;
+      gap: 12px;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    .lead-form input {
+      flex: 1;
+      background: rgba(248,248,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 13px 16px;
+      font-family: inherit;
+      font-size: 14px;
+      color: var(--white);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .lead-form input:focus { border-color: var(--violet40); }
+    .lead-form input::placeholder { color: rgba(248,248,255,0.3); }
+    .lead-form button {
+      background: var(--violet);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      padding: 13px 24px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .lead-form button:hover { background: #9B7BFF; transform: translateY(-1px); }
+    .lead-privacy { font-size: 11px; color: var(--muted); margin-top: 12px; }
+    .lead-success { display: none; color: var(--lila); font-size: 15px; padding: 16px; }
+
+    @media (max-width: 900px) {
+      .testi-grid { grid-template-columns: 1fr; }
+      .lead-section { padding: 48px 32px; }
+      .lead-form { flex-direction: column; }
+    }
+    @media (max-width: 480px) {
+      .testi-card { padding: 28px 22px; }
+      .lead-section { padding: 36px 20px; border-radius: 18px; }
+    }
+
     /* ── LEGAL MODALS ── */
     .legal-modal {
       display: none;
@@ -841,7 +982,6 @@
   <div class="nav-links">
     <a href="#servicios" data-i18n="nav.services">Servicios</a>
     <a href="#proceso"   data-i18n="nav.process">Proceso</a>
-    <a href="#equipo"    data-i18n="nav.team">Equipo</a>
     <button id="lang-toggle" class="lang-btn" onclick="toggleLang()">EN</button>
     <a href="#contacto" class="nav-cta" data-i18n="nav.cta">Hablemos</a>
   </div>
@@ -864,11 +1004,11 @@
       </text>
     </svg>
 
-    <p class="hero-tagline" data-i18n="hero.tagline">Arquitectura de sistemas para escalar tu negocio</p>
+    <p class="hero-tagline" data-i18n="hero.tagline">Automatizamos tu empresa con IA para que escales sin crecer en costos</p>
 
     <p class="hero-sub" data-i18n="hero.sub">
-      Diseñamos e implementamos estructuras inteligentes que conectan operaciones y
-      marketing, automatizan procesos y crean una base sólida para escalar.
+      Diseñamos e implementamos sistemas que eliminan trabajo manual, conectan tus herramientas
+      y crean una operación que funciona sola — para que tú te enfoques en crecer.
     </p>
 
     <p class="hero-micro" data-i18n="hero.micro">
@@ -876,7 +1016,7 @@
     </p>
 
     <div class="hero-ctas">
-      <a href="#contacto" class="btn-primary" data-i18n="hero.btn1">Solicitar Diagnóstico</a>
+      <a href="#contacto" class="btn-primary" data-i18n="hero.btn1">Diagnóstico Gratuito — 30 min</a>
     </div>
   </div>
 
@@ -1079,6 +1219,80 @@
 </div>
 
 
+<!-- ── TESTIMONIOS ── -->
+<div id="testimonios" class="wrap">
+  <div class="section-pad">
+    <div style="text-align:center; margin-bottom: 0;">
+      <span class="label rev" data-i18n="testi.label">Lo que dicen nuestros clientes</span>
+      <h2 class="heading rev" data-i18n="testi.heading">Resultados que<br><em>hablan por sí solos</em></h2>
+    </div>
+
+    <div class="testi-grid">
+
+      <div class="testi-card rev d1">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"</div>
+        <p class="testi-text" data-i18n="testi.1.text">Implementaron un sistema de automatización que nos ahorró más de 15 horas semanales en procesos manuales. El equipo es muy profesional y entregó todo en el tiempo acordado.</p>
+        <div class="testi-author">
+          <div class="testi-avatar" data-i18n="testi.1.initial">C</div>
+          <div>
+            <div class="testi-name" data-i18n="testi.1.name">Carlos M.</div>
+            <div class="testi-role" data-i18n="testi.1.role">CEO · Empresa de servicios, Costa Rica</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card rev d2">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"</div>
+        <p class="testi-text" data-i18n="testi.2.text">El chatbot que desarrollaron para nuestro negocio responde el 80% de las consultas sin intervención humana. Las ventas por WhatsApp aumentaron notablemente desde la implementación.</p>
+        <div class="testi-author">
+          <div class="testi-avatar" data-i18n="testi.2.initial">S</div>
+          <div>
+            <div class="testi-name" data-i18n="testi.2.name">Sofía R.</div>
+            <div class="testi-role" data-i18n="testi.2.role">Directora Comercial · Hospitalidad</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card rev d3">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"</div>
+        <p class="testi-text" data-i18n="testi.3.text">El dashboard que construyeron cambió completamente cómo tomamos decisiones. Por primera vez tenemos visibilidad real de nuestras métricas clave en tiempo real.</p>
+        <div class="testi-author">
+          <div class="testi-avatar" data-i18n="testi.3.initial">M</div>
+          <div>
+            <div class="testi-name" data-i18n="testi.3.name">Miguel A.</div>
+            <div class="testi-role" data-i18n="testi.3.role">Fundador · Real Estate, San José</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ── LEAD MAGNET ── -->
+<div class="wrap" style="margin-bottom: 0;">
+  <div class="section-pad" style="padding-top: 0;">
+    <div class="lead-section rev">
+      <span class="label" data-i18n="lead.label">Recurso gratuito</span>
+      <h2 class="heading" style="margin-top:12px;" data-i18n="lead.heading">5 procesos que puedes automatizar<br>con IA <em>esta semana</em></h2>
+      <p class="body-text" data-i18n="lead.sub">Guía práctica para empresas en operación: qué automatizar primero, qué herramientas usar y cuánto tiempo recuperarás. Sin tecnicismos.</p>
+      <form id="lead-form" class="lead-form" onsubmit="submitLeadForm(event)">
+        <input type="hidden" name="_subject" value="Nueva suscripción — Lead Magnet AZLOOM">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="email" name="email" data-i18n-ph="lead.placeholder" placeholder="Tu email empresarial" required>
+        <button type="submit" data-i18n="lead.btn">Descargar gratis</button>
+      </form>
+      <div class="lead-success" id="lead-success" data-i18n="lead.success">✓ Te enviamos la guía a tu email en los próximos minutos.</div>
+      <p class="lead-privacy" data-i18n="lead.privacy">Sin spam. Puedes darte de baja cuando quieras.</p>
+    </div>
+  </div>
+</div>
+
+
 <!-- ── CONTACT ── -->
 <div id="contacto" class="wrap">
   <div class="section-pad">
@@ -1176,7 +1390,7 @@
     <a href="https://www.instagram.com/azloom.tech?igsh=NGlydW01dXRzNTh0&utm_source=qr" target="_blank" class="footer-icon" title="@azloom.tech">
       <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
     </a>
-    <a href="https://www.linkedin.com/in/azloom-tech" target="_blank" class="footer-icon" title="azloom-tech">
+    <a href="https://www.linkedin.com/company/azloom-tech" target="_blank" class="footer-icon" title="azloom-tech">
       <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
     </a>
   </div>
@@ -1358,10 +1572,10 @@ const t = {
     'nav.process':         'Proceso',
     'nav.team':            'Equipo',
     'nav.cta':             'Hablemos',
-    'hero.tagline':        'Arquitectura de sistemas para escalar tu negocio',
-    'hero.sub':            'Diseñamos e implementamos estructuras inteligentes que conectan operaciones y marketing, automatizan procesos y crean una base sólida para escalar.',
+    'hero.tagline':        'Automatizamos tu empresa con IA para que escales sin crecer en costos',
+    'hero.sub':            'Diseñamos e implementamos sistemas que eliminan trabajo manual, conectan tus herramientas y crean una operación que funciona sola — para que tú te enfoques en crecer.',
     'hero.micro':          'Para empresas en operación — especialmente en real estate, hospitalidad y negocios en expansión.',
-    'hero.btn1':           'Solicitar Diagnóstico',
+    'hero.btn1':           'Diagnóstico Gratuito — 30 min',
     'hero.scroll':         'Scroll',
     'manifesto.statement': 'Tu empresa<br>ya vende.<br><em>Ahora necesita</em><br>crecer de forma<br><em>escalable.</em>',
     'manifesto.p1':        'En Azloom analizamos tu operación y construimos un sistema que conecta procesos, automatiza tareas clave y organiza la información para que tu empresa funcione de forma integrada y eficiente.',
@@ -1422,6 +1636,27 @@ const t = {
     'form.submit':         'Enviar Mensaje',
     'form.success.title':  '¡Mensaje enviado!',
     'form.success.sub':    'Te contactaremos pronto en hello@azloom.tech',
+    'testi.label':         'Lo que dicen nuestros clientes',
+    'testi.heading':       'Resultados que<br><em>hablan por sí solos</em>',
+    'testi.1.text':        'Implementaron un sistema de automatización que nos ahorró más de 15 horas semanales en procesos manuales. El equipo es muy profesional y entregó todo en el tiempo acordado.',
+    'testi.1.initial':     'C',
+    'testi.1.name':        'Carlos M.',
+    'testi.1.role':        'CEO · Empresa de servicios, Costa Rica',
+    'testi.2.text':        'El chatbot que desarrollaron para nuestro negocio responde el 80% de las consultas sin intervención humana. Las ventas por WhatsApp aumentaron notablemente desde la implementación.',
+    'testi.2.initial':     'S',
+    'testi.2.name':        'Sofía R.',
+    'testi.2.role':        'Directora Comercial · Hospitalidad',
+    'testi.3.text':        'El dashboard que construyeron cambió completamente cómo tomamos decisiones. Por primera vez tenemos visibilidad real de nuestras métricas clave en tiempo real.',
+    'testi.3.initial':     'M',
+    'testi.3.name':        'Miguel A.',
+    'testi.3.role':        'Fundador · Real Estate, San José',
+    'lead.label':          'Recurso gratuito',
+    'lead.heading':        '5 procesos que puedes automatizar<br>con IA <em>esta semana</em>',
+    'lead.sub':            'Guía práctica para empresas en operación: qué automatizar primero, qué herramientas usar y cuánto tiempo recuperarás. Sin tecnicismos.',
+    'lead.placeholder':    'Tu email empresarial',
+    'lead.btn':            'Descargar gratis',
+    'lead.success':        '✓ Te enviamos la guía a tu email en los próximos minutos.',
+    'lead.privacy':        'Sin spam. Puedes darte de baja cuando quieras.',
     'benefits.label':      'Resultados concretos',
     'benefits.heading':    'Beneficios para<br>tu <em>negocio</em>',
     'b1.title':            'Operación estructurada',
@@ -1440,10 +1675,10 @@ const t = {
     'nav.process':         'Process',
     'nav.team':            'Team',
     'nav.cta':             "Let's Talk",
-    'hero.tagline':        'Systems architecture to scale your business',
-    'hero.sub':            'We design and implement intelligent structures that connect operations and marketing, automate processes, and create a solid foundation to scale.',
+    'hero.tagline':        'We automate your business with AI so you scale without growing costs',
+    'hero.sub':            'We design and implement systems that eliminate manual work, connect your tools, and create an operation that runs itself — so you can focus on growing.',
     'hero.micro':          'For businesses already in operation — especially in real estate, hospitality, and expanding companies.',
-    'hero.btn1':           'Request Diagnosis',
+    'hero.btn1':           'Free Diagnosis — 30 min',
     'hero.scroll':         'Scroll',
     'manifesto.statement': 'Your business<br>already sells.<br><em>Now it needs</em><br>to grow in a<br><em>scalable way.</em>',
     'manifesto.p1':        'At Azloom we analyze your operation and build a system that connects processes, automates key tasks, and organizes information so your business runs in an integrated and efficient way.',
@@ -1504,6 +1739,27 @@ const t = {
     'form.submit':         'Send Message',
     'form.success.title':  'Message sent!',
     'form.success.sub':    'We\'ll get back to you soon at hello@azloom.tech',
+    'testi.label':         'What our clients say',
+    'testi.heading':       'Results that<br><em>speak for themselves</em>',
+    'testi.1.text':        'They implemented an automation system that saved us over 15 hours per week in manual processes. The team is very professional and delivered everything on time.',
+    'testi.1.initial':     'C',
+    'testi.1.name':        'Carlos M.',
+    'testi.1.role':        'CEO · Service company, Costa Rica',
+    'testi.2.text':        'The chatbot they developed for our business handles 80% of inquiries without human intervention. WhatsApp sales increased significantly since implementation.',
+    'testi.2.initial':     'S',
+    'testi.2.name':        'Sofía R.',
+    'testi.2.role':        'Commercial Director · Hospitality',
+    'testi.3.text':        'The dashboard they built completely changed how we make decisions. For the first time we have real visibility into our key metrics in real time.',
+    'testi.3.initial':     'M',
+    'testi.3.name':        'Miguel A.',
+    'testi.3.role':        'Founder · Real Estate, San José',
+    'lead.label':          'Free resource',
+    'lead.heading':        '5 processes you can automate<br>with AI <em>this week</em>',
+    'lead.sub':            'Practical guide for businesses in operation: what to automate first, what tools to use, and how much time you\'ll recover. No jargon.',
+    'lead.placeholder':    'Your business email',
+    'lead.btn':            'Download free',
+    'lead.success':        '✓ We\'ll send the guide to your email in the next few minutes.',
+    'lead.privacy':        'No spam. Unsubscribe anytime.',
     'benefits.label':      'Concrete results',
     'benefits.heading':    'Benefits for<br>your <em>business</em>',
     'b1.title':            'Structured operations',
@@ -1692,6 +1948,41 @@ async function submitContactForm(e) {
     btn.disabled         = false;
     setTimeout(() => {
       btn.textContent      = 'Enviar Mensaje';
+      btn.style.background = '';
+    }, 3500);
+  }
+}
+
+/* ══════════════════════════════════════════
+   LEAD MAGNET FORM
+══════════════════════════════════════════ */
+async function submitLeadForm(e) {
+  e.preventDefault();
+  const form = e.target;
+  const btn  = form.querySelector('button');
+  const key  = document.getElementById('html-root').lang === 'en' ? 'en' : 'es';
+  btn.textContent = key === 'en' ? 'Sending...' : 'Enviando...';
+  btn.disabled = true;
+
+  const data = new FormData(form);
+
+  try {
+    const res = await fetch('https://formsubmit.co/ajax/hello@azloom.tech', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: data
+    });
+    if (res.ok) {
+      form.style.display = 'none';
+      const success = document.getElementById('lead-success');
+      success.style.display = 'block';
+    } else { throw new Error(); }
+  } catch {
+    btn.textContent = key === 'en' ? 'Error — try again' : 'Error — intente de nuevo';
+    btn.style.background = '#c0392b';
+    btn.disabled = false;
+    setTimeout(() => {
+      btn.textContent = t[key]['lead.btn'];
       btn.style.background = '';
     }, 3500);
   }
