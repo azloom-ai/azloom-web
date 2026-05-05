@@ -32,7 +32,7 @@ export default async function handler(req, res) {
       })
     });
 
-    // 2. Enviar email de bienvenida usando template de Brevo
+    // 2. Enviar email de bienvenida al lead
     const emailRes = await fetch('https://api.brevo.com/v3/smtp/email', {
       method: 'POST',
       headers,
@@ -46,6 +46,18 @@ export default async function handler(req, res) {
       const err = await emailRes.json();
       return res.status(500).json({ error: 'Brevo email error', detail: err });
     }
+
+    // 3. Notificación interna a hello@azloom.tech
+    await fetch('https://api.brevo.com/v3/smtp/email', {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        sender: { name: 'AZLOOM Web', email: 'hello@azloom.tech' },
+        to: [{ email: 'hello@azloom.tech' }],
+        subject: `Nuevo lead: ${email}`,
+        htmlContent: `<p>Nuevo lead registrado desde el formulario de la guía:</p><p><strong>${email}</strong></p><p>Ya recibió el email de bienvenida automáticamente.</p>`
+      })
+    });
 
     return res.status(200).json({ ok: true });
 
