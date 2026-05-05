@@ -1974,9 +1974,7 @@ async function submitLeadForm(e) {
       body: data
     });
     if (res.ok) {
-      form.style.display = 'none';
-      const success = document.getElementById('lead-success');
-      success.style.display = 'block';
+      window.location.href = '/guia-automatizacion/';
     } else { throw new Error(); }
   } catch {
     btn.textContent = key === 'en' ? 'Error — try again' : 'Error — intente de nuevo';

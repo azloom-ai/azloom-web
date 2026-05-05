@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Guía: 5 Procesos que Podés Automatizar Esta Semana — AZLOOM</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+    :root {
+      --bg: #0F0F1A;
+      --white: #F8F8FF;
+      --violet: #7C5CFC;
+      --violet10: rgba(124,92,252,0.1);
+      --violet20: rgba(124,92,252,0.2);
+      --lila: #C4B5FD;
+      --card: #14141F;
+      --border: rgba(124,92,252,0.2);
+      --muted: rgba(248,248,255,0.55);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Inter', system-ui, sans-serif;
+      line-height: 1.7;
+    }
+
+    a { color: var(--violet); text-decoration: none; }
+
+    /* ── COVER ── */
+    .cover {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 80px 32px;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(124,92,252,0.18), transparent 70%);
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+
+    .cover-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--violet);
+      background: var(--violet10);
+      border: 1px solid var(--border);
+      padding: 7px 16px;
+      border-radius: 99px;
+      margin-bottom: 32px;
+    }
+
+    .cover h1 {
+      font-size: clamp(32px, 5vw, 60px);
+      font-weight: 800;
+      line-height: 1.1;
+      max-width: 780px;
+      margin-bottom: 24px;
+      letter-spacing: -1px;
+    }
+
+    .cover h1 em {
+      font-style: normal;
+      color: var(--violet);
+    }
+
+    .cover-sub {
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 560px;
+      margin-bottom: 48px;
+      line-height: 1.6;
+    }
+
+    .cover-meta {
+      display: flex;
+      gap: 32px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cover-meta-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .cover-meta-item .val {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--violet);
+    }
+
+    .cover-meta-item .lab {
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .cover-logo {
+      position: absolute;
+      top: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      color: var(--white);
+    }
+
+    .cover-logo span { color: var(--violet); }
+
+    /* ── CONTENT ── */
+    .content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 32px 100px;
+    }
+
+    /* ── INTRO ── */
+    .intro-section {
+      padding: 80px 0 60px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--violet);
+      margin-bottom: 16px;
+    }
+
+    .intro-section h2 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      line-height: 1.3;
+    }
+
+    .intro-section p {
+      font-size: 16px;
+      color: var(--muted);
+      margin-bottom: 16px;
+      line-height: 1.8;
+    }
+
+    .intro-section strong { color: var(--white); }
+
+    /* ── PROCESS CARDS ── */
+    .processes {
+      padding: 60px 0;
+    }
+
+    .processes-header {
+      margin-bottom: 48px;
+    }
+
+    .processes-header h2 {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .processes-header p {
+      font-size: 16px;
+      color: var(--muted);
+    }
+
+    .process-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .process-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--violet), var(--lila));
+    }
+
+    .process-number {
+      font-size: 48px;
+      font-weight: 800;
+      color: rgba(124,92,252,0.15);
+      line-height: 1;
+      margin-bottom: 8px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .process-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+
+    .process-desc {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+
+    .process-desc strong { color: var(--white); }
+
+    .process-meta {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .process-meta-box {
+      background: rgba(124,92,252,0.07);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+
+    .process-meta-box .meta-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--violet);
+      margin-bottom: 4px;
+    }
+
+    .process-meta-box .meta-val {
+      font-size: 14px;
+      color: var(--white);
+      font-weight: 500;
+    }
+
+    .tools-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .tools-label {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .tool-tag {
+      background: rgba(124,92,252,0.12);
+      border: 1px solid var(--border);
+      color: var(--lila);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    /* ── CHECKLIST ── */
+    .checklist-section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 48px;
+      margin: 60px 0;
+    }
+
+    .checklist-section h2 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .checklist-section .sub {
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: 32px;
+    }
+
+    .checklist-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(124,92,252,0.08);
+    }
+
+    .checklist-item:last-child { border-bottom: none; }
+
+    .check-box {
+      width: 22px;
+      height: 22px;
+      border: 2px solid var(--violet);
+      border-radius: 6px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .check-text {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .check-text strong { color: var(--white); }
+
+    /* ── ROI TABLE ── */
+    .roi-section {
+      margin: 60px 0;
+    }
+
+    .roi-section h2 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .roi-section .sub {
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: 32px;
+    }
+
+    .roi-table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .roi-table thead tr {
+      background: rgba(124,92,252,0.15);
+    }
+
+    .roi-table th {
+      padding: 14px 20px;
+      text-align: left;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--violet);
+    }
+
+    .roi-table tbody tr {
+      background: var(--card);
+      border-bottom: 1px solid rgba(124,92,252,0.08);
+      transition: background 0.2s;
+    }
+
+    .roi-table tbody tr:hover {
+      background: rgba(124,92,252,0.05);
+    }
+
+    .roi-table td {
+      padding: 16px 20px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .roi-table td:first-child {
+      color: var(--white);
+      font-weight: 500;
+    }
+
+    .roi-highlight {
+      color: #22c55e !important;
+      font-weight: 600 !important;
+    }
+
+    /* ── CTA ── */
+    .cta-section {
+      background: linear-gradient(135deg, rgba(124,92,252,0.15), rgba(124,92,252,0.04));
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 64px 48px;
+      text-align: center;
+      margin-top: 60px;
+    }
+
+    .cta-section h2 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+
+    .cta-section h2 em {
+      font-style: normal;
+      color: var(--violet);
+    }
+
+    .cta-section p {
+      font-size: 16px;
+      color: var(--muted);
+      max-width: 480px;
+      margin: 0 auto 36px;
+      line-height: 1.7;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--violet);
+      color: var(--white);
+      padding: 16px 40px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 16px;
+      letter-spacing: 0.2px;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .btn-primary:hover { background: #9B7BFF; transform: translateY(-2px); }
+
+    .cta-note {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 16px;
+    }
+
+    /* ── PRINT ── */
+    .print-btn {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      background: var(--violet);
+      color: var(--white);
+      border: none;
+      padding: 14px 24px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 8px 32px rgba(124,92,252,0.4);
+      transition: background 0.2s, transform 0.2s;
+      z-index: 100;
+    }
+
+    .print-btn:hover { background: #9B7BFF; transform: translateY(-2px); }
+
+    @media print {
+      .print-btn { display: none; }
+      body { background: white; color: black; }
+    }
+
+    @media (max-width: 640px) {
+      .cover { padding: 80px 24px 60px; }
+      .content { padding: 0 20px 80px; }
+      .process-card { padding: 28px 22px; }
+      .process-meta { grid-template-columns: 1fr 1fr; }
+      .checklist-section { padding: 32px 22px; }
+      .cta-section { padding: 40px 24px; }
+      .cover-meta { gap: 24px; }
+      .print-btn { bottom: 20px; right: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="cover">
+  <a href="https://www.azloom.tech" class="cover-logo">AZL<span>OO</span>M</a>
+  <div class="cover-badge">Guía Práctica · Edición 2026</div>
+  <h1>5 Procesos que Podés<br>Automatizar con IA<br><em>Esta Semana</em></h1>
+  <p class="cover-sub">Qué automatizar primero, qué herramientas usar y cuánto tiempo vas a recuperar. Sin tecnicismos, sin inversiones enormes.</p>
+  <div class="cover-meta">
+    <div class="cover-meta-item">
+      <span class="val">5</span>
+      <span class="lab">Procesos clave</span>
+    </div>
+    <div class="cover-meta-item">
+      <span class="val">20h+</span>
+      <span class="lab">Horas recuperadas/mes</span>
+    </div>
+    <div class="cover-meta-item">
+      <span class="val">7 días</span>
+      <span class="lab">Para implementar</span>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+
+  <div class="intro-section">
+    <div class="section-label">Por qué esta guía</div>
+    <h2>La mayoría de los negocios en Latam todavía hacen manualmente lo que ya se puede automatizar en días</h2>
+    <p>No se trata de reemplazar personas — se trata de <strong>recuperar tiempo valioso</strong> para que tu equipo se enfoque en lo que realmente importa: crecer el negocio y atender bien a los clientes.</p>
+    <p>Esta guía está diseñada para negocios en operación con entre 1 y 20 empleados. Cada proceso incluye el tiempo estimado de implementación, las herramientas recomendadas y el ahorro real que podés esperar.</p>
+    <p><strong>Regla práctica:</strong> Si una tarea se hace más de 3 veces por semana siempre igual, es candidata a automatización inmediata.</p>
+  </div>
+
+  <div class="processes">
+    <div class="processes-header">
+      <div class="section-label">Los 5 procesos</div>
+      <h2>Qué automatizar primero</h2>
+      <p>Ordenados por impacto y facilidad de implementación.</p>
+    </div>
+
+    <!-- PROCESO 1 -->
+    <div class="process-card">
+      <div class="process-number">01</div>
+      <div class="process-title">Respuestas automáticas en WhatsApp</div>
+      <div class="process-desc">
+        El <strong>78% de los clientes espera respuesta en menos de 5 minutos</strong>. Fuera del horario laboral, la mayoría de los negocios pierden esas consultas. Un agente IA en WhatsApp responde al instante, califica el interés del cliente y agenda reuniones — sin que nadie tenga que estar mirando el celular.
+      </div>
+      <div class="process-meta">
+        <div class="process-meta-box">
+          <div class="meta-label">Implementación</div>
+          <div class="meta-val">2–5 días</div>
+        </div>
+        <div class="process-meta-box">
+          <div class="meta-label">Ahorro mensual</div>
+          <div class="meta-val">8–12 horas</div>
+        </div>
+        <div class="process-meta-box">
+          <div class="meta-label">Dificultad</div>
+          <div class="meta-val">Baja</div>
+        </div>
+      </div>
+      <div class="tools-row">
+        <span class="tools-label">Herramientas:</span>
+        <span class="tool-tag">WhatsApp Business API</span>
+        <span class="tool-tag">ManyChat</span>
+        <span class="tool-tag">Make</span>
+        <span class="tool-tag">Agente IA custom</span>
+      </div>
+    </div>
+
+    <!-- PROCESO 2 -->
+    <div class="process-card">
+      <div class="process-number">02</div>
+      <div class="process-title">Seguimiento automático de leads</div>
+      <div class="process-desc">
+        La mayoría de los negocios pierden leads porque nadie hace seguimiento a tiempo. Con automatización, <strong>cada lead que entra recibe un email o WhatsApp personalizado</strong> en minutos, una secuencia de seguimiento durante los próximos días, y una alerta al vendedor cuando el lead está listo para comprar.
+      </div>
+      <div class="process-meta">
+        <div class="process-meta-box">
+          <div class="meta-label">Implementación</div>
+          <div class="meta-val">3–5 días</div>
+        </div>
+        <div class="process-meta-box">
+          <div class="meta-label">Ahorro mensual</div>
+          <div class="meta-val">5–8 horas</div>
+        </div>
+        <div class="process-meta-box">
+          <div class="meta-label">Dificultad</div>
+          <div class="meta-val">Media</div>
+        </div>
+      </div>
+      <div class="tools-row">
+        <span class="tools-label">Herramientas:</span>
+        <span class="tool-tag">HubSpot Free</span>
+        <span class="tool-tag">Brevo</span>
+        <span class="tool-tag">Make</span>
+        <span class="tool-tag">Zapier</span>
+      </div>
+    </div>
+
+    <!-- PROCESO 3 -->
+    <div class="process-card">
+      <div class="process-number">03</div>
+      <div class="process-title">Onboarding de clientes nuevos</div>
+      <div class="process-desc">
+        Cada vez que entra un cliente nuevo, alguien de tu equipo hace las mismas cosas: manda bienvenida, pide documentos, agenda llamada inicial, crea carpeta, actualiza el CRM. <strong>Todo eso puede suceder solo</strong>, disparado automáticamente cuando el cliente firma o paga.
+      </div>
+      <div class="process-meta">
+        <div class="process-meta-box">
+          <div class="meta-label">Implementación</div>
+          <div class="meta-val">4–7 días</div>
+        </div>
+        <div class="process-meta-box">
+          <div class="meta-label">Ahorro mensual</div>
+          <div class="meta-val">4–6 horas</div>
+        </div>
+        <div class="process-meta-box">
+          <div class="meta-label">Dificultad</div>
+          <div class="meta-val">Media</div>
+        </div>
+      </div>
+      <div class="tools-row">
+        <span class="tools-label">Herramientas:</span>
+        <span class="tool-tag">Make / Zapier</span>
+        <span class="tool-tag">Google Drive API</span>
+        <span class="tool-tag">Notion</span>
+        <span class="tool-tag">Calendly</span>
+      </div>
+    </div>
+
+    <!-- PROCESO 4 -->
+    <div class="process-card">
+      <div class="process-number">04</div>
+      <div class="process-title">Reportes y métricas automáticas</div>
+      <div class="process-desc">
+        ¿Cuánto tiempo pierde tu equipo armando reportes semanales o mensuales? Con automatización, los datos se recopilan solos de tus sistemas (ventas, tráfico, redes) y se arma el reporte automáticamente. <strong>Llega a tu correo listo para leer</strong>, sin que nadie tenga que armar tablas de Excel.
+      </div>
+      <div class="process-meta">
+        <div class="process-meta-box">
+          <div class="meta-label">Implementación</div>
+          <div class="meta-val">3–5 días</div>
+        </div>
+        <div class="process-meta-box">
+          <div class="meta-label">Ahorro mensual</div>
+          <div class="meta-val">3–5 horas</div>
+        </div>
+        <div class="process-meta-box">
+          <div class="meta-label">Dificultad</div>
+          <div class="meta-val">Media</div>
+        </div>
+      </div>
+      <div class="tools-row">
+        <span class="tools-label">Herramientas:</span>
+        <span class="tool-tag">Google Looker Studio</span>
+        <span class="tool-tag">Make</span>
+        <span class="tool-tag">Google Sheets</span>
+        <span class="tool-tag">Notion AI</span>
+      </div>
+    </div>
+
+    <!-- PROCESO 5 -->
+    <div class="process-card">
+      <div class="process-number">05</div>
+      <div class="process-title">Respuestas a preguntas frecuentes internas</div>
+      <div class="process-desc">
+        En equipos en crecimiento, las mismas preguntas se responden decenas de veces: políticas de la empresa, procedimientos, datos de clientes. Un <strong>asistente IA interno entrenado con tus documentos</strong> responde al instante, libera al equipo senior de interrupciones constantes y acelera el onboarding de nuevos empleados.
+      </div>
+      <div class="process-meta">
+        <div class="process-meta-box">
+          <div class="meta-label">Implementación</div>
+          <div class="meta-val">5–7 días</div>
+        </div>
+        <div class="process-meta-box">
+          <div class="meta-label">Ahorro mensual</div>
+          <div class="meta-val">6–10 horas</div>
+        </div>
+        <div class="process-meta-box">
+          <div class="meta-label">Dificultad</div>
+          <div class="meta-val">Media-Alta</div>
+        </div>
+      </div>
+      <div class="tools-row">
+        <span class="tools-label">Herramientas:</span>
+        <span class="tool-tag">Notion AI</span>
+        <span class="tool-tag">Slack + IA</span>
+        <span class="tool-tag">Agente custom</span>
+        <span class="tool-tag">Claude API</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROI TABLE -->
+  <div class="roi-section">
+    <div class="section-label">Impacto estimado</div>
+    <h2>Cuánto tiempo recuperás</h2>
+    <p class="sub">Estimaciones conservadoras para una empresa de 3–10 personas.</p>
+    <table class="roi-table">
+      <thead>
+        <tr>
+          <th>Proceso</th>
+          <th>Horas/mes ahorradas</th>
+          <th>Costo mensual aprox.</th>
+          <th>ROI estimado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>WhatsApp automático</td>
+          <td>8–12 h</td>
+          <td>$30–80/mes</td>
+          <td class="roi-highlight">3–5x</td>
+        </tr>
+        <tr>
+          <td>Seguimiento de leads</td>
+          <td>5–8 h</td>
+          <td>$0–50/mes</td>
+          <td class="roi-highlight">5–10x</td>
+        </tr>
+        <tr>
+          <td>Onboarding automático</td>
+          <td>4–6 h</td>
+          <td>$20–40/mes</td>
+          <td class="roi-highlight">3–6x</td>
+        </tr>
+        <tr>
+          <td>Reportes automáticos</td>
+          <td>3–5 h</td>
+          <td>$0–20/mes</td>
+          <td class="roi-highlight">8–15x</td>
+        </tr>
+        <tr>
+          <td>Asistente interno IA</td>
+          <td>6–10 h</td>
+          <td>$50–150/mes</td>
+          <td class="roi-highlight">4–8x</td>
+        </tr>
+        <tr style="background: rgba(124,92,252,0.08);">
+          <td><strong>TOTAL</strong></td>
+          <td><strong>26–41 h/mes</strong></td>
+          <td><strong>$100–340/mes</strong></td>
+          <td class="roi-highlight">4–8x promedio</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- CHECKLIST -->
+  <div class="checklist-section">
+    <div class="section-label">Para empezar hoy</div>
+    <h2>Tu checklist de esta semana</h2>
+    <p class="sub">Seguí este orden para implementar el primer proceso en 7 días.</p>
+    <div class="checklist-item">
+      <div class="check-box"></div>
+      <div class="check-text"><strong>Día 1:</strong> Identificá el proceso que más tiempo consume en tu operación actual. Preguntale a tu equipo dónde pierden más tiempo.</div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-box"></div>
+      <div class="check-text"><strong>Día 2:</strong> Documentá ese proceso paso a paso. Cuanto más detallado, más fácil se automatiza.</div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-box"></div>
+      <div class="check-text"><strong>Día 3:</strong> Elegí la herramienta de automatización (Make o Zapier para empezar, ambos tienen plan gratuito).</div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-box"></div>
+      <div class="check-text"><strong>Día 4–5:</strong> Construí el primer flujo automatizado. Empezá simple — un disparador y una acción.</div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-box"></div>
+      <div class="check-text"><strong>Día 6:</strong> Probá el flujo con casos reales. Ajustá lo que no funcione como esperabas.</div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-box"></div>
+      <div class="check-text"><strong>Día 7:</strong> Activá en producción y medí el tiempo ahorrado durante la primera semana.</div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <h2>¿Querés implementar esto en<br>tu empresa <em>sin hacerlo solo</em>?</h2>
+    <p>En AZLOOM nos encargamos de todo: diagnóstico, diseño e implementación. Tu equipo no necesita saber nada técnico.</p>
+    <a href="https://www.azloom.tech/#contacto" class="btn-primary">Solicitar diagnóstico gratuito — 30 min</a>
+    <p class="cta-note">Sin costo · Sin compromiso · Respuesta en menos de 24h</p>
+  </div>
+
+</div>
+
+<button class="print-btn" onclick="window.print()">⬇ Guardar como PDF</button>
+
+</body>
+</html>
