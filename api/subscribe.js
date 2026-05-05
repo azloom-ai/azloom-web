@@ -9,6 +9,10 @@ export default async function handler(req, res) {
   }
 
   const API_KEY = process.env.BREVO_API_KEY;
+  if (!API_KEY) {
+    return res.status(500).json({ error: 'BREVO_API_KEY no configurada' });
+  }
+
   const headers = {
     'api-key': API_KEY,
     'Content-Type': 'application/json',
@@ -17,7 +21,7 @@ export default async function handler(req, res) {
 
   try {
     // 1. Agregar contacto a Brevo
-    await fetch('https://api.brevo.com/v3/contacts', {
+    const contactRes = await fetch('https://api.brevo.com/v3/contacts', {
       method: 'POST',
       headers,
       body: JSON.stringify({
@@ -130,7 +134,7 @@ export default async function handler(req, res) {
 
     if (!emailRes.ok) {
       const err = await emailRes.json();
-      console.error('Brevo error:', err);
+      return res.status(500).json({ error: 'Brevo email error', detail: err });
     }
 
     return res.status(200).json({ ok: true });
