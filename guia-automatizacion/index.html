@@ -458,7 +458,50 @@
 
     @media print {
       .print-btn { display: none; }
-      body { background: white; color: black; }
+
+      /* Portada: reemplazar gradiente que tapa el contenido */
+      .cover {
+        background: #0F0F1A !important;
+        min-height: auto !important;
+        padding: 60px 32px !important;
+        page-break-after: always;
+      }
+      .cover::before {
+        content: '';
+        display: block;
+        width: 120px;
+        height: 4px;
+        background: #7C5CFC;
+        margin: 0 auto 40px;
+        border-radius: 2px;
+      }
+
+      /* Evitar que las tarjetas y secciones se corten */
+      .process-card {
+        page-break-inside: avoid;
+        break-inside: avoid;
+        margin-bottom: 20px;
+      }
+      .checklist-section {
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+      .checklist-item {
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+      .roi-section {
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+      .cta-section {
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+      .intro-section {
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
     }
 
     @media (max-width: 640px) {
