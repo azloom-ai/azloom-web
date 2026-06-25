@@ -879,28 +879,32 @@
 
 </div>
 
-<button class="print-btn" onclick="document.getElementById('emailModal').classList.add('open')">⬇ Guardar como PDF</button>
+<button class="print-btn" onclick="document.getElementById('emailModal').classList.add('open'); setTimeout(()=>document.getElementById('modalEmail').focus(),100)">⬇ Guardar como PDF</button>
 
 <!-- Modal email -->
-<div class="modal-overlay" id="emailModal">
+<div class="modal-overlay" id="emailModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
   <div class="modal">
-    <h3>Recibí la guía por email</h3>
+    <h3 id="modalTitle">Recibí la guía por email</h3>
     <p>Te enviamos el PDF gratis. Sin spam, solo contenido útil.</p>
-    <input type="email" id="modalEmail" placeholder="tu@email.com" />
+    <input type="email" id="modalEmail" placeholder="tu@email.com" aria-label="Tu dirección de email" />
     <button class="modal-btn" id="modalSubmit" onclick="submitEmail()">Enviarme la guía</button>
-    <div class="modal-msg" id="modalMsg"></div>
-    <button class="modal-close" onclick="document.getElementById('emailModal').classList.remove('open')">Cerrar</button>
+    <div class="modal-msg" id="modalMsg" aria-live="polite"></div>
+    <button class="modal-close" onclick="closeModal()">Cerrar</button>
   </div>
 </div>
 
 <script>
+function closeModal() {
+  document.getElementById('emailModal').classList.remove('open');
+}
+
 async function submitEmail() {
   const email = document.getElementById('modalEmail').value.trim();
   const btn = document.getElementById('modalSubmit');
   const msg = document.getElementById('modalMsg');
 
-  if (!email || !email.includes('@')) {
-    msg.textContent = 'Ingresá un email válido.';
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    msg.textContent = 'Ingresá un email válido (ej: nombre@empresa.com).';
     msg.className = 'modal-msg error';
     return;
   }
@@ -923,8 +927,9 @@ async function submitEmail() {
       btn.textContent = 'Enviado';
       document.getElementById('modalEmail').value = '';
     } else {
-      const data = await res.json();
-      msg.textContent = data.error || 'Error al enviar. Intentá de nuevo.';
+      let errMsg = 'Error al enviar. Intentá de nuevo.';
+      try { const d = await res.json(); if (d && d.error) errMsg = d.error; } catch (_) {}
+      msg.textContent = errMsg;
       msg.className = 'modal-msg error';
       btn.disabled = false;
       btn.textContent = 'Enviarme la guía';
@@ -941,8 +946,16 @@ document.getElementById('modalEmail').addEventListener('keydown', function(e) {
   if (e.key === 'Enter') submitEmail();
 });
 
+document.getElementById('modalSubmit').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') submitEmail();
+});
+
 document.getElementById('emailModal').addEventListener('click', function(e) {
-  if (e.target === this) this.classList.remove('open');
+  if (e.target === this) closeModal();
+});
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeModal();
 });
 </script>
 

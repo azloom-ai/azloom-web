@@ -19,9 +19,8 @@
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://www.azloom.tech/" />
   <title>AZLOOM — Sistemas de Crecimiento Empresarial</title>
-  <link rel="alternate" hreflang="es" href="./index.html" />
-  <link rel="alternate" hreflang="en" href="./index.html" />
-  <link rel="alternate" hreflang="x-default" href="./index.html" />
+  <link rel="alternate" hreflang="es" href="https://www.azloom.tech/" />
+  <link rel="alternate" hreflang="x-default" href="https://www.azloom.tech/" />
 
   <!-- Open Graph -->
   <meta property="og:type"        content="website">
@@ -1282,8 +1281,6 @@
       <h2 class="heading" style="margin-top:12px;" data-i18n="lead.heading">5 procesos que puedes automatizar<br>con IA <em>esta semana</em></h2>
       <p class="body-text" data-i18n="lead.sub">Guía práctica para empresas en operación: qué automatizar primero, qué herramientas usar y cuánto tiempo recuperarás. Sin tecnicismos.</p>
       <form id="lead-form" class="lead-form" onsubmit="submitLeadForm(event)">
-        <input type="hidden" name="_subject" value="Nueva suscripción — Lead Magnet AZLOOM">
-        <input type="hidden" name="_captcha" value="false">
         <input type="email" name="email" data-i18n-ph="lead.placeholder" placeholder="Tu email empresarial" required>
         <button type="submit" data-i18n="lead.btn">Descargar gratis</button>
       </form>
@@ -1406,7 +1403,7 @@
       </text>
     </svg>
     <p class="footer-copy" data-i18n="footer.copy">© 2026 AZLOOM · Costa Rica · Servicios globales</p>
-    <p class="footer-copy">hello@azloom.tech</p>
+    <a href="mailto:hello@azloom.tech" class="footer-copy" style="color:inherit;text-decoration:none;">hello@azloom.tech</a>
   </div>
   <div class="footer-legal">
     <a href="#" onclick="openLegal('privacy'); return false;">Política de Privacidad</a>
@@ -1849,28 +1846,34 @@ class Dot {
 }
 
 const dots = Array.from({ length: 90 }, () => new Dot());
+let canvasVisible = true;
 
 function frame() {
-  ctx.clearRect(0, 0, W, H);
-  dots.forEach(d => { d.update(); d.draw(); });
-  for (let i = 0; i < dots.length; i++) {
-    for (let j = i + 1; j < dots.length; j++) {
-      const dx = dots[i].x - dots[j].x;
-      const dy = dots[i].y - dots[j].y;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < 110) {
-        ctx.beginPath();
-        ctx.strokeStyle = `rgba(124,92,252,${0.07 * (1 - dist / 110)})`;
-        ctx.lineWidth   = 0.5;
-        ctx.moveTo(dots[i].x, dots[i].y);
-        ctx.lineTo(dots[j].x, dots[j].y);
-        ctx.stroke();
+  if (canvasVisible) {
+    ctx.clearRect(0, 0, W, H);
+    dots.forEach(d => { d.update(); d.draw(); });
+    for (let i = 0; i < dots.length; i++) {
+      for (let j = i + 1; j < dots.length; j++) {
+        const dx = dots[i].x - dots[j].x;
+        const dy = dots[i].y - dots[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 110) {
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(124,92,252,${0.07 * (1 - dist / 110)})`;
+          ctx.lineWidth   = 0.5;
+          ctx.moveTo(dots[i].x, dots[i].y);
+          ctx.lineTo(dots[j].x, dots[j].y);
+          ctx.stroke();
+        }
       }
     }
   }
   requestAnimationFrame(frame);
 }
 frame();
+
+new IntersectionObserver(([e]) => { canvasVisible = e.isIntersecting; }, { threshold: 0 })
+  .observe(document.getElementById('hero'));
 
 /* ══════════════════════════════════════════
    HERO ENTRANCE
@@ -1911,11 +1914,13 @@ document.querySelectorAll('.rev, .rev-l, .rev-r').forEach(el => io.observe(el));
 ══════════════════════════════════════════ */
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
-    const target = document.querySelector(a.getAttribute('href'));
-    if (target) {
-      e.preventDefault();
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    try {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    } catch (_) {}
   });
 });
 
@@ -1932,7 +1937,8 @@ async function submitContactForm(e) {
   const data = new FormData(form);
 
   try {
-    const res = await fetch('https://formsubmit.co/ajax/hello@azloom.tech', {
+    const _ep = atob('aGVsbG9AYXpsb29tLnRlY2g=');
+    const res = await fetch('https://formsubmit.co/ajax/' + _ep, {
       method: 'POST',
       headers: { 'Accept': 'application/json' },
       body: data
@@ -1941,10 +1947,12 @@ async function submitContactForm(e) {
       form.style.display = 'none';
       document.getElementById('form-success').style.display = 'block';
     } else {
-      throw new Error();
+      let msg = 'Error — intente de nuevo';
+      try { const d = await res.json(); if (d && d.message) msg = d.message; } catch (_) {}
+      throw new Error(msg);
     }
-  } catch {
-    btn.textContent      = 'Error — intente de nuevo';
+  } catch (err) {
+    btn.textContent      = err.message || 'Error — intente de nuevo';
     btn.style.background = '#c0392b';
     btn.disabled         = false;
     setTimeout(() => {
@@ -1963,6 +1971,15 @@ async function submitLeadForm(e) {
   const btn  = form.querySelector('button');
   const key  = document.getElementById('html-root').lang === 'en' ? 'en' : 'es';
   const email = form.querySelector('input[type="email"]').value.trim();
+
+  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  if (!emailOk) {
+    btn.textContent = key === 'en' ? 'Invalid email' : 'Email inválido';
+    btn.style.background = '#c0392b';
+    setTimeout(() => { btn.textContent = t[key]['lead.btn']; btn.style.background = ''; }, 2500);
+    return;
+  }
+
   btn.textContent = key === 'en' ? 'Sending...' : 'Enviando...';
   btn.disabled = true;
 
@@ -1974,13 +1991,18 @@ async function submitLeadForm(e) {
     });
     if (res.ok) {
       window.location.href = '/guia-automatizacion/';
-    } else { throw new Error(); }
-  } catch {
-    btn.textContent = key === 'en' ? 'Error — try again' : 'Error — intente de nuevo';
+    } else {
+      let msg = key === 'en' ? 'Error — try again' : 'Error — intente de nuevo';
+      try { const d = await res.json(); if (d && d.error) msg = d.error; } catch (_) {}
+      throw new Error(msg);
+    }
+  } catch (err) {
+    btn.textContent = err.message || (key === 'en' ? 'Error — try again' : 'Error — intente de nuevo');
     btn.style.background = '#c0392b';
     btn.disabled = false;
+    const savedKey = key;
     setTimeout(() => {
-      btn.textContent = t[key]['lead.btn'];
+      btn.textContent = t[savedKey]['lead.btn'];
       btn.style.background = '';
     }, 3500);
   }
@@ -1990,11 +2012,15 @@ async function submitLeadForm(e) {
    LEGAL MODALS
 ══════════════════════════════════════════ */
 function openLegal(id) {
-  document.getElementById('modal-' + id).classList.add('open');
+  const m = document.getElementById('modal-' + id);
+  if (!m) return;
+  m.classList.add('open');
   document.body.style.overflow = 'hidden';
 }
 function closeLegal(id) {
-  document.getElementById('modal-' + id).classList.remove('open');
+  const m = document.getElementById('modal-' + id);
+  if (!m) return;
+  m.classList.remove('open');
   document.body.style.overflow = '';
 }
 document.querySelectorAll('.legal-modal').forEach(m => {
