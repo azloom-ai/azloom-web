@@ -648,6 +648,71 @@
     .footer-legal a:hover { color: var(--lila); }
     .footer-copy { font-size: 13px; color: rgba(248,248,255,0.25); }
 
+    /* ── PROJECTS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-top: 56px;
+    }
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 200px;
+    }
+    .project-card:hover {
+      border-color: var(--violet40);
+      background: rgba(124, 92, 252, 0.05);
+      transform: translateY(-6px);
+      box-shadow: 0 12px 48px rgba(124, 92, 252, 0.15);
+    }
+    .project-icon {
+      width: 56px;
+      height: 56px;
+      background: var(--violet10);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      color: var(--violet);
+    }
+    .project-icon svg {
+      color: var(--violet);
+    }
+    .project-name {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+    .project-label {
+      font-size: 13px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      justify-content: center;
+    }
+    .project-label::after {
+      content: '→';
+      transition: transform 0.3s ease;
+    }
+    .project-card:hover .project-label::after {
+      transform: translateX(4px);
+    }
+
     /* ── TESTIMONIALS ── */
     .testi-grid {
       display: grid;
@@ -944,6 +1009,12 @@
       .footer-legal { gap: 14px; padding-bottom: 24px; }
       .footer-legal a { font-size: 11px; }
 
+      /* Proyectos mobile */
+      .projects-grid { grid-template-columns: 1fr; gap: 16px; margin-top: 40px; }
+      .project-card { min-height: 160px; padding: 28px 20px; }
+      .project-icon { width: 48px; height: 48px; margin-bottom: 14px; }
+      .project-name { font-size: 16px; margin-bottom: 8px; }
+
       /* Modales legales */
       .legal-modal { padding: 16px 10px; }
       .legal-modal-inner { padding: 36px 20px; border-radius: 16px; }
@@ -981,6 +1052,7 @@
   <div class="nav-links">
     <a href="#servicios" data-i18n="nav.services">Servicios</a>
     <a href="#proceso"   data-i18n="nav.process">Proceso</a>
+    <a href="#proyectos" data-i18n="nav.projects">Proyectos</a>
     <a href="/blog/">Blog</a>
     <button id="lang-toggle" class="lang-btn" onclick="toggleLang()">EN</button>
     <a href="#contacto" class="nav-cta" data-i18n="nav.cta">Hablemos</a>
@@ -1214,6 +1286,89 @@
         <h3 class="step-title" data-i18n="step.4.title">Optimización</h3>
         <p  class="step-desc"  data-i18n="step.4.desc">Monitorizamos, medimos y mejoramos continuamente para garantizar el crecimiento sostenido a largo plazo.</p>
       </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── NUESTROS PROYECTOS ── -->
+<div id="proyectos" class="wrap">
+  <div class="section-pad">
+    <div style="text-align:center; margin-bottom: 0;">
+      <span class="label rev" data-i18n="projects.label">Mira nuestros trabajos en vivo</span>
+      <h2 class="heading rev" data-i18n="projects.heading">Nuestros <em>proyectos</em></h2>
+    </div>
+
+    <div class="projects-grid">
+      <a href="https://paramoweb.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card rev d1">
+        <div class="project-icon">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+          </svg>
+        </div>
+        <div class="project-name">Paramo</div>
+        <div class="project-label">Ver proyecto en vivo</div>
+      </a>
+
+      <a href="https://www.faunaproductora.com/" target="_blank" rel="noopener noreferrer" class="project-card rev d2">
+        <div class="project-icon">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+        </div>
+        <div class="project-name">Fauna Productora</div>
+        <div class="project-label">Ver proyecto en vivo</div>
+      </a>
+
+      <a href="https://d11-site.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card rev d3">
+        <div class="project-icon">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <rect x="6" y="5" width="12" height="14"></rect>
+            <line x1="9" y1="9" x2="15" y2="9"></line>
+            <line x1="9" y1="13" x2="15" y2="13"></line>
+          </svg>
+        </div>
+        <div class="project-name">Distrito 11</div>
+        <div class="project-label">Ver proyecto en vivo</div>
+      </a>
+
+      <a href="https://construequipos.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card rev d1">
+        <div class="project-icon">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <circle cx="12" cy="12" r="6"></circle>
+            <line x1="12" y1="4" x2="12" y2="2"></line>
+            <line x1="12" y1="22" x2="12" y2="20"></line>
+            <line x1="20" y1="12" x2="22" y2="12"></line>
+            <line x1="2" y1="12" x2="4" y2="12"></line>
+          </svg>
+        </div>
+        <div class="project-name">Construequipos</div>
+        <div class="project-label">Ver proyecto en vivo</div>
+      </a>
+
+      <a href="https://davidartaviaart.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-card rev d2">
+        <div class="project-icon">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="5" width="16" height="14"></rect>
+            <line x1="8" y1="9" x2="16" y2="15"></line>
+            <line x1="16" y1="9" x2="8" y2="15"></line>
+          </svg>
+        </div>
+        <div class="project-name">David Artavia</div>
+        <div class="project-label">Ver proyecto en vivo</div>
+      </a>
+
+      <a href="https://www.mareastudio.org/" target="_blank" rel="noopener noreferrer" class="project-card rev d3">
+        <div class="project-icon">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <path d="M5 12c0 0 2-3 7-3s7 3 7 3"></path>
+            <path d="M5 17c0 0 2-3 7-3s7 3 7 3"></path>
+          </svg>
+        </div>
+        <div class="project-name">Marea Studio</div>
+        <div class="project-label">Ver proyecto en vivo</div>
+      </a>
     </div>
   </div>
 </div>
