@@ -27,7 +27,7 @@ export default async function handler(req, res) {
 
   try {
     // 1. Agregar/actualizar contacto en Brevo con las respuestas como atributos
-    await fetch('https://api.brevo.com/v3/contacts', {
+    const contactRes = await fetch('https://api.brevo.com/v3/contacts', {
       method: 'POST',
       headers,
       body: JSON.stringify({
@@ -42,6 +42,11 @@ export default async function handler(req, res) {
         }
       })
     });
+
+    if (!contactRes.ok) {
+      const contactErr = await contactRes.json().catch(() => ({}));
+      console.error('quiz-lead: Brevo contact error', contactRes.status, contactErr);
+    }
 
     // 2. Notificación interna a hello@azloom.tech con las respuestas
     const notifyRes = await fetch('https://api.brevo.com/v3/smtp/email', {
@@ -62,7 +67,8 @@ export default async function handler(req, res) {
     });
 
     if (!notifyRes.ok) {
-      const err = await notifyRes.json();
+      const err = await notifyRes.json().catch(() => ({}));
+      console.error('quiz-lead: Brevo email error', notifyRes.status, err);
       return res.status(500).json({ error: 'Brevo email error', detail: err });
     }
 
