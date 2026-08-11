@@ -1031,6 +1031,152 @@
       .pillars { grid-template-columns: 1fr; }
       .contact-new { padding: 28px 14px; }
     }
+
+    /* ── QUIZ MODAL ── */
+    .quiz-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 400;
+      background: rgba(0,0,0,0.88);
+      backdrop-filter: blur(10px);
+      overflow-y: auto;
+      padding: 40px 20px;
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+    .quiz-modal.open { display: flex; align-items: center; justify-content: center; }
+    .quiz-modal.show { opacity: 1; }
+    .quiz-card {
+      background: #0F0F1A;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      max-width: 560px;
+      width: 100%;
+      padding: 48px 48px 40px;
+      position: relative;
+      margin: auto;
+      transform: translateY(14px);
+      transition: transform 0.35s ease;
+    }
+    .quiz-modal.show .quiz-card { transform: translateY(0); }
+    .quiz-close {
+      position: absolute;
+      top: 20px; right: 22px;
+      background: none; border: none;
+      color: var(--muted); font-size: 26px;
+      cursor: pointer; line-height: 1;
+      transition: color 0.2s;
+      z-index: 2;
+    }
+    .quiz-close:hover { color: var(--white); }
+    .quiz-progress {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 28px;
+    }
+    .quiz-progress span {
+      flex: 1;
+      height: 3px;
+      border-radius: 2px;
+      background: var(--border);
+      overflow: hidden;
+    }
+    .quiz-progress span i {
+      display: block;
+      height: 100%;
+      width: 0%;
+      background: var(--violet);
+      transition: width 0.35s ease;
+    }
+    .quiz-progress span.done i { width: 100%; }
+    .quiz-progress span.active i { width: 100%; }
+    .quiz-step { display: none; }
+    .quiz-step.active { display: block; animation: quizFade 0.4s ease; }
+    @keyframes quizFade { from { opacity: 0; transform: translateX(10px); } to { opacity: 1; transform: none; } }
+    .quiz-eyebrow {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--violet);
+      margin-bottom: 14px;
+      font-weight: 600;
+    }
+    .quiz-question {
+      font-size: clamp(19px, 2.6vw, 24px);
+      font-weight: 600;
+      line-height: 1.35;
+      color: var(--white);
+      margin-bottom: 22px;
+    }
+    .quiz-textarea, .quiz-input {
+      width: 100%;
+      background: rgba(248,248,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-family: inherit;
+      font-size: 14.5px;
+      color: var(--white);
+      outline: none;
+      transition: border-color 0.2s;
+      resize: none;
+    }
+    .quiz-textarea { min-height: 96px; line-height: 1.6; }
+    .quiz-textarea:focus, .quiz-input:focus { border-color: var(--violet40); }
+    .quiz-textarea::placeholder, .quiz-input::placeholder { color: rgba(248,248,255,0.3); }
+    .quiz-error { font-size: 12.5px; color: #FF8080; margin-top: 8px; min-height: 16px; }
+    .quiz-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 26px;
+      gap: 14px;
+    }
+    .quiz-back {
+      background: none; border: none;
+      color: var(--muted); font-size: 13.5px;
+      cursor: pointer; font-family: inherit;
+      transition: color 0.2s;
+      padding: 8px 4px;
+    }
+    .quiz-back:hover { color: var(--white); }
+    .quiz-back:disabled { opacity: 0; pointer-events: none; }
+    .quiz-btn {
+      background: var(--violet);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      padding: 13px 28px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .quiz-btn:hover { background: #9B7BFF; transform: translateY(-1px); }
+    .quiz-btn:disabled { opacity: 0.6; cursor: default; transform: none; }
+    .quiz-intro-icon {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      background: var(--violet10);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+    .quiz-success { text-align: center; padding: 8px 0; }
+    .quiz-success .quiz-intro-icon { margin: 0 auto 20px; }
+    .quiz-success h3 { font-size: 21px; font-weight: 600; color: var(--white); margin-bottom: 10px; }
+    .quiz-success p { font-size: 14.5px; color: var(--muted); line-height: 1.7; margin-bottom: 24px; }
+    .quiz-privacy { font-size: 11px; color: var(--muted); margin-top: 14px; opacity: 0.7; }
+
+    @media (max-width: 640px) {
+      .quiz-card { padding: 36px 24px 30px; border-radius: 16px; }
+      .quiz-question { font-size: 18px; }
+      .quiz-nav { flex-direction: row; }
+    }
   </style>
 </head>
 
@@ -1713,6 +1859,78 @@
   </div>
 </div>
 
+<!-- ── MODAL: CUESTIONARIO DIAGNÓSTICO ── -->
+<div id="modal-quiz" class="quiz-modal">
+  <div class="quiz-card">
+    <button class="quiz-close" onclick="closeQuiz(true)">&#215;</button>
+
+    <div class="quiz-progress" id="quiz-progress">
+      <span data-step="1"><i></i></span>
+      <span data-step="2"><i></i></span>
+      <span data-step="3"><i></i></span>
+      <span data-step="4"><i></i></span>
+    </div>
+
+    <!-- Paso 1 -->
+    <div class="quiz-step active" data-step="1">
+      <span class="quiz-eyebrow">Diagnóstico rápido · 30 segundos</span>
+      <p class="quiz-question">Si hoy pudieras eliminar un solo dolor de cabeza en la operación de tu negocio, ¿cuál sería?</p>
+      <textarea class="quiz-textarea" id="quiz-q1" placeholder="Ej: perder tiempo respondiendo lo mismo en WhatsApp todos los días..."></textarea>
+      <p class="quiz-error" id="quiz-error-1"></p>
+      <div class="quiz-nav">
+        <button class="quiz-back" disabled>Atrás</button>
+        <button class="quiz-btn" onclick="quizNext(1)">Siguiente</button>
+      </div>
+    </div>
+
+    <!-- Paso 2 -->
+    <div class="quiz-step" data-step="2">
+      <span class="quiz-eyebrow">Diagnóstico rápido · pregunta 2 de 3</span>
+      <p class="quiz-question">Si pudieras automatizar una sola tarea para que tu equipo ganara más tiempo, ¿cuál sería?</p>
+      <textarea class="quiz-textarea" id="quiz-q2" placeholder="Ej: armar cotizaciones, agendar citas, cargar datos a mano..."></textarea>
+      <p class="quiz-error" id="quiz-error-2"></p>
+      <div class="quiz-nav">
+        <button class="quiz-back" onclick="quizBack(2)">Atrás</button>
+        <button class="quiz-btn" onclick="quizNext(2)">Siguiente</button>
+      </div>
+    </div>
+
+    <!-- Paso 3 -->
+    <div class="quiz-step" data-step="3">
+      <span class="quiz-eyebrow">Diagnóstico rápido · pregunta 3 de 3</span>
+      <p class="quiz-question">¿Cuál es el proceso que más te frustra hoy porque sentís que todavía consume demasiado tiempo?</p>
+      <textarea class="quiz-textarea" id="quiz-q3" placeholder="Contanos brevemente..."></textarea>
+      <p class="quiz-error" id="quiz-error-3"></p>
+      <div class="quiz-nav">
+        <button class="quiz-back" onclick="quizBack(3)">Atrás</button>
+        <button class="quiz-btn" onclick="quizNext(3)">Siguiente</button>
+      </div>
+    </div>
+
+    <!-- Paso 4: email -->
+    <div class="quiz-step" data-step="4">
+      <span class="quiz-eyebrow">Último paso</span>
+      <p class="quiz-question">¿A qué email te enviamos ideas puntuales para tu negocio?</p>
+      <input class="quiz-input" type="email" id="quiz-email" placeholder="tu@empresa.com">
+      <p class="quiz-error" id="quiz-error-4"></p>
+      <div class="quiz-nav">
+        <button class="quiz-back" onclick="quizBack(4)">Atrás</button>
+        <button class="quiz-btn" id="quiz-submit-btn" onclick="quizSubmit()">Enviar respuestas</button>
+      </div>
+      <p class="quiz-privacy">No compartimos tu información con terceros. Solo la usamos para responderte.</p>
+    </div>
+
+    <!-- Éxito -->
+    <div class="quiz-step" data-step="success">
+      <div class="quiz-success">
+        <div class="quiz-intro-icon">✓</div>
+        <h3>¡Gracias, ya lo recibimos!</h3>
+        <p>En Azloom vamos a revisar tus respuestas y te vamos a escribir con ideas concretas para tu negocio. Si querés adelantar la conversación, escribinos directo por WhatsApp.</p>
+        <a class="quiz-btn" style="text-decoration:none; display:inline-block;" href="https://wa.me/50688597501?text=Hola%20AZLOOM%2C%20acabo%20de%20completar%20el%20cuestionario%20de%20diagn%C3%B3stico" target="_blank" rel="noopener">Escribir por WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
 /* ══════════════════════════════════════════
@@ -2188,8 +2406,131 @@ document.addEventListener('keydown', e => {
     document.querySelectorAll('.legal-modal.open').forEach(m => {
       closeLegal(m.id.replace('modal-', ''));
     });
+    if (document.getElementById('modal-quiz').classList.contains('open')) {
+      closeQuiz(true);
+    }
   }
 });
+
+/* ══════════════════════════════════════════
+   QUIZ MODAL — Diagnóstico rápido
+══════════════════════════════════════════ */
+let quizCurrentStep = 1;
+
+function openQuiz() {
+  const m = document.getElementById('modal-quiz');
+  if (!m) return;
+  m.classList.add('open');
+  requestAnimationFrame(() => m.classList.add('show'));
+  document.body.style.overflow = 'hidden';
+}
+
+function closeQuiz(remember) {
+  const m = document.getElementById('modal-quiz');
+  if (!m) return;
+  m.classList.remove('show');
+  document.body.style.overflow = '';
+  setTimeout(() => m.classList.remove('open'), 300);
+  if (remember) {
+    try { localStorage.setItem('azloom_quiz_dismissed', Date.now().toString()); } catch (_) {}
+  }
+}
+
+function quizGoToStep(step) {
+  document.querySelectorAll('.quiz-step').forEach(el => el.classList.remove('active'));
+  const target = document.querySelector('.quiz-step[data-step="' + step + '"]');
+  if (target) target.classList.add('active');
+
+  document.querySelectorAll('#quiz-progress span').forEach(el => {
+    const s = parseInt(el.dataset.step, 10);
+    el.classList.remove('active', 'done');
+    if (step === 'success') { el.classList.add('done'); return; }
+    if (s < step) el.classList.add('done');
+    if (s === step) el.classList.add('active');
+  });
+
+  quizCurrentStep = step;
+}
+
+function quizNext(fromStep) {
+  const fieldMap = { 1: 'quiz-q1', 2: 'quiz-q2', 3: 'quiz-q3' };
+  const errMap   = { 1: 'quiz-error-1', 2: 'quiz-error-2', 3: 'quiz-error-3' };
+  const field = document.getElementById(fieldMap[fromStep]);
+  const errEl = document.getElementById(errMap[fromStep]);
+  const value = field.value.trim();
+
+  if (!value) {
+    errEl.textContent = 'Contanos aunque sea brevemente para poder ayudarte.';
+    field.focus();
+    return;
+  }
+  errEl.textContent = '';
+  quizGoToStep(fromStep + 1);
+}
+
+function quizBack(fromStep) {
+  quizGoToStep(fromStep - 1);
+}
+
+async function quizSubmit() {
+  const emailField = document.getElementById('quiz-email');
+  const errEl = document.getElementById('quiz-error-4');
+  const email = emailField.value.trim();
+  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+  if (!emailOk) {
+    errEl.textContent = 'Ingresá un email válido.';
+    emailField.focus();
+    return;
+  }
+  errEl.textContent = '';
+
+  const btn = document.getElementById('quiz-submit-btn');
+  const originalText = btn.textContent;
+  btn.textContent = 'Enviando...';
+  btn.disabled = true;
+
+  const payload = {
+    email,
+    q1: document.getElementById('quiz-q1').value.trim(),
+    q2: document.getElementById('quiz-q2').value.trim(),
+    q3: document.getElementById('quiz-q3').value.trim(),
+  };
+
+  try {
+    const res = await fetch('/api/quiz-lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    if (!res.ok) throw new Error();
+
+    try { localStorage.setItem('azloom_quiz_dismissed', Date.now().toString()); } catch (_) {}
+    quizGoToStep('success');
+    btn.textContent = originalText;
+    btn.disabled = false;
+  } catch (err) {
+    errEl.textContent = 'Hubo un error al enviar. Probá de nuevo.';
+    btn.textContent = originalText;
+    btn.disabled = false;
+  }
+}
+
+document.getElementById('modal-quiz').addEventListener('click', e => {
+  if (e.target.id === 'modal-quiz') closeQuiz(true);
+});
+
+// Auto-mostrar el cuestionario a los 2.5s, salvo que ya lo hayan cerrado o completado en los últimos 14 días
+(function initQuizAutoShow() {
+  try {
+    const dismissed = localStorage.getItem('azloom_quiz_dismissed');
+    if (dismissed) {
+      const days = (Date.now() - parseInt(dismissed, 10)) / (1000 * 60 * 60 * 24);
+      if (days < 14) return;
+    }
+  } catch (_) {}
+  setTimeout(openQuiz, 2500);
+})();
 </script>
 
 </body>
