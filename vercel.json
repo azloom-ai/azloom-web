@@ -1,6 +1,7 @@
 {
   "version": 2,
   "name": "azloom",
+  "outputDirectory": ".",
   "redirects": [
     {
       "source": "/:path*",
