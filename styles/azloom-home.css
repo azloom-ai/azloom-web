@@ -1,0 +1,220 @@
+/* ============================================================================
+   AZLOOM · HOME
+   Solo lo exclusivo del Home. El resto vive en azloom-pages.css.
+   ========================================================================== */
+
+.hero {
+  position: relative;
+  padding-block: clamp(3.5rem, 2rem + 8vw, 7.5rem) var(--section-gap);
+  border-bottom: var(--border);
+  overflow: hidden;
+}
+
+/* PREVIEW: video de fondo — pendiente de aprobación, no forma parte del diseño confirmado. */
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+.hero > .container { position: relative; z-index: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .hero__bg { display: none; }
+}
+
+/* Hero solo texto: editorial, mucho espacio negativo.
+   (El motion graphic del hero se integrará más adelante.) */
+.hero__text { max-width: 46rem; }
+.hero__eyebrow {
+  margin-bottom: var(--space-md);
+  color: var(--color-graphite);
+}
+.hero h1 {
+  font-size: clamp(2.4rem, 1.6rem + 3.4vw, 4.25rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+.hero__sub {
+  margin-top: var(--space-lg);
+  font-size: var(--text-body-lg);
+  color: var(--text-primary);
+  max-width: 40rem;
+  text-shadow: 0 1px 16px color-mix(in srgb, var(--color-ivory) 75%, transparent),
+               0 1px 3px color-mix(in srgb, var(--color-ivory) 55%, transparent);
+}
+.hero__micro {
+  margin-top: var(--space-sm);
+  font-size: var(--text-small);
+  color: var(--text-primary);
+  text-shadow: 0 1px 14px color-mix(in srgb, var(--color-ivory) 70%, transparent),
+               0 1px 3px color-mix(in srgb, var(--color-ivory) 50%, transparent);
+}
+
+/* Eyebrow: reubicado en el área superior limpia del hero, separado del navbar
+   y del H1 (que no se mueve). Solo en desktop; en mobile sigue en flujo normal. */
+@media (min-width: 60rem) {
+  .hero__text { position: relative; }
+  .hero__eyebrow {
+    position: absolute;
+    top: -3.75rem;
+    left: 0;
+    margin-bottom: 0;
+  }
+  .hero h1 { margin-top: 2.75rem; }
+}
+.hero__actions {
+  margin-top: var(--space-xl);
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+/* Entrada cinematográfica del hero: eyebrow → h1 (wipe) → sub → micro → actions. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero__eyebrow {
+    opacity: 0;
+    transform: translateY(18px);
+    animation: hero-fade 640ms var(--ease-out) forwards;
+    animation-delay: 60ms;
+  }
+  .hero h1 {
+    opacity: 0;
+    clip-path: inset(0 100% 0 0);
+    transform: translateY(30px);
+    animation: hero-wipe 980ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: 260ms;
+  }
+  .hero__sub {
+    opacity: 0;
+    transform: translateY(26px);
+    animation: hero-fade 720ms var(--ease-out) forwards;
+    animation-delay: 700ms;
+  }
+  .hero__micro {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: hero-fade 640ms var(--ease-out) forwards;
+    animation-delay: 860ms;
+  }
+  .hero__actions {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: hero-fade 640ms var(--ease-out) forwards;
+    animation-delay: 980ms;
+  }
+}
+@keyframes hero-fade {
+  to { opacity: 1; transform: none; }
+}
+@keyframes hero-wipe {
+  to { opacity: 1; clip-path: inset(0 0% 0 0); transform: none; }
+}
+
+/* Indicador "scroll down" del hero. */
+.scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: var(--space-xl);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2xs);
+  color: var(--text-tertiary);
+  text-decoration: none;
+  transform: translateX(-50%);
+  transition: opacity 420ms var(--ease-standard), transform 420ms var(--ease-standard);
+}
+.scroll-cue svg { display: block; overflow: visible; }
+.scroll-cue__label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: inherit;
+}
+.scroll-cue[data-hidden="true"] {
+  opacity: 0;
+  transform: translateX(-50%) translateY(10px);
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .scroll-cue__chevron {
+    animation: scroll-cue-bob 1900ms ease-in-out infinite;
+    transform-origin: center;
+  }
+}
+@keyframes scroll-cue-bob {
+  0%, 100% { transform: translateY(0); opacity: 0.55; }
+  50%      { transform: translateY(7px); opacity: 1; }
+}
+
+/* Filas de "Sistemas": interfaz editorial-tecnológica, respuesta perceptible al hover. */
+.systems-list a {
+  transition: padding-left 480ms cubic-bezier(0.16, 1, 0.3, 1),
+              border-bottom-color 480ms var(--ease-standard);
+}
+.systems-list a:hover { padding-left: var(--space-lg); border-bottom-color: var(--color-ink); }
+.systems-list a .t {
+  display: inline-block;
+  transition: transform 480ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.systems-list a:hover .t { transform: translateX(10px); }
+.systems-list a .arrow {
+  display: inline-block;
+  transition: transform 480ms cubic-bezier(0.16, 1, 0.3, 1),
+              color 480ms var(--ease-standard);
+}
+.systems-list a:hover .arrow { transform: translateX(22px); color: var(--text-primary); }
+.systems-list a:nth-child(1) { transition-delay: 0ms; }
+.systems-list a:nth-child(2) { transition-delay: 80ms; }
+.systems-list a:nth-child(3) { transition-delay: 160ms; }
+.systems-list a:nth-child(4) { transition-delay: 240ms; }
+.systems-list a:nth-child(5) { transition-delay: 320ms; }
+
+/* Entrada propia de cada fila: número primero, título justo después. */
+@media (prefers-reduced-motion: no-preference) {
+  .systems-list a .n,
+  .systems-list a .t {
+    opacity: 0;
+    transform: translateY(65%);
+    transition: opacity 560ms var(--ease-out), transform 560ms cubic-bezier(0.19, 1, 0.22, 1);
+  }
+  .systems-list a.is-visible .n { opacity: 1; transform: none; transition-delay: 0ms; }
+  .systems-list a.is-visible .t { opacity: 1; transform: none; transition-delay: 110ms; }
+}
+
+/* Cierre conceptual, antes del CTA final — reveal progresivo por frase. */
+.closing-statement { text-align: center; }
+.closing-statement__quote {
+  font-size: clamp(1.5rem, 1.15rem + 1.8vw, 2.25rem);
+  font-weight: var(--weight-regular);
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  max-width: 34ch;
+  margin-inline: auto;
+}
+.closing-statement__quote.reveal { opacity: 1; transform: none; transition: none; }
+.closing-statement__quote .reveal-word {
+  display: inline-block;
+  opacity: 0;
+  clip-path: inset(0 0 100% 0);
+  transform: translateY(22px);
+  transition: opacity 700ms var(--ease-out),
+              clip-path 700ms var(--ease-out),
+              transform 700ms var(--ease-out);
+}
+.closing-statement__quote.is-visible .reveal-word {
+  opacity: 1;
+  clip-path: inset(0 0 0% 0);
+  transform: none;
+}
+.closing-statement__quote.is-visible .reveal-word:nth-child(1) { transition-delay: 0ms; }
+.closing-statement__quote.is-visible .reveal-word:nth-child(2) { transition-delay: 180ms; }
+.closing-statement__quote.is-visible .reveal-word:nth-child(3) { transition-delay: 360ms; }
+@media (prefers-reduced-motion: reduce) {
+  .closing-statement__quote .reveal-word { opacity: 1; clip-path: none; transform: none; }
+}

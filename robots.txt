@@ -1,0 +1,12 @@
+# www.azloom.tech — robots
+#
+# Todo el sitio es indexable, incluidos los crawlers de buscadores y de
+# asistentes de respuesta/IA (Googlebot, Bingbot, DuckDuckBot, OAI-SearchBot,
+# ChatGPT-User, PerplexityBot, Google-Extended, Applebot, etc.).
+# Solo se excluyen las funciones serverless.
+
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://www.azloom.tech/sitemap.xml
