@@ -397,4 +397,100 @@
       banner.remove();
     });
   })();
+
+  /* --- Hero: fondo animado (esferas + malla) con vida + scroll -------------
+     Dibuja la secuencia de fotogramas en un canvas: la forma respira de forma
+     continua (viva en reposo) y se transforma a medida que se scrollea
+     (ping-pong, nunca se queda pegada). Con movimiento reducido no corre:
+     queda el hero de texto con su fallback. --------------------------------- */
+  (function () {
+    if (reduceMotion) return;
+    var hero = document.querySelector('.hero');
+    var canvas = document.getElementById('heroCanvas');
+    if (!hero || !canvas || !canvas.getContext) return;
+    var ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    var N = 61;
+    var frames = [];
+    var pad = function (n) { return (n < 10 ? '00' : n < 100 ? '0' : '') + n; };
+    for (var i = 1; i <= N; i++) {
+      var im = new Image();
+      im.src = '/assets/hero/pods/p' + pad(i) + '.jpg';
+      frames.push(im);
+    }
+
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var current = -1;
+
+    function draw(idx, force) {
+      idx = Math.max(0, Math.min(N - 1, Math.round(idx)));
+      var img = frames[idx];
+      if (!img || !img.complete || !img.naturalWidth) {
+        for (var d = 1; d < N; d++) {
+          var a = frames[Math.max(0, idx - d)];
+          var b = frames[Math.min(N - 1, idx + d)];
+          if (a && a.complete && a.naturalWidth) { img = a; break; }
+          if (b && b.complete && b.naturalWidth) { img = b; break; }
+        }
+        if (!img || !img.naturalWidth) return;
+      }
+      if (idx === current && !force) return;
+      current = idx;
+      var cw = canvas.width, ch = canvas.height;
+      var iw = img.naturalWidth, ih = img.naturalHeight;
+      var s = Math.max(cw / iw, ch / ih);
+      var dw = iw * s, dh = ih * s;
+      ctx.clearRect(0, 0, cw, ch);
+      ctx.drawImage(img, (cw - dw) / 2, (ch - dh) / 2, dw, dh);
+    }
+
+    function resize() {
+      canvas.width = Math.round(canvas.clientWidth * dpr);
+      canvas.height = Math.round(canvas.clientHeight * dpr);
+      draw(current < 0 ? 0 : current, true);
+    }
+
+    function progress() {
+      var r = hero.getBoundingClientRect();
+      var total = r.height - window.innerHeight;
+      if (total <= 0) return 1;
+      return Math.min(1, Math.max(0, (-r.top) / total));
+    }
+
+    function loop(now) {
+      var t = now / 1000;
+      var p = progress();
+      var v = p * (N - 1) * 1.8 + Math.sin(t * 2.1) * 4.5;
+      var span = N - 1;
+      var m = ((v % (2 * span)) + 2 * span) % (2 * span);
+      var idx = m <= span ? m : (2 * span - m);
+      draw(idx);
+      requestAnimationFrame(loop);
+    }
+
+    var started = false;
+    function start() {
+      if (started) return;
+      started = true;
+      hero.setAttribute('data-hero-ready', '');
+      resize();
+      requestAnimationFrame(loop);
+    }
+
+    var ready = 0;
+    frames.forEach(function (im) {
+      if (im.complete && im.naturalWidth) {
+        ready++;
+      } else {
+        im.addEventListener('load', function () {
+          ready++;
+          if (ready >= 8) start();
+        });
+      }
+    });
+    if (ready >= 8) start();
+
+    window.addEventListener('resize', resize, { passive: true });
+  })();
 })();
