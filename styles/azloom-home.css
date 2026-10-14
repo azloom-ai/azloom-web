@@ -5,12 +5,16 @@
 
 .hero {
   position: relative;
-  padding-block: clamp(3.5rem, 2rem + 8vw, 7.5rem) var(--section-gap);
   border-bottom: var(--border);
-  overflow: hidden;
 }
 
-/* PREVIEW: video de fondo — pendiente de aprobación, no forma parte del diseño confirmado. */
+/* Fallback / movimiento reducido: hero en flujo normal (una pantalla). */
+.hero__sticky {
+  position: relative;
+  padding-block: clamp(3.5rem, 2rem + 8vw, 7.5rem) var(--section-gap);
+}
+
+/* Fondo animado (esferas + malla): canvas + video de respaldo. */
 .hero__bg {
   position: absolute;
   inset: 0;
@@ -19,9 +23,54 @@
   object-fit: cover;
   z-index: 0;
 }
-.hero > .container { position: relative; z-index: 1; }
+.hero__canvas { display: none; }
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  display: none;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--color-ivory) 92%, transparent) 0%,
+    color-mix(in srgb, var(--color-ivory) 55%, transparent) 38%,
+    transparent 66%
+  );
+}
+.hero .container { position: relative; z-index: 1; }
+
 @media (prefers-reduced-motion: reduce) {
   .hero__bg { display: none; }
+}
+
+/* Hero vivo + scroll: la forma respira y se transforma al scrollear.
+   Solo con movimiento permitido; en reduced-motion queda el hero de texto. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero { height: 240vh; }
+  .hero__sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    min-height: 34rem;
+    padding-block: 0;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+  .hero[data-hero-ready] .hero__canvas { display: block; }
+  .hero[data-hero-ready] .hero__video { display: none; }
+  .hero[data-hero-ready] .hero__scrim { display: block; }
+}
+
+@media (prefers-reduced-motion: no-preference) and (max-width: 48rem) {
+  .hero__scrim {
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--color-ivory) 78%, transparent) 0%,
+      color-mix(in srgb, var(--color-ivory) 28%, transparent) 42%,
+      color-mix(in srgb, var(--color-ivory) 88%, transparent) 100%
+    );
+  }
 }
 
 /* Hero solo texto: editorial, mucho espacio negativo.
