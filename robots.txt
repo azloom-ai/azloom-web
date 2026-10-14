@@ -4,8 +4,14 @@
 # asistentes de respuesta/IA (Googlebot, Bingbot, DuckDuckBot, OAI-SearchBot,
 # ChatGPT-User, PerplexityBot, Google-Extended, Applebot, etc.).
 # Solo se excluyen las funciones serverless.
+#
+# Content-Signal (https://www.cloudflare.com/content-signals/): los
+# asistentes de IA pueden indexar y citar este contenido en sus respuestas
+# (search, ai-input), pero no usarlo para entrenar o reajustar modelos
+# (ai-train).
 
 User-agent: *
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 Allow: /
 Disallow: /api/
 
